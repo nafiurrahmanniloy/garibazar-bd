@@ -2089,6 +2089,13 @@
       <!-- Thumbnail strip -->
       <div class="cdp-thumbs" id="cdp-thumbs"></div>
 
+      <!-- ── ZONE DIVIDER: Photo Selection → Listing Details ── -->
+      <div class="cdp-zone-divider">
+        <span class="cdp-zone-icon">📋</span>
+        <span class="cdp-zone-label">Listing Details</span>
+        <span class="cdp-zone-line"></span>
+      </div>
+
       <!-- Listing meta bar -->
       <div class="cdp-meta-bar">
         <div class="cdp-meta-bar-left" id="cdp-meta-left"></div>
@@ -2505,6 +2512,26 @@
     .cdp-thumb:hover { opacity: .85; }
     .cdp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 
+    /* ── Zone Divider (Photo → Listing Details) ─────── */
+    .cdp-zone-divider {
+      display: flex; align-items: center; gap: .65rem;
+      padding: .6rem 1.25rem;
+      background: linear-gradient(90deg, rgba(59,130,246,.18) 0%, rgba(59,130,246,.06) 60%, transparent 100%);
+      border-top: 2px solid #3b82f6;
+      border-bottom: 1px solid rgba(59,130,246,.25);
+      grid-column: 1;
+    }
+    .cdp-zone-icon { font-size: .85rem; flex-shrink: 0; }
+    .cdp-zone-label {
+      font-size: .65rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .15em;
+      color: #3b82f6; white-space: nowrap; flex-shrink: 0;
+    }
+    .cdp-zone-line {
+      flex: 1; height: 1px;
+      background: linear-gradient(90deg, rgba(59,130,246,.35), transparent);
+    }
+
     /* ── Sidebar / Price panel ────────────────────────── */
     .cdp-price-section { display: flex; flex-direction: column; background: #0a111c; border-bottom: 1px solid rgba(255,255,255,.06); }
 
@@ -2710,7 +2737,7 @@
     /* ── Desktop sidebar (≥ 900px) ───────────────────── */
     @media (min-width: 900px) {
       .cdp-scroll { display: grid; grid-template-columns: 1fr 290px; }
-      .cdp-hero-wrap, .cdp-thumbs, .cdp-meta-bar,
+      .cdp-hero-wrap, .cdp-thumbs, .cdp-zone-divider, .cdp-meta-bar,
       .cdp-overview, .cdp-inspector-banner,
       .cdp-group-hdr, .cdp-section { grid-column: 1; }
       .cdp-price-section {
