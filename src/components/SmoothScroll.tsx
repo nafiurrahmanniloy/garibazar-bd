@@ -19,6 +19,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
     gsap.ticker.add((time) => lenis.raf(time * 1000));
     gsap.ticker.lagSmoothing(0);
 
+    // Recalculate all ScrollTrigger positions after Lenis takes over
+    setTimeout(() => ScrollTrigger.refresh(), 500);
+
     return () => {
       lenis.destroy();
     };
