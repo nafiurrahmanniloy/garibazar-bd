@@ -113,7 +113,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".car-card", { y: 25, opacity: 0 });
+      gsap.set(".car-card", { y: 40, opacity: 0, filter: "blur(8px)" });
 
       ScrollTrigger.create({
         trigger: ".cars-grid",
@@ -121,8 +121,8 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
         once: true,
         onEnter: () => {
           gsap.to(".car-card", {
-            y: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: "power2.out",
-            clearProps: "transform,opacity",
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, stagger: 0.07, ease: "power3.out",
+            clearProps: "transform,opacity,filter",
           });
         },
       });

@@ -33,7 +33,7 @@ const steps = [
 export default function HowItWorks() {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".hiw-step", { y: 25, opacity: 0 });
+      gsap.set(".hiw-step", { y: 40, opacity: 0, filter: "blur(8px)" });
 
       ScrollTrigger.create({
         trigger: ".hiw-steps",
@@ -41,7 +41,7 @@ export default function HowItWorks() {
         once: true,
         onEnter: () => {
           gsap.to(".hiw-step", {
-            y: 0, opacity: 1, duration: 0.4, stagger: 0.1, ease: "power2.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, stagger: 0.1, ease: "power3.out", clearProps: "transform,opacity,filter",
           });
         },
       });

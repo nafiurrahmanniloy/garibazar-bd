@@ -215,8 +215,8 @@ function ReviewCard({ review }: { review: Review }) {
 export default function Testimonials() {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".testi-header", { y: 25, opacity: 0 });
-      gsap.set(".testi-row", { opacity: 0 });
+      gsap.set(".testi-header", { y: 40, opacity: 0, filter: "blur(8px)" });
+      gsap.set(".testi-row", { opacity: 0, filter: "blur(6px)" });
 
       ScrollTrigger.create({
         trigger: "#testimonials",
@@ -224,10 +224,10 @@ export default function Testimonials() {
         once: true,
         onEnter: () => {
           gsap.to(".testi-header", {
-            y: 0, opacity: 1, duration: 0.4, ease: "power2.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out", clearProps: "transform,opacity,filter",
           });
           gsap.to(".testi-row", {
-            opacity: 1, duration: 0.4, delay: 0.15, ease: "power2.out", clearProps: "opacity",
+            opacity: 1, filter: "blur(0px)", duration: 0.5, delay: 0.15, ease: "power3.out", clearProps: "opacity,filter",
           });
         },
       });

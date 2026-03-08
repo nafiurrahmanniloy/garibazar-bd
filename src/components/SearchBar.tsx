@@ -24,7 +24,7 @@ const inputClass = "w-full px-4 py-3 bg-white border border-black/[0.08] rounded
 export default function SearchBar({ filters, setFilters, onSearch, onBrandChipClick }: Props) {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".search-card", { y: 30, opacity: 0 });
+      gsap.set(".search-card", { y: 40, opacity: 0, filter: "blur(8px)" });
 
       ScrollTrigger.create({
         trigger: ".search-section",
@@ -32,7 +32,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
         once: true,
         onEnter: () => {
           gsap.to(".search-card", {
-            y: 0, opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 0.55, ease: "power3.out", clearProps: "transform,opacity,filter",
           });
         },
       });

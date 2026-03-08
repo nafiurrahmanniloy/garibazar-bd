@@ -44,14 +44,14 @@ const dealers = [
 export default function Dealers() {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".dealer-card", { y: 20, opacity: 0 });
+      gsap.set(".dealer-card", { y: 40, opacity: 0, filter: "blur(8px)" });
       ScrollTrigger.create({
         trigger: ".dealers-grid",
         start: "top 85%",
         once: true,
         onEnter: () => {
           gsap.to(".dealer-card", {
-            y: 0, opacity: 1, duration: 0.4, stagger: 0.07, ease: "power2.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, stagger: 0.07, ease: "power3.out", clearProps: "transform,opacity,filter",
           });
         },
       });

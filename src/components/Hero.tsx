@@ -52,12 +52,12 @@ export default function Hero() {
   return (
     <section className="hero-section relative w-full h-screen overflow-hidden" id="home">
       {/* Background gradient */}
-      <div className="hero-bg-layer absolute inset-0 bg-[radial-gradient(circle_at_center,#1a2536_0%,#03060a_100%)] z-0" />
+      <div className="hero-bg-layer absolute inset-0 bg-[radial-gradient(circle_at_center,#e2e8f0_0%,#f1f5f9_100%)] z-0" />
 
       {/* Pinned content */}
       <div className="hero-pinned relative z-10 w-full h-screen flex items-center justify-center">
         {/* Video container */}
-        <div className="hero-media-container relative w-[80vw] h-[60vh] flex items-center justify-center overflow-hidden z-5 shadow-[0_40px_100px_rgba(0,0,0,0.8)]">
+        <div className="hero-media-container relative w-[80vw] h-[60vh] flex items-center justify-center overflow-hidden z-5 shadow-[0_40px_100px_rgba(0,0,0,0.15)]">
           <div className="w-full h-full relative">
             <video
               src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/videos/drift.mp4`}

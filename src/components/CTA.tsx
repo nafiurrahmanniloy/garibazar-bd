@@ -14,7 +14,7 @@ type Props = {
 export default function CTA({ onBrowseClick, onSellClick }: Props) {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".cta-card", { y: 25, opacity: 0 });
+      gsap.set(".cta-card", { y: 40, opacity: 0, filter: "blur(8px)" });
 
       ScrollTrigger.create({
         trigger: ".cta-grid",
@@ -22,7 +22,7 @@ export default function CTA({ onBrowseClick, onSellClick }: Props) {
         once: true,
         onEnter: () => {
           gsap.to(".cta-card", {
-            y: 0, opacity: 1, duration: 0.4, stagger: 0.12, ease: "power2.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity,filter",
           });
         },
       });

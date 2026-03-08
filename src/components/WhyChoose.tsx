@@ -63,8 +63,8 @@ export default function WhyChoose() {
       });
     });
 
-    gsap.set(".stat-card", { y: 20, opacity: 0 });
-    gsap.set(".feature-card", { y: 20, opacity: 0 });
+    gsap.set(".stat-card", { y: 40, opacity: 0, filter: "blur(8px)" });
+    gsap.set(".feature-card", { y: 40, opacity: 0, filter: "blur(8px)" });
 
     ScrollTrigger.create({
       trigger: ".stats-row",
@@ -72,7 +72,7 @@ export default function WhyChoose() {
       once: true,
       onEnter: () => {
         gsap.to(".stat-card", {
-          y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: "power2.out", clearProps: "transform,opacity",
+          y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, stagger: 0.07, ease: "power3.out", clearProps: "transform,opacity,filter",
         });
       },
     });
@@ -83,7 +83,7 @@ export default function WhyChoose() {
       once: true,
       onEnter: () => {
         gsap.to(".feature-card", {
-          y: 0, opacity: 1, duration: 0.4, stagger: 0.07, ease: "power2.out", clearProps: "transform,opacity",
+          y: 0, opacity: 1, filter: "blur(0px)", duration: 0.5, stagger: 0.08, ease: "power3.out", clearProps: "transform,opacity,filter",
         });
       },
     });

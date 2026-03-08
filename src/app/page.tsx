@@ -7,6 +7,7 @@ import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SearchBar from "@/components/SearchBar";
+import CarTypes from "@/components/CarTypes";
 import FeaturedCars from "@/components/FeaturedCars";
 import WhyChoose from "@/components/WhyChoose";
 import PressStrip from "@/components/PressStrip";
@@ -53,6 +54,7 @@ export default function Home() {
           onSearch={() => scrollTo("browse-cars")}
           onBrandChipClick={handleBrandSelect}
         />
+        <CarTypes onTypeClick={() => scrollTo("browse-cars")} />
         <FeaturedCars
           filters={filters}
           onCarClick={setSelectedCar}
