@@ -2101,22 +2101,42 @@
         </div>
       </div>
 
-      <!-- Price + CTA -->
+      <!-- Sidebar: Price + All CTAs -->
       <div class="cdp-price-section">
-        <div class="cdp-price-left">
+
+        <!-- Price header -->
+        <div class="cdp-sb-price-head">
+          <div class="cdp-sb-price-label">Listing Price</div>
           <div class="cdp-price-tag" id="cdp-price"></div>
-          <div class="cdp-loc" id="cdp-loc"></div>
-          <div class="cdp-neg-tag" id="cdp-neg-tag"></div>
+          <div class="cdp-sb-price-meta">
+            <span class="cdp-loc" id="cdp-loc"></span>
+            <span class="cdp-neg-tag" id="cdp-neg-tag"></span>
+          </div>
         </div>
-        <div class="cdp-cta-btns">
-          <button class="cdp-btn-primary" id="cdp-contact-btn">📞 Contact Seller</button>
-          <a class="cdp-btn-wa" id="cdp-wa-btn" href="#" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
-          <button class="cdp-btn-wish" id="cdp-wish-btn" onclick="cdpToggleWish(this)">🤍</button>
+
+        <!-- Quick stat chips -->
+        <div class="cdp-sb-stats" id="cdp-sb-stats"></div>
+
+        <!-- Primary contact actions -->
+        <div class="cdp-sb-primary">
+          <button class="cdp-btn-primary cdp-btn-fw" id="cdp-contact-btn">📞 Contact Seller</button>
+          <a class="cdp-btn-wa cdp-btn-fw" id="cdp-wa-btn" href="#" target="_blank" rel="noopener noreferrer">💬 WhatsApp Seller</a>
         </div>
-        <div class="cdp-extra-actions">
-          <button class="cdp-btn-offer" onclick="cdpOpenOffer()">💬 Make an Offer</button>
-          <button class="cdp-btn-testdrive" onclick="cdpOpenTestDrive()">🚗 Schedule Test Drive</button>
+
+        <!-- Secondary actions -->
+        <div class="cdp-sb-secondary">
+          <button class="cdp-btn-offer cdp-btn-fw" onclick="cdpOpenOffer()">💬 Make an Offer</button>
+          <button class="cdp-btn-testdrive cdp-btn-fw" onclick="cdpOpenTestDrive()">🚗 Schedule Test Drive</button>
         </div>
+
+        <!-- Wishlist -->
+        <button class="cdp-btn-wishlist" id="cdp-wish-btn" onclick="cdpToggleWish(this)">
+          <span class="cdp-wish-icon">🤍</span> Save to Wishlist
+        </button>
+
+        <!-- Mini seller card -->
+        <div class="cdp-sb-seller" id="cdp-sb-seller"></div>
+
       </div>
 
       <!-- Quick overview chips -->
@@ -2481,17 +2501,38 @@
     .cdp-thumb:hover { opacity: .9; }
     .cdp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 
-    /* ── Price + CTA bar ──────────────────────────────── */
-    .cdp-price-section { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
-    .cdp-price-tag { font-size: 1.75rem; font-weight: 900; color: #fbbf24; }
-    .cdp-loc { font-size: .85rem; color: var(--text-secondary, #7a8b9e); margin-top: .15rem; }
-    .cdp-cta-btns { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
-    .cdp-btn-primary { padding: .7rem 1.25rem; background: #3b82f6; border: none; border-radius: .6rem; color: #fff; font-weight: 700; font-size: .9rem; cursor: pointer; white-space: nowrap; transition: background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    /* ── Sidebar / Price panel ────────────────────────── */
+    .cdp-price-section { display: flex; flex-direction: column; background: #0a111c; border-bottom: 1px solid rgba(255,255,255,.06); }
+
+    /* Price header block */
+    .cdp-sb-price-head { padding: 1.25rem 1.25rem .9rem; border-bottom: 1px solid rgba(255,255,255,.07); }
+    .cdp-sb-price-label { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .12em; color: #7a8b9e; margin-bottom: .3rem; }
+    .cdp-price-tag { font-size: 2rem; font-weight: 900; color: #fbbf24; line-height: 1.1; }
+    .cdp-sb-price-meta { display: flex; align-items: center; gap: .5rem; flex-wrap: wrap; margin-top: .4rem; }
+    .cdp-loc { font-size: .85rem; color: #7a8b9e; }
+
+    /* Quick stat chips inside sidebar */
+    .cdp-sb-stats { display: flex; flex-wrap: wrap; gap: .35rem; padding: .75rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .cdp-sb-stat { font-size: .75rem; color: #c5d2e0; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.08); border-radius: 2rem; padding: .28rem .7rem; }
+
+    /* Primary contact buttons */
+    .cdp-sb-primary { display: flex; flex-direction: column; gap: .5rem; padding: .85rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .cdp-btn-fw { width: 100%; justify-content: center; box-sizing: border-box; }
+    .cdp-btn-primary { padding: .78rem 1.25rem; background: #3b82f6; border: none; border-radius: .65rem; color: #fff; font-weight: 700; font-size: .9rem; cursor: pointer; transition: background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; font-family: inherit; }
     .cdp-btn-primary:hover { background: #2563eb; }
-    .cdp-btn-wa { padding: .7rem 1.1rem; background: rgba(37,211,102,.12); border: 1px solid rgba(37,211,102,.3); border-radius: .6rem; color: #25d366; font-weight: 700; font-size: .9rem; cursor: pointer; white-space: nowrap; transition: background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
-    .cdp-btn-wa:hover { background: rgba(37,211,102,.22); }
-    .cdp-btn-wish { width: 2.8rem; height: 2.8rem; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: .6rem; cursor: pointer; font-size: 1.2rem; transition: background .2s; }
-    .cdp-btn-wish:hover { background: rgba(255,100,100,.12); border-color: rgba(255,100,100,.3); }
+    .cdp-btn-wa { padding: .78rem 1.1rem; background: rgba(37,211,102,.1); border: 1px solid rgba(37,211,102,.25); border-radius: .65rem; color: #25d366; font-weight: 700; font-size: .9rem; cursor: pointer; transition: background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .4rem; font-family: inherit; }
+    .cdp-btn-wa:hover { background: rgba(37,211,102,.2); }
+
+    /* Secondary action buttons */
+    .cdp-sb-secondary { display: flex; flex-direction: column; gap: .45rem; padding: .75rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+
+    /* Wishlist full-width button */
+    .cdp-btn-wishlist { display: flex; align-items: center; justify-content: center; gap: .45rem; margin: .75rem 1.25rem; padding: .65rem 1rem; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); border-radius: .65rem; color: #7a8b9e; font-size: .88rem; font-weight: 600; cursor: pointer; transition: all .2s; font-family: inherit; }
+    .cdp-btn-wishlist:hover { background: rgba(255,100,100,.1); border-color: rgba(255,100,100,.25); color: #ff6b6b; }
+    .cdp-btn-wishlist.wished { background: rgba(255,100,100,.12); border-color: rgba(255,100,100,.3); color: #ff6b6b; }
+
+    /* Mini seller block */
+    .cdp-sb-seller { padding: .75rem 1.25rem 1.25rem; border-top: 1px solid rgba(255,255,255,.06); }
 
     /* ── Overview chips ───────────────────────────────── */
     .cdp-overview { display: flex; flex-wrap: wrap; gap: .5rem; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
@@ -2656,19 +2697,24 @@
     #gb-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(1rem); background:#0d1b2a; border:1px solid rgba(59,130,246,.3); color:#fff; padding:.7rem 1.25rem; border-radius:.75rem; font-size:.85rem; font-weight:600; z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.5); }
     #gb-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
-    /* ── Responsive layout ────────────────────────────── */
+    /* ── Mobile (< 900px) ────────────────────────────── */
+    @media (max-width: 899px) {
+      .cdp-price-section { border-bottom: 3px solid rgba(59,130,246,.2); }
+      .cdp-sb-stats { display: none; }
+    }
+
+    /* ── Desktop sidebar (≥ 900px) ───────────────────── */
     @media (min-width: 900px) {
-      .cdp-scroll { display: grid; grid-template-columns: 1fr 340px; }
+      .cdp-scroll { display: grid; grid-template-columns: 1fr 290px; }
       .cdp-hero-wrap, .cdp-thumbs, .cdp-meta-bar,
       .cdp-overview, .cdp-inspector-banner,
       .cdp-group-hdr, .cdp-section { grid-column: 1; }
       .cdp-price-section {
         grid-column: 2; grid-row: 1 / -1;
-        flex-direction: column; align-items: flex-start;
         align-self: start;
         position: sticky; top: 0;
         max-height: calc(100vh - 56px); overflow-y: auto;
-        border-left: 1px solid rgba(255,255,255,.06); border-bottom: none;
+        border-left: 1px solid rgba(255,255,255,.1); border-bottom: none;
       }
     }
   </style>
@@ -3336,6 +3382,31 @@
       document.getElementById('cdp-price').textContent = d.price;
       document.getElementById('cdp-loc').textContent   = '📍 ' + d.location;
 
+      // Sidebar quick stats
+      const sbStats = document.getElementById('cdp-sb-stats');
+      if (sbStats) {
+        sbStats.innerHTML = [d.year, d.mileage, d.fuel, d.transmission].map(v =>
+          '<span class="cdp-sb-stat">' + v + '</span>'
+        ).join('');
+      }
+
+      // Sidebar mini seller
+      const sbSeller = document.getElementById('cdp-sb-seller');
+      if (sbSeller) {
+        const initials2 = d.seller.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+        sbSeller.innerHTML =
+          '<div style="display:flex;align-items:center;gap:.65rem;">' +
+          '<div style="width:2.2rem;height:2.2rem;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#1d4ed8);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:#fff;flex-shrink:0;">' + initials2 + '</div>' +
+          '<div><div style="font-size:.82rem;font-weight:700;color:#fff;">' + d.seller + '</div>' +
+          '<div style="font-size:.72rem;color:#7a8b9e;margin-top:.1rem;">' + d.sellerRating + ' · ' + d.sellerDeals + '</div>' +
+          '<div style="font-size:.68rem;color:#10b981;font-weight:700;margin-top:.15rem;">✓ Verified Seller</div>' +
+          '</div></div>';
+      }
+
+      // Reset wishlist button
+      const wishBtn = document.getElementById('cdp-wish-btn');
+      if (wishBtn) { wishBtn.innerHTML = '<span class="cdp-wish-icon">🤍</span> Save to Wishlist'; wishBtn.classList.remove('wished'); }
+
       // Contact buttons
       const waMsg = encodeURIComponent("Hello, I'm interested in the " + name + " (" + d.year + ") — " + d.price + " — listed on GariBazar BD. Is it still available?");
       const waUrl = 'https://wa.me/' + d.phone.replace(/[^0-9]/g,'') + '?text=' + waMsg;
@@ -3492,9 +3563,11 @@
     }
 
     function cdpToggleWish(btn) {
-      const on = btn.textContent === '❤️';
-      btn.textContent = on ? '🤍' : '❤️';
-      gsap.fromTo(btn, { scale: 0.7 }, { scale: 1, duration: 0.4, ease: 'back.out(3)' });
+      const wished = btn.classList.toggle('wished');
+      btn.innerHTML = wished
+        ? '<span class="cdp-wish-icon">❤️</span> Saved to Wishlist'
+        : '<span class="cdp-wish-icon">🤍</span> Save to Wishlist';
+      gsap.fromTo(btn, { scale: 0.92 }, { scale: 1, duration: 0.4, ease: 'back.out(3)' });
     }
 
     function cdpPlayVideo(el) {
