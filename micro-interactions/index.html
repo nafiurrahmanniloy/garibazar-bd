@@ -1416,6 +1416,14 @@
             <button class="brand-chip" data-brand="Mitsubishi">Mitsubishi</button>
             <button class="brand-chip" data-brand="BMW">BMW</button>
           </div>
+          <div class="qf-chips" role="group" aria-label="Quick budget filter" style="margin-top:.6rem;">
+            <button class="qf-chip" onclick="quickFilter('budget','0-1000000')">Under ৳10L</button>
+            <button class="qf-chip" onclick="quickFilter('budget','1000000-2000000')">৳10L–20L</button>
+            <button class="qf-chip" onclick="quickFilter('budget','2000000-3500000')">৳20L–35L</button>
+            <button class="qf-chip" onclick="quickFilter('condition','Reconditioned')">Reconditioned</button>
+            <button class="qf-chip" onclick="quickFilter('condition','Used')">Local Used</button>
+            <button class="qf-chip alert-chip" onclick="openPriceAlert()">🔔 Get Alerts</button>
+          </div>
           <button class="btn-search" aria-label="Search cars">
             🔍 Search Cars
           </button>
@@ -1438,6 +1446,30 @@
           <a href="#browse-cars">View All Listings →</a>
         </div>
       </div>
+
+      <!-- Sort + count bar -->
+      <div class="sort-bar">
+        <div class="sort-bar-left">
+          <span id="listing-count-badge" style="font-size:.8rem;color:#7a8b9e;font-weight:600;">🔵 247 verified listings</span>
+        </div>
+        <div class="sort-bar-right">
+          <span class="sort-label-txt">Sort by:</span>
+          <button class="sort-btn active" onclick="sortCars('default')" data-sort="default">Featured</button>
+          <button class="sort-btn" onclick="sortCars('price-asc')" data-sort="price-asc">Price ↑</button>
+          <button class="sort-btn" onclick="sortCars('price-desc')" data-sort="price-desc">Price ↓</button>
+          <button class="sort-btn" onclick="sortCars('newest')" data-sort="newest">Newest</button>
+        </div>
+      </div>
+
+      <!-- Recently Viewed strip -->
+      <div id="rv-section" style="display:none; margin-bottom:1.5rem;">
+        <div class="rv-hdr">
+          <span>👁 Recently Viewed</span>
+          <button class="rv-clear-btn" onclick="clearRecentlyViewed()">Clear all</button>
+        </div>
+        <div id="rv-strip" class="rv-strip"></div>
+      </div>
+
       <div id="no-results" style="display:none;text-align:center;padding:4rem 0;">
         <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
         <p style="font-size:1.1rem;color:#7a8b9e;margin-bottom:.5rem;">No cars match your filters.</p>
@@ -1652,6 +1684,22 @@
     </div>
   </section>
 
+  <!-- ═══ PRESS / MEDIA STRIP ═════════════════════════ -->
+  <div class="press-strip" aria-label="Media mentions">
+    <span class="press-label">As featured in</span>
+    <div class="press-logos">
+      <span class="press-logo">Prothom Alo</span>
+      <span class="press-sep">·</span>
+      <span class="press-logo">Daily Star</span>
+      <span class="press-sep">·</span>
+      <span class="press-logo">Channel i</span>
+      <span class="press-sep">·</span>
+      <span class="press-logo">Bangla Tribune</span>
+      <span class="press-sep">·</span>
+      <span class="press-logo">Jugantor</span>
+    </div>
+  </div>
+
   <!-- ═══ BRANDS CAROUSEL ══════════════════════════════ -->
   <section class="brands-section" aria-label="Popular car brands">
     <div class="brands-label">
@@ -1676,6 +1724,76 @@
         <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🛻</span><span class="brand-logo-name">Hyundai</span></div>
         <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🏎️</span><span class="brand-logo-name">BMW</span></div>
         <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">⭐</span><span class="brand-logo-name">Mercedes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURED DEALERS ════════════════════════════ -->
+  <section class="dealers-section" aria-label="Featured dealers">
+    <div class="section-center">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <div class="section-label">Verified Partners</div>
+        <h2 class="gradient-text" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:900; font-style:italic;">
+          Featured Dealers
+        </h2>
+        <p style="color:var(--text-secondary); margin-top:.75rem;">Trusted dealerships verified by GariBazar across Bangladesh</p>
+      </div>
+      <div class="dealers-grid">
+        <div class="dealer-card">
+          <div class="dealer-avatar">🏪</div>
+          <div class="dealer-info">
+            <div class="dealer-name">AutoPrime BD</div>
+            <div class="dealer-location">📍 Gulshan, Dhaka</div>
+            <div class="dealer-stats">
+              <span class="dealer-stat">127 cars</span>
+              <span class="dealer-stat">★ 4.9</span>
+              <span class="dealer-badge">✓ Verified</span>
+            </div>
+            <p class="dealer-desc">Premium Japanese reconditioned cars. Toyota &amp; Honda specialists since 2014.</p>
+          </div>
+        </div>
+        <div class="dealer-card">
+          <div class="dealer-avatar">🚗</div>
+          <div class="dealer-info">
+            <div class="dealer-name">GreenCity Motors</div>
+            <div class="dealer-location">📍 Agrabad, Chittagong</div>
+            <div class="dealer-stats">
+              <span class="dealer-stat">84 cars</span>
+              <span class="dealer-stat">★ 4.8</span>
+              <span class="dealer-badge">✓ Verified</span>
+            </div>
+            <p class="dealer-desc">Chittagong's top used car dealer. All papers verified. Test drives available daily.</p>
+          </div>
+        </div>
+        <div class="dealer-card">
+          <div class="dealer-avatar">🏎️</div>
+          <div class="dealer-info">
+            <div class="dealer-name">RajMotors</div>
+            <div class="dealer-location">📍 Shaheb Bazar, Rajshahi</div>
+            <div class="dealer-stats">
+              <span class="dealer-stat">56 cars</span>
+              <span class="dealer-stat">★ 4.7</span>
+              <span class="dealer-badge">✓ Verified</span>
+            </div>
+            <p class="dealer-desc">Serving Rajshahi division for 10+ years. Nissan &amp; Mitsubishi experts.</p>
+          </div>
+        </div>
+        <div class="dealer-card">
+          <div class="dealer-avatar">⭐</div>
+          <div class="dealer-info">
+            <div class="dealer-name">SylhetAuto Hub</div>
+            <div class="dealer-location">📍 Zindabazar, Sylhet</div>
+            <div class="dealer-stats">
+              <span class="dealer-stat">43 cars</span>
+              <span class="dealer-stat">★ 4.8</span>
+              <span class="dealer-badge">✓ Verified</span>
+            </div>
+            <p class="dealer-desc">Sylhet's most trusted dealer. UK &amp; Japan import specialists with full inspection.</p>
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center; margin-top:2rem;">
+        <button class="btn-outline" onclick="showToast('Dealer directory coming soon!')">View All Dealers →</button>
       </div>
     </div>
   </section>
@@ -1998,6 +2116,91 @@
     </div>
   </section>
 
+  <!-- ═══ FAQ ══════════════════════════════════════════ -->
+  <section class="faq-section" id="faq" aria-label="Frequently asked questions">
+    <div class="section-center">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <div class="section-label">Got Questions?</div>
+        <h2 class="gradient-text" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:900; font-style:italic;">
+          Frequently Asked Questions
+        </h2>
+      </div>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>What is the difference between Reconditioned and Used cars in Bangladesh?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p><strong>Reconditioned</strong> cars are imported from Japan, Korea, or Singapore. They have low mileage (usually under 70,000 km) and are refurbished before sale. They come with original import papers.<br><br><strong>Used (local)</strong> cars have been driven in Bangladesh since they were first registered here. Always verify both types with a mechanic inspection and check BRTA registration records.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>What papers should I check before buying a car?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Always verify: <strong>Registration Card (RC Book)</strong> from BRTA, <strong>Tax Token</strong> (must be current year), <strong>Fitness Certificate</strong>, <strong>Insurance</strong>, and for reconditioned cars — the <strong>Import Certificate (LC)</strong> and <strong>Bill of Entry</strong>. Cross-check the chassis number on the car with all documents.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>How does GariBazar verify sellers and listings?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Every listing goes through our 3-step verification: (1) <strong>Seller NID verification</strong>, (2) <strong>Document authenticity check</strong> — RC, tax token, fitness, (3) <strong>150-point physical inspection</strong> by our certified mechanics. Listings with a "Verified" badge have passed all three steps.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>Is the price negotiable? Can I make an offer?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Most sellers on GariBazar are open to negotiation. Listings marked <strong>"Negotiable"</strong> have sellers who explicitly welcome offers. You can use the "Make an Offer" button on any listing to send a formal offer. We recommend offering 5–10% below the listed price as a starting point.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>How does the escrow payment system work?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>GariBazar's escrow system holds your payment securely until you confirm receipt of the car and papers. You pay into the escrow (via bKash, Nagad, or bank transfer). The seller receives the money only after you confirm the car matches the listing. If there's a discrepancy, the funds are returned within 3 business days.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>How do I sell my car on GariBazar?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Click <strong>"Sell Your Car"</strong> in the top navigation or CTA section. Submit your car details — model, year, mileage, condition, and asking price. Our team will call you within 24 hours to arrange a free inspection. After verification, your listing goes live. No listing fees, no commissions on the sale.</p>
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            <span>Can I buy a car from another city?</span>
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">
+            <p>Yes! GariBazar covers all 8 divisions of Bangladesh. For out-of-city purchases, we can arrange a <strong>certified inspector</strong> to visit the seller on your behalf (fee: ৳500–৳1,500 depending on distance). We also assist with <strong>vehicle transport</strong> to your city after purchase. Use the "Schedule Test Drive" feature to coordinate.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ FOOTER ════════════════════════════════════════ -->
   <footer class="site-footer" id="contact" aria-label="Site footer">
     <div class="footer-grid">
@@ -2267,6 +2470,16 @@
           <button class="cdp-btn-primary" id="cdp-contact-bottom" style="flex:1;min-width:160px;">📞 Contact Seller Now</button>
           <a class="cdp-btn-wa" id="cdp-wa-bottom" href="#" target="_blank" rel="noopener noreferrer" style="flex:1;min-width:160px;justify-content:center;">💬 WhatsApp Seller</a>
         </div>
+      </div>
+
+      <!-- Similar Cars -->
+      <div class="cdp-group-hdr" style="background:rgba(139,92,246,.08); border-color:rgba(139,92,246,.2);">
+        <span class="cdp-group-hdr-icon">🚗</span>
+        <span class="cdp-group-hdr-label" style="color:#a78bfa;">Similar Listings</span>
+      </div>
+      <div class="cdp-section s-similar">
+        <h3 class="cdp-sec-title">You Might Also Like</h3>
+        <div id="cdp-similar" class="cdp-similar-grid"></div>
       </div>
 
       <div style="height:3rem;"></div>
@@ -3846,6 +4059,433 @@
       document.getElementById('browse-cars').scrollIntoView({ behavior: 'smooth' });
     }
 
+    // ─── Sort Cars ────────────────────────────────────
+    function sortCars(method) {
+      const grid = document.querySelector('.cars-grid');
+      if (!grid) return;
+      const cards = [...grid.querySelectorAll('.car-card')];
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.toggle('active', b.dataset.sort === method));
+      cards.sort((a, b) => {
+        if (method === 'price-asc')  return parseInt(a.dataset.priceNum||0) - parseInt(b.dataset.priceNum||0);
+        if (method === 'price-desc') return parseInt(b.dataset.priceNum||0) - parseInt(a.dataset.priceNum||0);
+        if (method === 'newest')     return parseInt(b.dataset.year||0) - parseInt(a.dataset.year||0);
+        return 0; // default / featured
+      });
+      cards.forEach(c => grid.appendChild(c));
+    }
+
+    // ─── Quick filter chips ───────────────────────────
+    let qfCondition = '';
+    function quickFilter(type, val) {
+      if (type === 'budget') {
+        const sel = document.getElementById('s-budget');
+        if (sel) { sel.value = val; }
+      } else if (type === 'condition') {
+        qfCondition = (qfCondition === val) ? '' : val;
+      }
+      document.querySelectorAll('.qf-chip:not(.alert-chip)').forEach(chip => {
+        const isActive = (chip.onclick?.toString().includes(`'${val}'`) && type === 'budget' && document.getElementById('s-budget')?.value === val)
+          || (chip.onclick?.toString().includes(`'condition'`) && chip.onclick?.toString().includes(`'${val}'`) && qfCondition === val);
+        chip.classList.toggle('active', isActive);
+      });
+      filterCarsExtended();
+    }
+
+    function filterCarsExtended() {
+      const brand    = (document.getElementById('s-brand')?.value    || '').toLowerCase();
+      const model    = (document.getElementById('s-model')?.value    || '').toLowerCase().trim();
+      const location = (document.getElementById('s-location')?.value || '');
+      const budget   = (document.getElementById('s-budget')?.value   || '');
+      let minPrice = 0, maxPrice = Infinity;
+      if (budget) { const p = budget.split('-'); minPrice = parseInt(p[0])||0; maxPrice = parseInt(p[1])||Infinity; }
+      const cards = document.querySelectorAll('.car-card');
+      let visible = 0;
+      cards.forEach(card => {
+        const d = card.dataset;
+        const brandOk     = !brand    || (d.brand||'').toLowerCase() === brand;
+        const modelOk     = !model    || (d.name||'').toLowerCase().includes(model);
+        const locationOk  = !location || d.location === location;
+        const priceOk     = !budget   || (parseInt(d.priceNum||0) >= minPrice && parseInt(d.priceNum||0) <= maxPrice);
+        const conditionOk = !qfCondition || (d.condition||'') === qfCondition;
+        const show = brandOk && modelOk && locationOk && priceOk && conditionOk;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      const hasFilters = brand || model || location || budget || qfCondition;
+      const countEl   = document.getElementById('filter-count');
+      const noResults = document.getElementById('no-results');
+      const clearBtn  = document.getElementById('clear-filters-btn');
+      const carsGrid  = document.querySelector('.cars-grid');
+      if (hasFilters) {
+        countEl.textContent = visible ? 'Showing ' + visible + ' of ' + cards.length + ' cars' : '';
+        countEl.style.display = visible ? 'block' : 'none';
+        noResults.style.display = visible ? 'none' : 'block';
+        carsGrid.style.display  = visible ? '' : 'none';
+        clearBtn.style.display  = 'inline-block';
+      } else {
+        countEl.style.display = 'none'; noResults.style.display = 'none';
+        carsGrid.style.display = ''; clearBtn.style.display = 'none';
+      }
+      document.querySelectorAll('.brand-chip').forEach(chip => {
+        chip.classList.toggle('active', (chip.dataset.brand||'').toLowerCase() === brand && !!brand);
+      });
+    }
+    // Override existing filterCars to use extended version
+    const _oldFilterCars = filterCars;
+    filterCars = filterCarsExtended;
+
+    // ─── Recently Viewed ──────────────────────────────
+    const RV_KEY = 'gb_recently_viewed';
+    function getRecentlyViewed() {
+      try { return JSON.parse(localStorage.getItem(RV_KEY) || '[]'); } catch(e) { return []; }
+    }
+    function trackCarView(name, priceStr, imgUrl, brand) {
+      let items = getRecentlyViewed().filter(i => i.name !== name);
+      items.unshift({ name, priceStr, imgUrl, brand });
+      if (items.length > 6) items = items.slice(0, 6);
+      try { localStorage.setItem(RV_KEY, JSON.stringify(items)); } catch(e) {}
+      renderRecentlyViewed();
+    }
+    function renderRecentlyViewed() {
+      const items = getRecentlyViewed();
+      const section = document.getElementById('rv-section');
+      const strip   = document.getElementById('rv-strip');
+      if (!section || !strip) return;
+      if (!items.length) { section.style.display = 'none'; return; }
+      section.style.display = '';
+      strip.innerHTML = items.map(item => `
+        <div class="rv-card" onclick="openCarDetailByName('${item.name.replace(/'/g,"\\'")}')">
+          <img src="${item.imgUrl}" alt="${item.name}" loading="lazy">
+          <div class="rv-card-info">
+            <div class="rv-card-name">${item.name}</div>
+            <div class="rv-card-price">${item.priceStr}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+    function openCarDetailByName(name) {
+      const card = document.querySelector(`.car-card[data-name="${name}"]`);
+      if (card) card.click();
+    }
+    function clearRecentlyViewed() {
+      try { localStorage.removeItem(RV_KEY); } catch(e) {}
+      const section = document.getElementById('rv-section');
+      if (section) section.style.display = 'none';
+    }
+    renderRecentlyViewed();
+
+    // ─── Similar Cars in CDP ──────────────────────────
+    function renderSimilarCars(currentName) {
+      const container = document.getElementById('cdp-similar');
+      if (!container) return;
+      const cards = [...document.querySelectorAll('.car-card')].filter(c => c.dataset.name !== currentName);
+      const picks = cards.slice(0, 3);
+      container.innerHTML = picks.map(c => `
+        <div class="cdp-sim-card" onclick="closeCarDetail(); setTimeout(()=>{const el=document.querySelector('.car-card[data-name=\\'${(c.dataset.name||'').replace(/'/g,"\\'")}\\']'); if(el) el.click();},350);">
+          <img src="${c.dataset.img||''}" alt="${c.dataset.name||''}" loading="lazy">
+          <div class="cdp-sim-card-info">
+            <div class="cdp-sim-card-name">${c.dataset.name||''}</div>
+            <div class="cdp-sim-card-price">${c.dataset.price||''}</div>
+            <div class="cdp-sim-card-meta">📅 ${c.dataset.year||''} · 📍 ${c.dataset.location||''}</div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // ─── EMI Calculator ───────────────────────────────
+    function openEmiCalc() {
+      document.getElementById('emi-modal').hidden = false;
+      document.body.style.overflow = 'hidden';
+      lenis.stop();
+      calcEmi();
+    }
+    function closeEmiCalc() {
+      document.getElementById('emi-modal').hidden = true;
+      document.body.style.overflow = '';
+      lenis.start();
+    }
+    function calcEmi() {
+      const rawPrice = document.getElementById('emi-price').value.replace(/[^0-9]/g,'');
+      const rawDown  = document.getElementById('emi-down').value.replace(/[^0-9]/g,'');
+      const tenure   = parseInt(document.getElementById('emi-tenure').value) || 36;
+      const rate     = parseFloat(document.getElementById('emi-rate').value) || 12;
+      const price    = parseInt(rawPrice) || 0;
+      const down     = parseInt(rawDown)  || 0;
+      const loan     = Math.max(0, price - down);
+      const r        = rate / 100 / 12;
+      const emi      = r > 0 ? loan * r * Math.pow(1+r, tenure) / (Math.pow(1+r, tenure) - 1) : loan / tenure;
+      const totalPay = emi * tenure;
+      const totalInt = totalPay - loan;
+      const fmt = n => '৳' + Math.round(n).toLocaleString('en-IN');
+      document.getElementById('emi-monthly').textContent   = fmt(emi);
+      document.getElementById('emi-loan-amt').textContent  = fmt(loan);
+      document.getElementById('emi-total-int').textContent = fmt(totalInt);
+      document.getElementById('emi-total-pay').textContent = fmt(totalPay);
+    }
+    document.getElementById('emi-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeEmiCalc();
+    });
+
+    // ─── Price Alert modal ────────────────────────────
+    function openPriceAlert() {
+      document.getElementById('alert-form-wrap').hidden = false;
+      document.getElementById('alert-success').hidden = true;
+      document.getElementById('alert-form')?.reset();
+      document.getElementById('alert-modal').hidden = false;
+      document.body.style.overflow = 'hidden';
+      lenis.stop();
+    }
+    function closePriceAlert() {
+      document.getElementById('alert-modal').hidden = true;
+      document.body.style.overflow = '';
+      lenis.start();
+    }
+    function submitPriceAlert(e) {
+      e.preventDefault();
+      document.getElementById('alert-form-wrap').hidden = true;
+      document.getElementById('alert-success').hidden = false;
+    }
+    document.getElementById('alert-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closePriceAlert();
+    });
+
+    // ─── FAQ accordion ────────────────────────────────
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+
+    // ─── Update openCarDetail to track + similar ──────
+    const _origOpenCarDetail = openCarDetail;
+    openCarDetail = function(cardEl) {
+      _origOpenCarDetail(cardEl);
+      const name     = cardEl.dataset.name     || '';
+      const price    = cardEl.dataset.price    || '';
+      const img      = cardEl.dataset.img      || '';
+      const brand    = cardEl.dataset.brand    || '';
+      trackCarView(name, price, img, brand);
+      setTimeout(() => renderSimilarCars(name), 50);
+    };
+
+    // ─── Escape key — add new modals ──────────────────
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      if (!document.getElementById('emi-modal')?.hidden)   { closeEmiCalc(); return; }
+      if (!document.getElementById('alert-modal')?.hidden) { closePriceAlert(); return; }
+    }, true); // capture phase so it runs before existing keydown handler
+
   </script>
+
+  <!-- Floating WhatsApp button -->
+  <a id="float-wa" href="https://wa.me/8801700000000?text=Hi%20GariBazar%2C%20I%20need%20help%20finding%20a%20car." target="_blank" rel="noopener noreferrer" class="float-wa-btn" aria-label="WhatsApp us" title="Chat on WhatsApp">
+    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- Floating EMI Calculator button -->
+  <button id="float-emi" class="float-emi-btn" onclick="openEmiCalc()" aria-label="EMI Calculator" title="Calculate monthly EMI">
+    <span style="font-size:1.2rem;">🧮</span>
+    <span class="float-emi-label">EMI Calc</span>
+  </button>
+
+  <!-- ═══ EMI CALCULATOR MODAL ═══════════════════════════ -->
+  <div id="emi-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="EMI Calculator" hidden>
+    <div class="gb-modal" style="max-width:460px;">
+      <div class="gb-sell-header">
+        <div>
+          <h2 class="gb-modal-title" style="font-size:1.4rem;">🧮 EMI Calculator</h2>
+          <p style="color:var(--text-secondary);font-size:.82rem;margin-top:.2rem;">Estimate your monthly car loan payment</p>
+        </div>
+        <button class="gb-modal-close-top" onclick="closeEmiCalc()" aria-label="Close">✕</button>
+      </div>
+      <div style="padding:1.25rem 1.75rem 1.75rem;">
+        <div class="gb-form-group" style="margin-bottom:.85rem;">
+          <label>Car Price (৳)</label>
+          <input type="text" id="emi-price" placeholder="e.g. 26,50,000" oninput="calcEmi()" value="2650000">
+        </div>
+        <div class="gb-form-group" style="margin-bottom:.85rem;">
+          <label>Down Payment (৳)</label>
+          <input type="text" id="emi-down" placeholder="e.g. 5,00,000" oninput="calcEmi()" value="500000">
+        </div>
+        <div class="emi-slider-row">
+          <label>Loan Tenure: <strong id="emi-tenure-val">36</strong> months</label>
+          <input type="range" id="emi-tenure" min="12" max="84" step="12" value="36" oninput="calcEmi(); document.getElementById('emi-tenure-val').textContent=this.value">
+        </div>
+        <div class="emi-slider-row">
+          <label>Interest Rate: <strong id="emi-rate-val">12</strong>% per year</label>
+          <input type="range" id="emi-rate" min="8" max="20" step="0.5" value="12" oninput="calcEmi(); document.getElementById('emi-rate-val').textContent=this.value">
+        </div>
+        <div class="emi-result" id="emi-result">
+          <div class="emi-result-main">
+            <div class="emi-result-label">Monthly EMI</div>
+            <div class="emi-result-val" id="emi-monthly">—</div>
+          </div>
+          <div class="emi-result-breakdown">
+            <div><span>Loan Amount</span><span id="emi-loan-amt">—</span></div>
+            <div><span>Total Interest</span><span id="emi-total-int">—</span></div>
+            <div><span>Total Payment</span><span id="emi-total-pay">—</span></div>
+          </div>
+        </div>
+        <p style="text-align:center;font-size:.72rem;color:var(--text-muted);margin-top:.75rem;">*Indicative only. Actual rates vary by bank. Popular options: DBBL, BRAC Bank, Dutch-Bangla, Islami Bank.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PRICE ALERT MODAL ════════════════════════════ -->
+  <div id="alert-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="Price alert" hidden>
+    <div class="gb-modal" style="max-width:440px;">
+      <div class="gb-sell-header">
+        <div>
+          <h2 class="gb-modal-title" style="font-size:1.4rem;">🔔 Get Price Alerts</h2>
+          <p style="color:var(--text-secondary);font-size:.82rem;margin-top:.2rem;">We'll notify you when a matching car is listed</p>
+        </div>
+        <button class="gb-modal-close-top" onclick="closePriceAlert()" aria-label="Close">✕</button>
+      </div>
+      <div id="alert-form-wrap" style="padding:1.25rem 1.75rem 1.75rem;">
+        <form id="alert-form" onsubmit="submitPriceAlert(event)">
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Brand</label>
+              <select id="al-brand">
+                <option value="">Any Brand</option>
+                <option>Toyota</option><option>Honda</option><option>Nissan</option>
+                <option>Mitsubishi</option><option>Suzuki</option><option>BMW</option>
+              </select>
+            </div>
+            <div class="gb-form-group">
+              <label>Location</label>
+              <select id="al-location">
+                <option value="">Any Location</option>
+                <option>Dhaka</option><option>Chittagong</option><option>Sylhet</option>
+                <option>Rajshahi</option><option>Khulna</option>
+              </select>
+            </div>
+          </div>
+          <div class="gb-form-group" style="margin-bottom:.85rem;">
+            <label>Max Budget (৳)</label>
+            <select id="al-budget">
+              <option value="">Any Price</option>
+              <option value="1000000">Under ৳10 Lakh</option>
+              <option value="2000000">Under ৳20 Lakh</option>
+              <option value="3500000">Under ৳35 Lakh</option>
+              <option value="6000000">Under ৳60 Lakh</option>
+            </select>
+          </div>
+          <div class="gb-form-group" style="margin-bottom:1rem;">
+            <label>Your WhatsApp Number</label>
+            <input type="tel" required placeholder="01700-000000" pattern="[0-9]{11}">
+          </div>
+          <button type="submit" class="gb-sell-submit" style="background:linear-gradient(135deg,#0ea5e9,#3b82f6);">🔔 Set My Alert</button>
+          <p style="text-align:center;font-size:.73rem;color:var(--text-muted);margin-top:.5rem;">We'll WhatsApp you as soon as a matching car is listed. No spam, unsubscribe anytime.</p>
+        </form>
+      </div>
+      <div id="alert-success" hidden style="padding:2.5rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🔔</div>
+        <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:.5rem;">Alert Set!</h3>
+        <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:1.5rem;">We'll WhatsApp you as soon as a matching car is listed. This may take anywhere from a few hours to a few days.</p>
+        <button onclick="closePriceAlert()" class="gb-sell-submit" style="width:auto;padding:.75rem 2.5rem;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <style>
+  /* ── Sort bar ─────────────────────────────────────── */
+  .sort-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.75rem; margin-bottom:1.5rem; padding:.6rem 0; border-bottom:1px solid rgba(255,255,255,.06); }
+  .sort-bar-left #listing-count-badge { font-size:.8rem; color:#7a8b9e; font-weight:600; }
+  .sort-bar-right { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; }
+  .sort-label-txt { font-size:.75rem; color:#7a8b9e; font-weight:600; margin-right:.2rem; }
+  .sort-btn { font-size:.75rem; font-weight:700; padding:.35rem .8rem; border-radius:.5rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.08); color:#7a8b9e; cursor:pointer; transition:all .2s; }
+  .sort-btn:hover { background:rgba(59,130,246,.1); border-color:rgba(59,130,246,.3); color:#3b82f6; }
+  .sort-btn.active { background:rgba(59,130,246,.12); border-color:rgba(59,130,246,.35); color:#3b82f6; }
+
+  /* ── Recently Viewed ──────────────────────────────── */
+  .rv-hdr { display:flex; align-items:center; justify-content:space-between; margin-bottom:.6rem; font-size:.75rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:#7a8b9e; }
+  .rv-clear-btn { background:none; border:none; font-size:.72rem; color:#4a5568; cursor:pointer; text-decoration:underline; font-family:inherit; }
+  .rv-clear-btn:hover { color:#7a8b9e; }
+  .rv-strip { display:flex; gap:.6rem; overflow-x:auto; padding-bottom:.4rem; scrollbar-width:none; }
+  .rv-strip::-webkit-scrollbar { display:none; }
+  .rv-card { flex-shrink:0; width:120px; background:var(--bg-card); border:1px solid rgba(255,255,255,.07); border-radius:.75rem; overflow:hidden; cursor:pointer; transition:border-color .2s, transform .2s; }
+  .rv-card:hover { border-color:rgba(59,130,246,.4); transform:translateY(-2px); }
+  .rv-card img { width:100%; height:68px; object-fit:cover; display:block; }
+  .rv-card-info { padding:.4rem .5rem; }
+  .rv-card-name { font-size:.68rem; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; color:#fff; }
+  .rv-card-price { font-size:.62rem; color:#fbbf24; font-weight:700; margin-top:.1rem; }
+
+  /* ── Quick filter budget chips ────────────────────── */
+  .qf-chips { display:flex; flex-wrap:wrap; gap:.4rem; }
+  .qf-chip { font-size:.72rem; font-weight:700; padding:.32rem .75rem; border-radius:2rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.09); color:#7a8b9e; cursor:pointer; transition:all .2s; white-space:nowrap; }
+  .qf-chip:hover { background:rgba(59,130,246,.1); border-color:rgba(59,130,246,.3); color:#3b82f6; }
+  .qf-chip.active { background:rgba(59,130,246,.15); border-color:#3b82f6; color:#3b82f6; }
+  .qf-chip.alert-chip { border-color:rgba(14,165,233,.35); color:#0ea5e9; }
+  .qf-chip.alert-chip:hover { background:rgba(14,165,233,.1); }
+
+  /* ── Featured Dealers ─────────────────────────────── */
+  .dealers-section { padding:var(--section-pad); background:var(--bg-secondary); }
+  .dealers-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1.25rem; }
+  .dealer-card { display:flex; gap:1rem; align-items:flex-start; padding:1.25rem; background:var(--bg-card); border:1px solid var(--border); border-radius:var(--radius-md); transition:border-color .25s, transform .25s; cursor:default; }
+  .dealer-card:hover { border-color:rgba(59,130,246,.3); transform:translateY(-2px); }
+  .dealer-avatar { font-size:2rem; flex-shrink:0; width:52px; height:52px; background:rgba(59,130,246,.1); border-radius:.75rem; display:flex; align-items:center; justify-content:center; }
+  .dealer-name { font-size:.95rem; font-weight:800; margin-bottom:.2rem; }
+  .dealer-location { font-size:.78rem; color:#7a8b9e; margin-bottom:.5rem; }
+  .dealer-stats { display:flex; gap:.4rem; flex-wrap:wrap; margin-bottom:.5rem; }
+  .dealer-stat { font-size:.7rem; padding:.18rem .55rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:2rem; color:#c5d2e0; }
+  .dealer-badge { font-size:.7rem; padding:.18rem .55rem; background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.25); border-radius:2rem; color:#10b981; }
+  .dealer-desc { font-size:.78rem; color:#7a8b9e; line-height:1.5; }
+
+  /* ── Press / Media strip ──────────────────────────── */
+  .press-strip { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:1.25rem 2.5rem; padding:1.25rem 5%; background:rgba(255,255,255,.02); border-top:1px solid rgba(255,255,255,.05); border-bottom:1px solid rgba(255,255,255,.05); }
+  .press-label { font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.12em; color:#4a5568; white-space:nowrap; }
+  .press-logo { font-size:.85rem; font-weight:800; color:#4a5568; letter-spacing:.04em; transition:color .2s; white-space:nowrap; }
+  .press-logo:hover { color:#7a8b9e; }
+  .press-sep { color:#2a3444; font-size:1.2rem; }
+
+  /* ── FAQ section ──────────────────────────────────── */
+  .faq-section { padding:var(--section-pad); background:var(--bg-primary); }
+  .faq-list { max-width:720px; margin:0 auto; display:flex; flex-direction:column; gap:.6rem; }
+  .faq-item { background:var(--bg-card); border:1px solid rgba(255,255,255,.07); border-radius:var(--radius-md); overflow:hidden; transition:border-color .2s; }
+  .faq-item.open { border-color:rgba(59,130,246,.25); }
+  .faq-q { width:100%; display:flex; align-items:center; justify-content:space-between; gap:1rem; padding:1.1rem 1.25rem; background:none; border:none; color:#fff; font-size:.9rem; font-weight:700; cursor:pointer; text-align:left; font-family:inherit; transition:background .2s; }
+  .faq-q:hover { background:rgba(255,255,255,.03); }
+  .faq-icon { flex-shrink:0; font-size:1.25rem; font-weight:400; color:#3b82f6; transition:transform .3s; }
+  .faq-item.open .faq-icon { transform:rotate(45deg); }
+  .faq-a { max-height:0; overflow:hidden; transition:max-height .4s ease, padding .3s ease; padding:0 1.25rem; }
+  .faq-item.open .faq-a { max-height:400px; padding:.25rem 1.25rem 1.1rem; }
+  .faq-a p { font-size:.85rem; color:#7a8b9e; line-height:1.75; }
+
+  /* ── Similar Cars in CDP ──────────────────────────── */
+  .cdp-similar-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:.75rem; }
+  @media (max-width:500px) { .cdp-similar-grid { grid-template-columns:1fr 1fr; } }
+  .cdp-sim-card { background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.07); border-radius:.75rem; overflow:hidden; cursor:pointer; transition:border-color .2s, transform .2s; }
+  .cdp-sim-card:hover { border-color:rgba(59,130,246,.35); transform:translateY(-2px); }
+  .cdp-sim-card img { width:100%; height:80px; object-fit:cover; display:block; }
+  .cdp-sim-card-info { padding:.5rem .65rem; }
+  .cdp-sim-card-name { font-size:.75rem; font-weight:700; margin-bottom:.2rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .cdp-sim-card-price { font-size:.72rem; color:#fbbf24; font-weight:800; }
+  .cdp-sim-card-meta { font-size:.65rem; color:#7a8b9e; margin-top:.15rem; }
+
+  /* ── Floating buttons ─────────────────────────────── */
+  .float-wa-btn { position:fixed; bottom:1.75rem; right:1.75rem; z-index:3000; width:56px; height:56px; border-radius:50%; background:#25d366; color:#fff; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 20px rgba(37,211,102,.4); transition:transform .2s, box-shadow .2s; text-decoration:none; }
+  .float-wa-btn:hover { transform:scale(1.08); box-shadow:0 6px 28px rgba(37,211,102,.55); }
+  body.cdp-open .float-wa-btn,
+  body.cdp-open .float-emi-btn { opacity:0; pointer-events:none; }
+
+  .float-emi-btn { position:fixed; bottom:1.75rem; left:1.75rem; z-index:3000; display:flex; align-items:center; gap:.4rem; padding:.75rem 1.1rem; border-radius:2rem; background:rgba(13,27,42,.92); border:1px solid rgba(59,130,246,.35); color:#3b82f6; font-size:.78rem; font-weight:700; font-family:inherit; box-shadow:0 4px 20px rgba(0,0,0,.4); cursor:pointer; transition:transform .2s, background .2s; backdrop-filter:blur(12px); }
+  .float-emi-btn:hover { transform:translateY(-2px); background:rgba(59,130,246,.12); }
+  .float-emi-label { letter-spacing:.03em; }
+
+  /* ── EMI Calculator modal ─────────────────────────── */
+  .emi-slider-row { margin-bottom:.85rem; }
+  .emi-slider-row label { display:block; font-size:.8rem; color:#7a8b9e; margin-bottom:.35rem; font-weight:600; }
+  .emi-slider-row input[type=range] { width:100%; accent-color:#3b82f6; }
+  .emi-result { margin-top:1.25rem; padding:1rem 1.25rem; background:rgba(59,130,246,.07); border:1px solid rgba(59,130,246,.2); border-radius:.85rem; }
+  .emi-result-main { text-align:center; margin-bottom:.85rem; }
+  .emi-result-label { font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:#7a8b9e; margin-bottom:.2rem; }
+  .emi-result-val { font-size:2rem; font-weight:900; color:#fbbf24; }
+  .emi-result-breakdown { display:flex; flex-direction:column; gap:.35rem; }
+  .emi-result-breakdown div { display:flex; justify-content:space-between; font-size:.8rem; color:#c5d2e0; border-top:1px solid rgba(255,255,255,.06); padding-top:.3rem; }
+  .emi-result-breakdown div span:last-child { font-weight:700; color:#fff; }
+  </style>
+
 </body>
 </html>
