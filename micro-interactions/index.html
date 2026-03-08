@@ -2059,31 +2059,130 @@
     </div>
   </footer>
 
-  <!-- ═══ CAR DETAIL MODAL ════════════════════════════ -->
-  <div id="car-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="Car details" hidden>
-    <div class="gb-modal" id="car-modal-box">
-      <div class="gb-modal-img-wrap">
-        <img id="cm-img" src="" alt="" class="gb-modal-img">
-        <button class="gb-modal-close" onclick="closeCarModal()" aria-label="Close">✕</button>
-      </div>
-      <div class="gb-modal-body">
-        <h2 id="cm-name" class="gb-modal-title"></h2>
-        <p id="cm-sub" class="gb-modal-sub"></p>
-        <div class="gb-modal-specs">
-          <div class="gb-spec-box"><span class="gb-spec-label">Year</span><span id="cm-year" class="gb-spec-val"></span></div>
-          <div class="gb-spec-box"><span class="gb-spec-label">Mileage</span><span id="cm-mileage" class="gb-spec-val"></span></div>
-          <div class="gb-spec-box"><span class="gb-spec-label">Condition</span><span id="cm-condition" class="gb-spec-val"></span></div>
-        </div>
-        <div class="gb-modal-price-row">
-          <span class="gb-price-label">Asking Price</span>
-          <span id="cm-price" class="gb-price-val"></span>
-        </div>
-        <div class="gb-modal-actions">
-          <button class="gb-btn-contact" id="cm-contact-btn">📞 Contact Seller</button>
-          <a id="cm-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="gb-btn-whatsapp">💬 WhatsApp</a>
-        </div>
-      </div>
+  <!-- ═══ CAR DETAIL PANEL (full-screen slide-in) ══════ -->
+  <div id="car-detail" role="dialog" aria-modal="true" aria-label="Car details" style="display:none;">
+
+    <!-- Sticky header -->
+    <div class="cdp-bar">
+      <button class="cdp-back" onclick="closeCarDetail()" aria-label="Go back">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
+        Back
+      </button>
+      <span id="cdp-bar-title" class="cdp-bar-title"></span>
+      <button class="cdp-close-x" onclick="closeCarDetail()" aria-label="Close">✕</button>
     </div>
+
+    <!-- Scrollable body -->
+    <div class="cdp-scroll">
+
+      <!-- Hero photo + nav -->
+      <div class="cdp-hero-wrap">
+        <img id="cdp-hero-img" src="" alt="" class="cdp-hero-img">
+        <div class="cdp-hero-nav">
+          <button class="cdp-nav-btn" id="cdp-prev" onclick="cdpPhotoNav(-1)">‹</button>
+          <span class="cdp-photo-count" id="cdp-photo-count">1 / 6</span>
+          <button class="cdp-nav-btn" id="cdp-next" onclick="cdpPhotoNav(1)">›</button>
+        </div>
+        <div class="cdp-badges-hero" id="cdp-badges"></div>
+      </div>
+
+      <!-- Thumbnail strip -->
+      <div class="cdp-thumbs" id="cdp-thumbs"></div>
+
+      <!-- Price + CTA -->
+      <div class="cdp-price-section">
+        <div class="cdp-price-left">
+          <div class="cdp-price-tag" id="cdp-price"></div>
+          <div class="cdp-loc" id="cdp-loc"></div>
+        </div>
+        <div class="cdp-cta-btns">
+          <button class="cdp-btn-primary" id="cdp-contact-btn">📞 Contact Seller</button>
+          <a class="cdp-btn-wa" id="cdp-wa-btn" href="#" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+          <button class="cdp-btn-wish" id="cdp-wish-btn" onclick="cdpToggleWish(this)">🤍</button>
+        </div>
+      </div>
+
+      <!-- Quick overview chips -->
+      <div class="cdp-overview" id="cdp-overview"></div>
+
+      <!-- Description -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">About This Car</h3>
+        <p id="cdp-desc" class="cdp-desc-text"></p>
+      </div>
+
+      <!-- Photo Gallery -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Photo Gallery</h3>
+        <div class="cdp-gallery" id="cdp-gallery"></div>
+      </div>
+
+      <!-- Video Walkthrough -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Video Walkthrough</h3>
+        <div class="cdp-video-wrap" id="cdp-video-wrap">
+          <div class="cdp-video-placeholder" onclick="cdpPlayVideo(this)">
+            <div class="cdp-video-thumb"><img id="cdp-video-thumb" src="" alt="Video thumbnail" style="width:100%;height:100%;object-fit:cover;border-radius:12px;"></div>
+            <div class="cdp-play-btn">▶</div>
+            <p class="cdp-video-label">Tap to play walkthrough video</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Full Specifications -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Full Specifications</h3>
+        <div class="cdp-spec-grid" id="cdp-spec-grid"></div>
+      </div>
+
+      <!-- Features & Equipment -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Features & Equipment</h3>
+        <div class="cdp-features-grid" id="cdp-features"></div>
+      </div>
+
+      <!-- Documents & Papers -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Documents & Papers</h3>
+        <div class="cdp-papers-grid" id="cdp-papers"></div>
+        <div class="cdp-paper-note">
+          <span>🔒</span>
+          <span>Original documents available for in-person inspection. Contact seller to schedule a visit. GariBazar team has verified all listed papers.</span>
+        </div>
+      </div>
+
+      <!-- Seller Info -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Seller Information</h3>
+        <div class="cdp-seller-card" id="cdp-seller"></div>
+      </div>
+
+      <!-- How to Buy -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">How to Complete This Purchase</h3>
+        <div class="cdp-steps">
+          <div class="cdp-step"><div class="cdp-step-num">1</div><div><strong>Contact Seller</strong><p>Call or WhatsApp to confirm availability and arrange a visit.</p></div></div>
+          <div class="cdp-step"><div class="cdp-step-num">2</div><div><strong>Physical Inspection</strong><p>Visit with a trusted mechanic. GariBazar can arrange a certified inspector for ৳500.</p></div></div>
+          <div class="cdp-step"><div class="cdp-step-num">3</div><div><strong>Verify Papers</strong><p>Check registration card, import certificate, fitness certificate, and insurance.</p></div></div>
+          <div class="cdp-step"><div class="cdp-step-num">4</div><div><strong>Agree Price & Terms</strong><p>Negotiate directly with the seller. No hidden fees or middleman charges.</p></div></div>
+          <div class="cdp-step"><div class="cdp-step-num">5</div><div><strong>Secure Payment</strong><p>Use escrow via GariBazar or direct transfer via bKash, Nagad, or bank. Never pay cash upfront.</p></div></div>
+          <div class="cdp-step"><div class="cdp-step-num">6</div><div><strong>Transfer Ownership</strong><p>Complete BRTA ownership transfer. GariBazar assists with paperwork.</p></div></div>
+        </div>
+        <div style="margin-top:1.5rem;display:flex;gap:.75rem;flex-wrap:wrap;">
+          <button class="cdp-btn-primary" id="cdp-contact-bottom" style="flex:1;min-width:160px;">📞 Contact Seller Now</button>
+          <a class="cdp-btn-wa" id="cdp-wa-bottom" href="#" target="_blank" rel="noopener noreferrer" style="flex:1;min-width:160px;justify-content:center;">💬 WhatsApp Seller</a>
+        </div>
+      </div>
+
+      <div style="height:3rem;"></div>
+    </div><!-- /cdp-scroll -->
+  </div><!-- /car-detail -->
+
+  <!-- Photo Lightbox -->
+  <div id="photo-lightbox" style="display:none;position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.95);align-items:center;justify-content:center;flex-direction:column;">
+    <button onclick="closeLightbox()" style="position:absolute;top:1.25rem;right:1.25rem;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;width:3rem;height:3rem;border-radius:50%;cursor:pointer;">✕</button>
+    <img id="lb-img" src="" alt="" style="max-width:90vw;max-height:80vh;object-fit:contain;border-radius:8px;">
+    <p id="lb-label" style="margin-top:1rem;color:rgba(255,255,255,.6);font-size:.9rem;"></p>
   </div>
 
   <!-- ═══ SELL MODAL ════════════════════════════════════ -->
@@ -2149,6 +2248,145 @@
       </div>
     </div>
   </div>
+
+  <!-- ═══ CAR DETAIL PANEL STYLES ════════════════════════ -->
+  <style>
+    /* ── Panel shell ──────────────────────────────────── */
+    #car-detail {
+      position: fixed; inset: 0; z-index: 4000;
+      background: #03060a; overflow: hidden;
+      flex-direction: column;
+      animation: cdp-slide-in .35s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes cdp-slide-in  { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes cdp-slide-out { from { transform: translateX(0); opacity: 1; } to { transform: translateX(100%); opacity: 0; } }
+
+    /* ── Sticky top bar ───────────────────────────────── */
+    .cdp-bar {
+      position: sticky; top: 0; z-index: 10;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: .9rem 1.25rem;
+      background: rgba(3,6,10,.92); backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      flex-shrink: 0;
+    }
+    .cdp-back {
+      display: flex; align-items: center; gap: .4rem;
+      background: none; border: none; color: #3b82f6; font-weight: 600;
+      font-size: .9rem; cursor: pointer; padding: .35rem .6rem;
+      border-radius: .5rem; transition: background .2s;
+    }
+    .cdp-back:hover { background: rgba(59,130,246,.1); }
+    .cdp-bar-title { font-size: .95rem; font-weight: 700; color: #fff; text-align: center; flex: 1; padding: 0 .5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .cdp-close-x { background: rgba(255,255,255,.07); border: none; color: #fff; width: 2.2rem; height: 2.2rem; border-radius: 50%; cursor: pointer; font-size: 1rem; transition: background .2s; }
+    .cdp-close-x:hover { background: rgba(255,255,255,.15); }
+
+    /* ── Scrollable content area ──────────────────────── */
+    .cdp-scroll { overflow-y: auto; height: calc(100vh - 56px); }
+
+    /* ── Hero photo ───────────────────────────────────── */
+    .cdp-hero-wrap { position: relative; width: 100%; height: min(56vw, 480px); background: #0a1628; overflow: hidden; }
+    .cdp-hero-img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity .3s; }
+    .cdp-hero-nav { position: absolute; bottom: 1rem; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: .75rem; }
+    .cdp-nav-btn { background: rgba(0,0,0,.55); border: none; color: #fff; width: 2.5rem; height: 2.5rem; border-radius: 50%; font-size: 1.4rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background .2s; }
+    .cdp-nav-btn:hover { background: rgba(59,130,246,.8); }
+    .cdp-photo-count { background: rgba(0,0,0,.6); color: #fff; font-size: .78rem; font-weight: 600; padding: .3rem .7rem; border-radius: 2rem; }
+    .cdp-badges-hero { position: absolute; top: 1rem; left: 1rem; display: flex; gap: .4rem; flex-wrap: wrap; }
+
+    /* ── Thumbnails ───────────────────────────────────── */
+    .cdp-thumbs { display: flex; gap: .5rem; padding: .75rem 1rem; overflow-x: auto; background: #050d18; scrollbar-width: none; }
+    .cdp-thumbs::-webkit-scrollbar { display: none; }
+    .cdp-thumb { flex-shrink: 0; width: 72px; height: 52px; border-radius: .5rem; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color .2s, opacity .2s; opacity: .6; }
+    .cdp-thumb.active { border-color: #3b82f6; opacity: 1; }
+    .cdp-thumb:hover { opacity: .9; }
+    .cdp-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+    /* ── Price + CTA bar ──────────────────────────────── */
+    .cdp-price-section { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; padding: 1.25rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .cdp-price-tag { font-size: 1.75rem; font-weight: 900; color: #fbbf24; }
+    .cdp-loc { font-size: .85rem; color: var(--text-secondary, #7a8b9e); margin-top: .15rem; }
+    .cdp-cta-btns { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+    .cdp-btn-primary { padding: .7rem 1.25rem; background: #3b82f6; border: none; border-radius: .6rem; color: #fff; font-weight: 700; font-size: .9rem; cursor: pointer; white-space: nowrap; transition: background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .cdp-btn-primary:hover { background: #2563eb; }
+    .cdp-btn-wa { padding: .7rem 1.1rem; background: rgba(37,211,102,.12); border: 1px solid rgba(37,211,102,.3); border-radius: .6rem; color: #25d366; font-weight: 700; font-size: .9rem; cursor: pointer; white-space: nowrap; transition: background .2s; text-decoration: none; display: inline-flex; align-items: center; gap: .35rem; }
+    .cdp-btn-wa:hover { background: rgba(37,211,102,.22); }
+    .cdp-btn-wish { width: 2.8rem; height: 2.8rem; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: .6rem; cursor: pointer; font-size: 1.2rem; transition: background .2s; }
+    .cdp-btn-wish:hover { background: rgba(255,100,100,.12); border-color: rgba(255,100,100,.3); }
+
+    /* ── Overview chips ───────────────────────────────── */
+    .cdp-overview { display: flex; flex-wrap: wrap; gap: .5rem; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .cdp-chip { display: flex; align-items: center; gap: .3rem; padding: .45rem .85rem; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08); border-radius: 2rem; font-size: .82rem; color: #c5d2e0; }
+
+    /* ── Sections ─────────────────────────────────────── */
+    .cdp-section { padding: 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .cdp-sec-title { font-size: 1.1rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+    .cdp-desc-text { font-size: .9rem; color: var(--text-secondary, #7a8b9e); line-height: 1.7; }
+
+    /* ── Photo gallery ────────────────────────────────── */
+    .cdp-gallery { display: grid; grid-template-columns: repeat(3,1fr); gap: .5rem; }
+    @media (min-width: 600px) { .cdp-gallery { grid-template-columns: repeat(4,1fr); } }
+    @media (min-width: 900px) { .cdp-gallery { grid-template-columns: repeat(5,1fr); } }
+    .cdp-gal-item { position: relative; aspect-ratio: 4/3; border-radius: .5rem; overflow: hidden; cursor: pointer; background: #0a1628; }
+    .cdp-gal-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s; }
+    .cdp-gal-item:hover img { transform: scale(1.06); }
+    .cdp-gal-item .cdp-gal-label { position: absolute; bottom: 0; left: 0; right: 0; padding: .3rem .5rem; background: linear-gradient(transparent, rgba(0,0,0,.8)); font-size: .65rem; color: rgba(255,255,255,.8); }
+
+    /* ── Video ────────────────────────────────────────── */
+    .cdp-video-wrap { position: relative; }
+    .cdp-video-placeholder { position: relative; border-radius: 12px; overflow: hidden; cursor: pointer; }
+    .cdp-video-thumb { width: 100%; aspect-ratio: 16/9; background: #0a1628; }
+    .cdp-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-60%); width: 5rem; height: 5rem; background: rgba(59,130,246,.85); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; color: #fff; padding-left: .3rem; box-shadow: 0 0 0 12px rgba(59,130,246,.25); }
+    .cdp-video-label { position: absolute; bottom: 1rem; left: 0; right: 0; text-align: center; color: rgba(255,255,255,.7); font-size: .85rem; }
+
+    /* ── Spec grid ────────────────────────────────────── */
+    .cdp-spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    @media (min-width: 640px) { .cdp-spec-grid { grid-template-columns: repeat(3,1fr); } }
+    .cdp-spec-item { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.07); border-radius: .75rem; padding: .85rem 1rem; }
+    .cdp-spec-item .cdp-spec-k { font-size: .72rem; color: var(--text-secondary, #7a8b9e); text-transform: uppercase; letter-spacing: .06em; margin-bottom: .25rem; }
+    .cdp-spec-item .cdp-spec-v { font-size: .9rem; font-weight: 700; color: #fff; }
+
+    /* ── Features ─────────────────────────────────────── */
+    .cdp-features-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+    @media (min-width: 600px) { .cdp-features-grid { grid-template-columns: repeat(3,1fr); } }
+    .cdp-feature-item { display: flex; align-items: center; gap: .5rem; padding: .6rem .85rem; background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.12); border-radius: .5rem; font-size: .82rem; color: #c5d2e0; }
+    .cdp-feature-item::before { content: "✓"; color: #3b82f6; font-weight: 800; flex-shrink: 0; }
+
+    /* ── Papers ───────────────────────────────────────── */
+    .cdp-papers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: 1rem; }
+    @media (min-width: 600px) { .cdp-papers-grid { grid-template-columns: repeat(3,1fr); } }
+    .cdp-paper-card { background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: .75rem; padding: 1rem; display: flex; flex-direction: column; align-items: flex-start; gap: .5rem; }
+    .cdp-paper-card.verified { border-color: rgba(16,185,129,.2); background: rgba(16,185,129,.04); }
+    .cdp-paper-card.confidential { border-color: rgba(245,158,11,.15); background: rgba(245,158,11,.03); }
+    .cdp-paper-icon { font-size: 1.6rem; }
+    .cdp-paper-name { font-size: .82rem; font-weight: 700; color: #fff; }
+    .cdp-paper-badge { font-size: .68rem; font-weight: 700; padding: .2rem .5rem; border-radius: 2rem; }
+    .cdp-paper-badge.ok { background: rgba(16,185,129,.15); color: #10b981; }
+    .cdp-paper-badge.lock { background: rgba(245,158,11,.15); color: #f59e0b; }
+    .cdp-paper-note { display: flex; gap: .6rem; align-items: flex-start; padding: .85rem 1rem; background: rgba(245,158,11,.06); border: 1px solid rgba(245,158,11,.12); border-radius: .75rem; font-size: .82rem; color: rgba(255,255,255,.6); line-height: 1.5; }
+
+    /* ── Seller card ──────────────────────────────────── */
+    .cdp-seller-card { display: flex; align-items: center; gap: 1rem; padding: 1.25rem; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); border-radius: 1rem; flex-wrap: wrap; }
+    .cdp-seller-avatar { width: 3.5rem; height: 3.5rem; background: linear-gradient(135deg,#3b82f6,#1d4ed8); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.25rem; font-weight: 900; color: #fff; flex-shrink: 0; }
+    .cdp-seller-info .cdp-seller-name { font-weight: 800; font-size: 1rem; color: #fff; }
+    .cdp-seller-info .cdp-seller-meta { font-size: .8rem; color: var(--text-secondary, #7a8b9e); margin-top: .2rem; }
+    .cdp-seller-verified { display: inline-flex; align-items: center; gap: .3rem; font-size: .75rem; color: #10b981; font-weight: 700; background: rgba(16,185,129,.1); padding: .25rem .6rem; border-radius: 2rem; margin-top: .4rem; }
+
+    /* ── How to buy steps ─────────────────────────────── */
+    .cdp-steps { display: flex; flex-direction: column; gap: .75rem; }
+    .cdp-step { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem; background: rgba(255,255,255,.02); border: 1px solid rgba(255,255,255,.06); border-radius: .75rem; }
+    .cdp-step-num { width: 2rem; height: 2rem; background: #3b82f6; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 800; color: #fff; flex-shrink: 0; }
+    .cdp-step strong { display: block; font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: .2rem; }
+    .cdp-step p { font-size: .82rem; color: var(--text-secondary, #7a8b9e); margin: 0; line-height: 1.5; }
+
+    /* ── Responsive layout ────────────────────────────── */
+    @media (min-width: 900px) {
+      .cdp-scroll { display: grid; grid-template-columns: 1fr 340px; grid-template-rows: auto; }
+      .cdp-hero-wrap { grid-column: 1; }
+      .cdp-thumbs { grid-column: 1; }
+      .cdp-price-section { grid-column: 2; grid-row: 1 / 4; flex-direction: column; align-items: flex-start; position: sticky; top: 0; max-height: calc(100vh - 56px); overflow-y: auto; border-left: 1px solid rgba(255,255,255,.06); border-bottom: none; }
+      .cdp-overview, .cdp-section { grid-column: 1; }
+    }
+  </style>
 
   <!-- ═══ MODAL STYLES ══════════════════════════════════ -->
   <style>
@@ -2474,49 +2712,391 @@
       document.getElementById('browse-cars').scrollIntoView({ behavior: 'smooth' });
     });
 
-    // ─── 12. Car Card Modal ───────────────────────────
-    function openCarModal(card) {
-      const d = card.dataset;
-      document.getElementById('cm-img').src = d.img || '';
-      document.getElementById('cm-img').alt = d.name || '';
-      document.getElementById('cm-name').textContent = d.name || '';
-      document.getElementById('cm-sub').textContent = (d.condition || '') + ' · ' + (d.location || '');
-      document.getElementById('cm-year').textContent = d.year || '';
-      document.getElementById('cm-mileage').textContent = d.mileage || '';
-      document.getElementById('cm-condition').textContent = d.condition || '';
-      document.getElementById('cm-price').textContent = d.price || '';
+    // ─── 12. Car Detail Panel — Data & Engine ────────
 
-      document.getElementById('cm-contact-btn').onclick = function() {
-        alert('📞 Contact Seller\nPhone: +880 1700-000000\nbKash / Nagad: 01700-000000');
-      };
+    const CARS_DATA = {
+      "Toyota Allion": {
+        badge: "Verified", badgeClass: "badge-verified",
+        condition: "Reconditioned", location: "Dhaka", price: "৳26,50,000",
+        year: "2019", mileage: "58,000 km", fuel: "Petrol", transmission: "Automatic",
+        color: "Pearl White", engine: "1500cc (A15 3NZ-FE)", bodyType: "Sedan",
+        seats: "5", doors: "4", drive: "FWD", importedFrom: "Japan",
+        registrationYear: "2020 (BD)", fitnessExpiry: "Dec 2025", taxToken: "Valid",
+        seller: "Premium Motors BD", sellerRating: "4.8 ★", sellerDeals: "47 deals",
+        phone: "+880 1700-123456",
+        description: "Well-maintained Toyota Allion A15 imported directly from Japan. Single owner since import in 2020. Interior in near-mint condition with original factory mats. No major repairs or accidents. Engine bay clean. All AC vents functional. Tyres 60% life remaining. Ideal for daily Dhaka commute.",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80", label: "Front Exterior" },
+          { src: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?w=900&q=80", label: "Side Profile" },
+          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Interior / Seats" },
+          { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80", label: "Dashboard" },
+          { src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80", label: "Engine Bay" },
+          { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80", label: "Rear Exterior" },
+        ],
+        specs: [
+          ["Engine", "1500cc (3NZ-FE)"], ["Horsepower", "109 hp"], ["Torque", "141 Nm"],
+          ["Transmission", "CVT Automatic"], ["Drive", "Front-Wheel Drive"], ["Fuel Type", "Petrol"],
+          ["Fuel Economy", "~14 km/L"], ["Body Type", "Sedan"], ["Seats", "5"],
+          ["Doors", "4"], ["Color", "Pearl White"], ["Kerb Weight", "1,070 kg"],
+          ["Length", "4,400 mm"], ["Width", "1,695 mm"], ["Height", "1,460 mm"],
+          ["Wheelbase", "2,600 mm"], ["Tyres", "185/65 R15"], ["A/C", "Dual Zone Auto A/C"],
+        ],
+        features: ["Push Button Start", "Dual Airbags", "ABS + EBD", "Rear Parking Sensor", "Rear Camera", "Keyless Entry", "Climate Control A/C", "Power Mirrors", "Power Windows", "Multi-Function Steering", "Cruise Control", "Automatic Headlights", "Rain Sensor Wipers", "Alloy Wheels"],
+        papers: [
+          { icon: "📋", name: "Registration Card", status: "verified" },
+          { icon: "🚢", name: "Import Certificate", status: "verified" },
+          { icon: "🔧", name: "Inspection Report", status: "verified" },
+          { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+          { icon: "🔒", name: "Previous Owner Records", status: "confidential" },
+          { icon: "💳", name: "Insurance", status: "verified" },
+        ],
+      },
+      "Honda Vezel": {
+        badge: "Verified", badgeClass: "badge-verified",
+        condition: "Reconditioned", location: "Chittagong", price: "৳22,80,000",
+        year: "2018", mileage: "72,000 km", fuel: "Petrol/Hybrid", transmission: "CVT Automatic",
+        color: "Taffeta White", engine: "1500cc Hybrid (LEB)", bodyType: "Compact SUV",
+        seats: "5", doors: "4", drive: "FWD / i-DCD", importedFrom: "Japan",
+        registrationYear: "2019 (BD)", fitnessExpiry: "Mar 2026", taxToken: "Valid",
+        seller: "Chittagong Auto Hub", sellerRating: "4.6 ★", sellerDeals: "31 deals",
+        phone: "+880 1800-654321",
+        description: "Honda Vezel RS Hybrid imported from Japan. The RS trim includes sport interior with red accents and Honda Sensing safety suite. Hybrid battery tested and healthy (85% capacity). Very fuel efficient — averaging 18 km/L in city. Used primarily for weekend trips, hence moderate mileage for the year.",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=900&q=80", label: "Front Exterior" },
+          { src: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80", label: "Side View" },
+          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Interior" },
+          { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80", label: "Dashboard" },
+          { src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80", label: "Engine Bay" },
+          { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80", label: "Rear" },
+        ],
+        specs: [
+          ["Engine", "1497cc i-VTEC + Motor"], ["System Power", "135 hp (combined)"], ["Battery", "Li-ion 1.3 kWh"],
+          ["Transmission", "7-Speed DCT"], ["Drive", "FWD i-DCD"], ["Fuel Type", "Petrol Hybrid"],
+          ["Fuel Economy", "~18 km/L city"], ["Body Type", "Compact SUV"], ["Seats", "5"],
+          ["Color", "Taffeta White"], ["Ground Clearance", "160 mm"], ["Boot Space", "393 L"],
+          ["Length", "4,295 mm"], ["Width", "1,770 mm"], ["Tyres", "215/55 R17"], ["A/C", "Auto A/C"],
+        ],
+        features: ["Honda Sensing", "Collision Mitigation Braking", "Lane Keep Assist", "Adaptive Cruise", "Auto High Beam", "Push Start", "Sunroof / Moonroof", "Wireless Charging", "Apple CarPlay", "8\" Touchscreen", "360° Camera", "Heated Seats", "Keyless Entry", "Alloy Wheels"],
+        papers: [
+          { icon: "📋", name: "Registration Card", status: "verified" },
+          { icon: "🚢", name: "Import Certificate", status: "verified" },
+          { icon: "⚡", name: "Hybrid Battery Report", status: "verified" },
+          { icon: "🔧", name: "150-pt Inspection", status: "verified" },
+          { icon: "🔒", name: "Insurance Records", status: "confidential" },
+          { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+        ],
+      },
+      "Nissan X-Trail": {
+        badge: "Verified", badgeClass: "badge-verified",
+        condition: "Imported", location: "Dhaka", price: "৳31,00,000",
+        year: "2017", mileage: "89,000 km", fuel: "Petrol", transmission: "CVT Automatic",
+        color: "Brilliant Silver", engine: "2000cc (MR20DD)", bodyType: "SUV",
+        seats: "7", doors: "4", drive: "AWD 4WD", importedFrom: "Japan",
+        registrationYear: "2022 (BD)", fitnessExpiry: "Jun 2025", taxToken: "Pending Renewal",
+        seller: "Capital Auto Traders", sellerRating: "4.5 ★", sellerDeals: "62 deals",
+        phone: "+880 1900-987654",
+        description: "Nissan X-Trail 20X 7-seater variant with AWD system. Third row seats fold flat for extra cargo. Perfect for families and long road trips. Strong 2.0L engine handles Dhaka traffic comfortably. All four doors and sunroof mechanism working perfectly. Minor surface scratch on rear bumper (noted in inspection report). Tax token renewal in progress — will be completed before handover.",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=900&q=80", label: "Front Exterior" },
+          { src: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80", label: "Side Profile" },
+          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "7-Seat Interior" },
+          { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80", label: "Dashboard" },
+          { src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80", label: "Engine Bay" },
+          { src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=900&q=80", label: "Rear View" },
+        ],
+        specs: [
+          ["Engine", "1997cc MR20DD"], ["Horsepower", "144 hp"], ["Torque", "200 Nm"],
+          ["Transmission", "CVT Automatic"], ["Drive", "4WD / AWD"], ["Fuel Type", "Petrol"],
+          ["Fuel Economy", "~11 km/L city"], ["Body Type", "SUV"], ["Seats", "7"],
+          ["Color", "Brilliant Silver"], ["Ground Clearance", "210 mm"], ["Boot Space", "445 L (5-seat)"],
+          ["Length", "4,640 mm"], ["Width", "1,820 mm"], ["Tyres", "225/60 R17"], ["A/C", "Front & Rear Dual Zone"],
+        ],
+        features: ["Around View Monitor", "Intelligent 4WD", "7 Seats", "Panoramic Sunroof", "Push Start", "Keyless Entry", "Power Rear Gate", "8\" Display Audio", "Bose Sound System", "Heated Front Seats", "Auto Parking Assist", "Blind Spot Warning", "Rear Cross Traffic Alert", "LED Headlights"],
+        papers: [
+          { icon: "📋", name: "Registration Card", status: "verified" },
+          { icon: "🚢", name: "Import Certificate", status: "verified" },
+          { icon: "🔧", name: "Inspection Report", status: "verified" },
+          { icon: "📄", name: "Tax Token", status: "confidential" },
+          { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+          { icon: "🔒", name: "Full Service History", status: "confidential" },
+        ],
+      },
+      "Toyota Axio": {
+        badge: "Verified", badgeClass: "badge-verified",
+        condition: "Reconditioned", location: "Sylhet", price: "৳18,50,000",
+        year: "2020", mileage: "41,000 km", fuel: "Petrol/Hybrid", transmission: "CVT Automatic",
+        color: "Super White", engine: "1500cc Hybrid (1NZ-FXE)", bodyType: "Sedan",
+        seats: "5", doors: "4", drive: "FWD", importedFrom: "Japan",
+        registrationYear: "2021 (BD)", fitnessExpiry: "Nov 2026", taxToken: "Valid",
+        seller: "Sylhet Car Point", sellerRating: "4.9 ★", sellerDeals: "18 deals",
+        phone: "+880 1700-111222",
+        description: "Practically new Toyota Axio G Hybrid with only 41,000 km. One careful owner — used primarily for airport runs and long distances. Interior spotless with seat covers maintained from day one. Hybrid system in excellent condition. Extremely fuel efficient at 20+ km/L on highways. First owner selling due to upgrade. No accidents, no major repairs.",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1583267746897-2cf415887172?w=900&q=80", label: "Front Exterior" },
+          { src: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=900&q=80", label: "Side View" },
+          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Interior" },
+          { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80", label: "Dashboard" },
+          { src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80", label: "Engine Bay" },
+          { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80", label: "Rear Exterior" },
+        ],
+        specs: [
+          ["Engine", "1496cc 1NZ-FXE + Motor"], ["System Power", "75 hp"], ["Battery", "NiMH Hybrid"],
+          ["Transmission", "CVT Automatic"], ["Drive", "FWD"], ["Fuel Type", "Petrol Hybrid"],
+          ["Fuel Economy", "~20 km/L highway"], ["Body Type", "Sedan"], ["Seats", "5"],
+          ["Color", "Super White"], ["Length", "4,400 mm"], ["Width", "1,695 mm"],
+          ["Tyres", "185/65 R15"], ["Boot Space", "340 L"], ["A/C", "Auto A/C"], ["Airbags", "SRS Dual"],
+        ],
+        features: ["Hybrid System", "Push Start", "Keyless Entry", "Auto A/C", "Rear Camera", "Parking Sensor", "Bluetooth Audio", "USB Charging Ports", "Power Windows", "Power Mirrors", "Auto Lights", "Alloy Wheels", "Dual Airbags", "ABS"],
+        papers: [
+          { icon: "📋", name: "Registration Card", status: "verified" },
+          { icon: "🚢", name: "Import Certificate", status: "verified" },
+          { icon: "⚡", name: "Hybrid Battery Test", status: "verified" },
+          { icon: "🔧", name: "Inspection Report", status: "verified" },
+          { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+          { icon: "💳", name: "Insurance", status: "verified" },
+        ],
+      },
+      "Mitsubishi Outlander": {
+        badge: "Verified", badgeClass: "badge-verified",
+        condition: "Used", location: "Rajshahi", price: "৳28,00,000",
+        year: "2016", mileage: "95,000 km", fuel: "Petrol", transmission: "CVT Automatic",
+        color: "Titanium Gray", engine: "2400cc (4B12 MIVEC)", bodyType: "SUV",
+        seats: "7", doors: "4", drive: "4WD S-AWC", importedFrom: "Japan",
+        registrationYear: "2019 (BD)", fitnessExpiry: "Aug 2025", taxToken: "Valid",
+        seller: "Rajshahi Motor Co.", sellerRating: "4.4 ★", sellerDeals: "29 deals",
+        phone: "+880 1600-445566",
+        description: "Mitsubishi Outlander 24G with S-AWC all-wheel control — perfect for Bangladesh road conditions. 7-seater with comfortable 3rd row. All four shock absorbers recently replaced. Timing belt changed at 80,000 km. Engine running smoothly. Body is well-maintained with minor age-related blemishes. Selling due to owner relocating abroad.",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=900&q=80", label: "Front Exterior" },
+          { src: "https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=900&q=80", label: "Side View" },
+          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "Interior" },
+          { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80", label: "Dashboard" },
+          { src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80", label: "Engine (2400cc)" },
+          { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80", label: "Rear / 3rd Row" },
+        ],
+        specs: [
+          ["Engine", "2360cc 4B12 MIVEC"], ["Horsepower", "167 hp"], ["Torque", "226 Nm"],
+          ["Transmission", "CVT Automatic"], ["Drive", "4WD S-AWC"], ["Fuel Type", "Petrol"],
+          ["Fuel Economy", "~9 km/L city"], ["Body Type", "SUV"], ["Seats", "7"],
+          ["Color", "Titanium Gray"], ["Ground Clearance", "210 mm"], ["Length", "4,655 mm"],
+          ["Width", "1,800 mm"], ["Tyres", "225/55 R18"], ["A/C", "Dual Zone"], ["Airbags", "7 SRS"],
+        ],
+        features: ["S-AWC All-Wheel Control", "7 Seats", "Rockford Fosgate Audio", "Rear Camera", "Auto A/C", "Seat Heaters", "Steering Heater", "Push Start", "Keyless Entry", "Power Tailgate", "Roof Rails", "LED Headlights", "Blind Spot Monitor", "Lane Departure Warning"],
+        papers: [
+          { icon: "📋", name: "Registration Card", status: "verified" },
+          { icon: "🚢", name: "Import Certificate", status: "verified" },
+          { icon: "🔧", name: "Service Records", status: "verified" },
+          { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+          { icon: "🔒", name: "Accident History", status: "confidential" },
+          { icon: "💳", name: "Insurance", status: "verified" },
+        ],
+      },
+      "BMW 3 Series": {
+        badge: "Premium", badgeClass: "badge-hot",
+        condition: "Used", location: "Dhaka", price: "৳62,00,000",
+        year: "2021", mileage: "28,000 km", fuel: "Petrol", transmission: "8-Speed Steptronic",
+        color: "Alpine White", engine: "2000cc TwinPower Turbo (B48)", bodyType: "Sports Sedan",
+        seats: "5", doors: "4", drive: "RWD / xDrive", importedFrom: "Germany / USA",
+        registrationYear: "2022 (BD)", fitnessExpiry: "Jan 2027", taxToken: "Valid",
+        seller: "Elite Auto BD", sellerRating: "5.0 ★", sellerDeals: "14 deals",
+        phone: "+880 1711-999888",
+        description: "BMW 330i M Sport in stunning Alpine White. Imported new from authorized dealer. Full BMW service history maintained at authorized service center. M Sport package includes M aero kit, sport seats, and M steering wheel. IDrive 7.0 with full Apple CarPlay. This is the cleanest example you will find in Bangladesh at this price. Serious buyers only — test drive available.",
+        photos: [
+          { src: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=900&q=80", label: "Front — M Sport" },
+          { src: "https://images.unsplash.com/photo-1544636331-e26879cd4d9b?w=900&q=80", label: "Side Profile" },
+          { src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80", label: "M Sport Interior" },
+          { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=900&q=80", label: "iDrive Dashboard" },
+          { src: "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=900&q=80", label: "B48 Engine Bay" },
+          { src: "https://images.unsplash.com/photo-1583267746897-2cf415887172?w=900&q=80", label: "Rear — M Diffuser" },
+        ],
+        specs: [
+          ["Engine", "1998cc B48 TwinPower Turbo"], ["Horsepower", "255 hp"], ["Torque", "400 Nm"],
+          ["Transmission", "8-Speed Steptronic"], ["Drive", "Rear-Wheel Drive"], ["0–100 km/h", "5.8 sec"],
+          ["Top Speed", "250 km/h (limited)"], ["Fuel Economy", "~10 km/L city"], ["Body Type", "Sports Sedan"],
+          ["Seats", "5"], ["Color", "Alpine White"], ["Package", "M Sport"],
+          ["Length", "4,709 mm"], ["Width", "1,827 mm"], ["Tyres", "225/45 R18 (F) 255/40 R18 (R)"], ["Airbags", "10 SRS"],
+        ],
+        features: ["M Sport Package", "iDrive 7.0", "Apple CarPlay / Android Auto", "Wireless Charging", "Harman Kardon Sound", "Head-Up Display", "Parking Assistant Plus", "360° Camera", "Adaptive LED Headlights", "Heated M Seats", "M Steering Wheel", "Launch Control", "Driving Mode Selector", "Live Cockpit Professional"],
+        papers: [
+          { icon: "📋", name: "Bangladesh Registration", status: "verified" },
+          { icon: "📦", name: "Original Bill of Entry", status: "verified" },
+          { icon: "🔧", name: "BMW Service History", status: "verified" },
+          { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+          { icon: "🔒", name: "Duty Payment Receipt", status: "confidential" },
+          { icon: "💳", name: "Insurance (Comprehensive)", status: "verified" },
+        ],
+      },
+    };
 
-      const waMsg = encodeURIComponent("Hi, I'm interested in the " + d.name + " (" + d.year + ") listed on GariBazar BD. Price: " + d.price);
-      document.getElementById('cm-whatsapp-btn').href = 'https://wa.me/8801700000000?text=' + waMsg;
+    let cdpCurrentPhotos = [];
+    let cdpCurrentIdx    = 0;
+    let cdpCurrentData   = null;
 
-      const modal = document.getElementById('car-modal');
-      modal.hidden = false;
+    function openCarDetail(card) {
+      const name = card.dataset.name;
+      const d    = CARS_DATA[name];
+      if (!d) return;
+      cdpCurrentData   = d;
+      cdpCurrentPhotos = d.photos;
+      cdpCurrentIdx    = 0;
+
+      // Bar title
+      document.getElementById('cdp-bar-title').textContent = name + ' ' + card.dataset.year;
+
+      // Hero image
+      cdpSetPhoto(0);
+
+      // Thumbnails
+      const thumbsEl = document.getElementById('cdp-thumbs');
+      thumbsEl.innerHTML = '';
+      d.photos.forEach((p, i) => {
+        const t = document.createElement('div');
+        t.className = 'cdp-thumb' + (i === 0 ? ' active' : '');
+        t.innerHTML = '<img src="' + p.src + '" alt="' + p.label + '" loading="lazy">';
+        t.onclick = () => cdpSetPhoto(i);
+        thumbsEl.appendChild(t);
+      });
+
+      // Badges
+      document.getElementById('cdp-badges').innerHTML =
+        '<span class="badge ' + d.badgeClass + '" style="font-size:.75rem;">' + d.badge + '</span>' +
+        '<span class="badge badge-recon" style="font-size:.75rem;">' + d.condition + '</span>';
+
+      // Price + location
+      document.getElementById('cdp-price').textContent = d.price;
+      document.getElementById('cdp-loc').textContent   = '📍 ' + d.location;
+
+      // Contact buttons
+      const waMsg = encodeURIComponent("Hello, I'm interested in the " + name + " (" + d.year + ") — " + d.price + " — listed on GariBazar BD. Is it still available?");
+      const waUrl = 'https://wa.me/' + d.phone.replace(/[^0-9]/g,'') + '?text=' + waMsg;
+      const phoneAlert = function() { alert('📞 Contact Seller\n' + d.seller + '\nPhone: ' + d.phone + '\nbKash / Nagad: ' + d.phone); };
+
+      document.getElementById('cdp-contact-btn').onclick    = phoneAlert;
+      document.getElementById('cdp-wa-btn').href            = waUrl;
+      document.getElementById('cdp-contact-bottom').onclick = phoneAlert;
+      document.getElementById('cdp-wa-bottom').href         = waUrl;
+
+      // Overview chips
+      document.getElementById('cdp-overview').innerHTML = [
+        ['📅', d.year], ['🛣', d.mileage], ['⛽', d.fuel],
+        ['⚙️', d.transmission], ['🎨', d.color], ['🚗', d.bodyType],
+        ['👥', d.seats + ' Seats'], ['🌏', d.importedFrom],
+      ].map(([e,v]) => '<span class="cdp-chip">' + e + ' ' + v + '</span>').join('');
+
+      // Description
+      document.getElementById('cdp-desc').textContent = d.description;
+
+      // Gallery
+      document.getElementById('cdp-gallery').innerHTML = d.photos.map(p =>
+        '<div class="cdp-gal-item" onclick="openLightbox(\'' + p.src.replace("'","\\'") + '\',\'' + p.label.replace("'","\\'") + '\')">' +
+        '<img src="' + p.src + '" alt="' + p.label + '" loading="lazy">' +
+        '<div class="cdp-gal-label">' + p.label + '</div></div>'
+      ).join('');
+
+      // Video thumb (use first photo as thumb)
+      document.getElementById('cdp-video-thumb').src = d.photos[0].src;
+
+      // Spec grid
+      document.getElementById('cdp-spec-grid').innerHTML = d.specs.map(([k,v]) =>
+        '<div class="cdp-spec-item"><div class="cdp-spec-k">' + k + '</div><div class="cdp-spec-v">' + v + '</div></div>'
+      ).join('');
+
+      // Features
+      document.getElementById('cdp-features').innerHTML = d.features.map(f =>
+        '<div class="cdp-feature-item">' + f + '</div>'
+      ).join('');
+
+      // Papers
+      document.getElementById('cdp-papers').innerHTML = d.papers.map(p => {
+        const conf = p.status === 'confidential';
+        return '<div class="cdp-paper-card ' + (conf ? 'confidential' : 'verified') + '">' +
+          '<div class="cdp-paper-icon">' + p.icon + '</div>' +
+          '<div class="cdp-paper-name">' + p.name + '</div>' +
+          '<span class="cdp-paper-badge ' + (conf ? 'lock' : 'ok') + '">' + (conf ? '🔒 Confidential' : '✓ Verified') + '</span>' +
+        '</div>';
+      }).join('');
+
+      // Seller
+      const initials = d.seller.split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+      document.getElementById('cdp-seller').innerHTML =
+        '<div class="cdp-seller-avatar">' + initials + '</div>' +
+        '<div class="cdp-seller-info">' +
+          '<div class="cdp-seller-name">' + d.seller + '</div>' +
+          '<div class="cdp-seller-meta">' + d.sellerRating + ' · ' + d.sellerDeals + ' · ' + d.location + '</div>' +
+          '<div class="cdp-seller-verified">✓ GariBazar Verified Seller</div>' +
+        '</div>';
+
+      // Show panel
+      const panel = document.getElementById('car-detail');
+      panel.style.display = 'flex';
+      panel.scrollTop = 0;
+      const scroll = panel.querySelector('.cdp-scroll');
+      if (scroll) scroll.scrollTop = 0;
       document.body.style.overflow = 'hidden';
     }
 
-    function closeCarModal() {
-      document.getElementById('car-modal').hidden = true;
-      document.body.style.overflow = '';
+    function cdpSetPhoto(idx) {
+      cdpCurrentIdx = idx;
+      const photos  = cdpCurrentPhotos;
+      const img     = document.getElementById('cdp-hero-img');
+      img.style.opacity = '0';
+      setTimeout(() => {
+        img.src = photos[idx].src;
+        img.alt = photos[idx].label;
+        img.style.opacity = '1';
+      }, 150);
+      document.getElementById('cdp-photo-count').textContent = (idx + 1) + ' / ' + photos.length;
+      document.querySelectorAll('.cdp-thumb').forEach((t, i) => t.classList.toggle('active', i === idx));
     }
+
+    function cdpPhotoNav(dir) {
+      const len = cdpCurrentPhotos.length;
+      cdpSetPhoto((cdpCurrentIdx + dir + len) % len);
+    }
+
+    function cdpToggleWish(btn) {
+      const on = btn.textContent === '❤️';
+      btn.textContent = on ? '🤍' : '❤️';
+      gsap.fromTo(btn, { scale: 0.7 }, { scale: 1, duration: 0.4, ease: 'back.out(3)' });
+    }
+
+    function cdpPlayVideo(el) {
+      el.innerHTML = '<div style="background:#000;width:100%;aspect-ratio:16/9;border-radius:12px;display:flex;align-items:center;justify-content:center;color:#7a8b9e;flex-direction:column;gap:.5rem;"><span style="font-size:2rem;">🎬</span><span style="font-size:.9rem;">Video coming soon — contact seller for a live walkthrough</span></div>';
+    }
+
+    function closeCarDetail() {
+      const panel = document.getElementById('car-detail');
+      panel.style.animation = 'cdp-slide-out .3s ease forwards';
+      setTimeout(() => {
+        panel.style.display = 'none';
+        panel.style.animation = '';
+        document.body.style.overflow = '';
+      }, 280);
+    }
+
+    // Lightbox
+    function openLightbox(src, label) {
+      const lb = document.getElementById('photo-lightbox');
+      document.getElementById('lb-img').src = src;
+      document.getElementById('lb-label').textContent = label;
+      lb.style.display = 'flex';
+    }
+    function closeLightbox() {
+      document.getElementById('photo-lightbox').style.display = 'none';
+    }
+    document.getElementById('photo-lightbox')?.addEventListener('click', function(e) {
+      if (e.target === this) closeLightbox();
+    });
 
     // Click car cards
     document.querySelectorAll('.car-card').forEach(card => {
       card.addEventListener('click', function(e) {
-        if (e.target.closest('.car-wishlist')) return; // ignore wishlist clicks
-        openCarModal(this);
+        if (e.target.closest('.car-wishlist')) return;
+        openCarDetail(this);
       });
       card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCarModal(this); }
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCarDetail(this); }
       });
-    });
-
-    // Close on backdrop click
-    document.getElementById('car-modal')?.addEventListener('click', function(e) {
-      if (e.target === this) closeCarModal();
     });
 
     // ─── 13. Sell Modal ───────────────────────────────
@@ -2546,7 +3126,8 @@
     // ─── 14. Escape key closes any modal ─────────────
     document.addEventListener('keydown', function(e) {
       if (e.key !== 'Escape') return;
-      closeCarModal();
+      if (document.getElementById('photo-lightbox').style.display === 'flex') { closeLightbox(); return; }
+      if (document.getElementById('car-detail').style.display !== 'none') { closeCarDetail(); return; }
       closeSellModal();
     });
 
