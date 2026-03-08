@@ -10,49 +10,32 @@ const stats = [
   { target: 5000, suffix: "+", label: "Cars Sold" },
   { target: 12000, suffix: "+", label: "Happy Customers" },
   { target: 64, suffix: "", label: "Districts Covered" },
-  { target: 350, suffix: "+", label: "Verified Dealers" },
 ];
 
 const features = [
   {
+    emoji: "\u{1F50D}",
     title: "Verified Inspections",
-    desc: "Every car goes through a 150-point inspection by certified mechanics before listing.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10" />
-        <path d="m9 12 2 2 4-4" />
-      </svg>
-    ),
+    desc: "Every car inspected by certified mechanics before listing.",
+    bangla: "\u09B8\u09BE\u09B0\u09CD\u099F\u09BF\u09AB\u09BE\u0987\u09A1 \u09AE\u09C7\u0995\u09BE\u09A8\u09BF\u0995 \u09A6\u09CD\u09AC\u09BE\u09B0\u09BE \u09AA\u09B0\u09C0\u0995\u09CD\u09B7\u09BF\u09A4\u0964",
   },
   {
+    emoji: "\u{1F512}",
     title: "Secure Transactions",
-    desc: "Safe payment with escrow protection. Your money is secured until you confirm delivery.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
-        <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-      </svg>
-    ),
+    desc: "Safe payment with escrow protection built in.",
+    bangla: "\u098F\u09B8\u0995\u09CD\u09B0\u09CB \u09B8\u09C1\u09B0\u0995\u09CD\u09B7\u09BE \u09B8\u09B9 \u09A8\u09BF\u09B0\u09BE\u09AA\u09A6 \u09AA\u09C7\u09AE\u09C7\u09A8\u09CD\u099F\u0964",
   },
   {
+    emoji: "\u{1F5FA}\uFE0F",
     title: "Nationwide Coverage",
-    desc: "Find cars across all 8 divisions — Dhaka, Chittagong, Sylhet, Rajshahi, Khulna, and more.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-        <circle cx="12" cy="10" r="3" />
-      </svg>
-    ),
+    desc: "Dhaka, Chittagong, Sylhet, Rajshahi, Khulna & all 64 districts.",
+    bangla: "\u09B8\u09BE\u09B0\u09BE \u09AC\u09BE\u0982\u09B2\u09BE\u09A6\u09C7\u09B6 \u099C\u09C1\u09DC\u09C7 \u09B8\u09C7\u09AC\u09BE\u0964",
   },
   {
+    emoji: "\u{1F4B0}",
     title: "Best Prices",
-    desc: "No middleman markup. Direct buyer-seller deals with transparent pricing in BDT.",
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-        <line x1="12" x2="12" y1="2" y2="22" />
-        <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
-      </svg>
-    ),
+    desc: "No middleman markup. Direct buyer\u2013seller deals only.",
+    bangla: "\u0995\u09CB\u09A8\u09CB \u09AE\u09BF\u09A1\u09B2\u09AE\u09CD\u09AF\u09BE\u09A8 \u09A8\u09C7\u0987, \u09B8\u09B0\u09BE\u09B8\u09B0\u09BF \u0995\u09CD\u09B0\u09C7\u09A4\u09BE-\u09AC\u09BF\u0995\u09CD\u09B0\u09C7\u09A4\u09BE\u0964",
   },
 ];
 
@@ -70,24 +53,27 @@ export default function WhyChoose() {
         onEnter: () => {
           gsap.to({ val: 0 }, {
             val: target,
-            duration: 2,
+            duration: 2.2,
             ease: "power2.out",
             onUpdate() {
-              stat.textContent = Math.floor(this.targets()[0].val).toLocaleString("en-IN") + suffix;
+              stat.textContent = Math.round(this.targets()[0].val).toLocaleString("en-IN") + suffix;
             },
           });
-          const gauge = stat.closest(".stat-item")?.querySelector(".stat-gauge");
-          if (gauge) gsap.to(gauge, { strokeDashoffset: 0, duration: 2, ease: "power2.out" });
         },
       });
     });
+
+    gsap.set(".stat-card", { y: 25, opacity: 0 });
+    gsap.set(".feature-card", { y: 30, opacity: 0 });
 
     ScrollTrigger.create({
       trigger: ".stats-row",
       start: "top 85%",
       once: true,
       onEnter: () => {
-        gsap.from(".stat-item", { y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+        gsap.to(".stat-card", {
+          y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", clearProps: "transform,opacity",
+        });
       },
     });
 
@@ -96,62 +82,60 @@ export default function WhyChoose() {
       start: "top 80%",
       once: true,
       onEnter: () => {
-        gsap.from(".feature-card", { y: 40, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" });
+        gsap.to(".feature-card", {
+          y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity",
+        });
       },
     });
   }, []);
 
   return (
-    <section className="why-section py-[120px] px-6 bg-[var(--bg-secondary)] overflow-hidden relative showroom-spot carbon-bg" id="about">
-      <div className="max-w-[1280px] mx-auto relative z-[1]">
-        <div className="section-header text-center mb-16">
-          <div className="glow-line mb-6" />
-          <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--accent)] mb-3">
-            Why GariBazar
-          </p>
-          <h2 className="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-tight mb-4">
-            The Trusted Way to Buy & Sell Cars
+    <section className="py-32 px-[5%] bg-[var(--bg-primary)]" id="about" aria-label="Why choose GariBazar">
+      <div className="max-w-[1300px] mx-auto">
+        <div className="text-center mb-12">
+          <div className="section-label" style={{ justifyContent: "center" }}>Trusted by Thousands</div>
+          <h2
+            className="gradient-text"
+            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, fontStyle: "italic" }}
+          >
+            Why Choose GariBazar BD?
           </h2>
-          <p className="text-lg text-[var(--text-secondary)] max-w-[560px] mx-auto leading-relaxed">
-            We make second-hand car deals safe, transparent, and hassle-free across Bangladesh.
-          </p>
         </div>
 
         {/* Stats */}
-        <div className="stats-row grid grid-cols-4 max-lg:grid-cols-2 gap-6 mb-20">
+        <div className="stats-row grid grid-cols-3 max-md:grid-cols-1 gap-4 mb-20">
           {stats.map((s, i) => (
-            <div key={i} className="stat-item text-center p-8 bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] rounded-2xl relative transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.1]">
-              {/* Gauge arc */}
-              <svg className="mx-auto mb-2 w-20 h-10 overflow-visible" viewBox="0 0 80 40">
-                <path d="M 5 40 A 35 35 0 0 1 75 40" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="3" strokeLinecap="round" />
-                <path className="stat-gauge" d="M 5 40 A 35 35 0 0 1 75 40" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeDasharray="110" strokeDashoffset="110" />
-              </svg>
+            <div
+              key={i}
+              className="stat-card text-center p-8 glass-bg border border-white/[0.06] rounded-2xl transition-all duration-300 hover:border-[rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_var(--accent-glow)]"
+            >
               <div
-                className="stat-number text-[clamp(2rem,4vw,3rem)] font-black text-[var(--accent)] leading-none mb-2 font-dashboard"
+                className="stat-number text-[clamp(2.5rem,5vw,3.5rem)] font-black italic text-[var(--accent)] leading-none mb-2"
                 data-target={s.target}
                 data-suffix={s.suffix}
               >
-                0
+                0{s.suffix}
               </div>
-              <div className="text-sm text-[var(--text-secondary)] font-medium">{s.label}</div>
+              <div className="text-[0.85rem] text-[var(--text-secondary)] font-medium">{s.label}</div>
             </div>
           ))}
         </div>
 
         {/* Features */}
-        <div className="features-grid grid grid-cols-4 max-lg:grid-cols-2 max-md:grid-cols-1 gap-6">
+        <div className="features-grid grid grid-cols-4 max-lg:grid-cols-2 max-md:grid-cols-1 gap-5">
           {features.map((f, i) => (
             <div
               key={i}
-              className="feature-card p-9 bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] rounded-2xl transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.12] hover:-translate-y-1 relative overflow-hidden group"
+              className="feature-card p-8 glass-bg border border-white/[0.06] rounded-2xl transition-all duration-350 hover:-translate-y-1.5 hover:border-[rgba(59,130,246,0.3)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.12)]"
             >
-              {/* Top chrome edge */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
-              <div className="w-14 h-14 bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-xl flex items-center justify-center mb-5 text-[var(--accent)] transition-transform duration-300 group-hover:scale-110">
-                {f.icon}
+              <div className="w-[52px] h-[52px] bg-[var(--accent-glow)] border border-[rgba(59,130,246,0.3)] rounded-lg flex items-center justify-center text-[1.4rem] mb-5">
+                {f.emoji}
               </div>
-              <h4 className="text-[1.1rem] font-bold mb-2.5">{f.title}</h4>
-              <p className="text-sm text-[var(--text-secondary)] leading-relaxed">{f.desc}</p>
+              <h3 className="text-[1rem] font-extrabold mb-2">{f.title}</h3>
+              <p className="text-[0.82rem] text-[var(--text-secondary)] leading-relaxed">
+                {f.desc}
+                <span className="block text-[0.78rem] text-white/30 mt-0.5" lang="bn">{f.bangla}</span>
+              </p>
             </div>
           ))}
         </div>

@@ -68,6 +68,16 @@ export default function Hero() {
               className="w-full h-full object-cover object-center"
             />
             <div className="hero-media-overlay absolute inset-0 bg-[radial-gradient(circle,rgba(0,0,0,0)_30%,rgba(0,0,0,0.7)_100%)] z-[1]" />
+            {/* Grain overlay */}
+            <div
+              className="absolute -inset-1/2 w-[200%] h-[200%] z-[4] pointer-events-none opacity-[0.055]"
+              style={{
+                animation: "grainAnim 0.25s steps(1) infinite",
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+                backgroundSize: "256px 256px",
+              }}
+              aria-hidden="true"
+            />
           </div>
         </div>
 
@@ -98,13 +108,13 @@ export default function Hero() {
         </div>
 
         {/* Tagline — fades in on scroll */}
-        <div className="hero-tagline absolute bottom-[15%] left-1/2 -translate-x-1/2 z-[25] text-center opacity-0">
-          <p className="text-[clamp(1rem,2vw,1.4rem)] text-white/80 font-light tracking-wide">
-            Your Dream Car, Within Your Budget
-          </p>
-          <p className="text-[clamp(0.85rem,1.5vw,1.1rem)] text-[var(--text-secondary)] mt-2">
+        <div className="hero-tagline absolute bottom-[9vh] left-0 right-0 z-[22] text-center pointer-events-none opacity-0 translate-y-7">
+          <span className="text-[clamp(1.1rem,2.8vw,1.9rem)] font-bold text-white/[0.92] tracking-wide block mb-1" style={{ textShadow: "0 2px 30px rgba(0,0,0,0.9)" }} lang="bn">
             আপনার স্বপ্নের গাড়ি, আপনার বাজেটে
-          </p>
+          </span>
+          <span className="text-[clamp(0.75rem,1.5vw,1rem)] font-medium text-white/40 tracking-[0.12em] uppercase block" style={{ textShadow: "0 2px 20px rgba(0,0,0,0.9)" }}>
+            Bangladesh&apos;s Trusted Used Car Marketplace
+          </span>
         </div>
 
         {/* Scroll hint */}

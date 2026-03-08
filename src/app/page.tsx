@@ -2,17 +2,21 @@
 
 import { useState, useCallback } from "react";
 import SmoothScroll from "@/components/SmoothScroll";
+import Preloader from "@/components/Preloader";
+import CustomCursor from "@/components/CustomCursor";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import SearchBar from "@/components/SearchBar";
 import FeaturedCars from "@/components/FeaturedCars";
 import WhyChoose from "@/components/WhyChoose";
+import PressStrip from "@/components/PressStrip";
 import Brands from "@/components/Brands";
+import Dealers from "@/components/Dealers";
 import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
+import FAQ from "@/components/FAQ";
 import Footer from "@/components/Footer";
-import TrustStrip from "@/components/TrustStrip";
 import SellModal from "@/components/SellModal";
 import CarModal from "@/components/CarModal";
 import type { Car, SearchFilters } from "@/types";
@@ -37,38 +41,43 @@ export default function Home() {
   }, []);
 
   return (
-    <SmoothScroll>
-      <Navbar onSellClick={() => setSellModalOpen(true)} />
-      <Hero />
-      <SearchBar
-        filters={filters}
-        setFilters={setFilters}
-        onSearch={() => scrollTo("browse-cars")}
-        onBrandChipClick={handleBrandSelect}
-      />
-      <TrustStrip />
-      <FeaturedCars
-        filters={filters}
-        onCarClick={setSelectedCar}
-      />
-      <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
-      <WhyChoose />
-      <Brands onBrandClick={handleBrandSelect} />
-      <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
-      <HowItWorks />
-      <Testimonials />
-      <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
-      <CTA
-        onBrowseClick={() => scrollTo("browse-cars")}
-        onSellClick={() => setSellModalOpen(true)}
-      />
-      <Footer
-        onSellClick={() => setSellModalOpen(true)}
-        onLocationClick={handleLocationSelect}
-      />
+    <>
+      <Preloader />
+      <CustomCursor />
+      <SmoothScroll>
+        <Navbar onSellClick={() => setSellModalOpen(true)} />
+        <Hero />
+        <SearchBar
+          filters={filters}
+          setFilters={setFilters}
+          onSearch={() => scrollTo("browse-cars")}
+          onBrandChipClick={handleBrandSelect}
+        />
+        <FeaturedCars
+          filters={filters}
+          onCarClick={setSelectedCar}
+        />
+        <WhyChoose />
+        <PressStrip />
+        <Brands onBrandClick={handleBrandSelect} />
+        <Dealers />
+        <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
+        <HowItWorks />
+        <Testimonials />
+        <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
+        <CTA
+          onBrowseClick={() => scrollTo("browse-cars")}
+          onSellClick={() => setSellModalOpen(true)}
+        />
+        <FAQ />
+        <Footer
+          onSellClick={() => setSellModalOpen(true)}
+          onLocationClick={handleLocationSelect}
+        />
 
-      {sellModalOpen && <SellModal onClose={() => setSellModalOpen(false)} />}
-      {selectedCar && <CarModal car={selectedCar} onClose={() => setSelectedCar(null)} />}
-    </SmoothScroll>
+        {sellModalOpen && <SellModal onClose={() => setSellModalOpen(false)} />}
+        {selectedCar && <CarModal car={selectedCar} onClose={() => setSelectedCar(null)} />}
+      </SmoothScroll>
+    </>
   );
 }
