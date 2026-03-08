@@ -1,7 +1,10 @@
 "use client";
 
-import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Props = {
   onBrowseClick: () => void;
@@ -9,67 +12,69 @@ type Props = {
 };
 
 export default function CTA({ onBrowseClick, onSellClick }: Props) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
+  useEffect(() => {
+    gsap.from(".cta-card", {
+      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out",
+      scrollTrigger: { trigger: ".cta-grid", start: "top 80%" },
+    });
+  }, []);
 
   return (
-    <section className="py-32 px-6" id="sell" ref={ref}>
-      <div className="max-w-[1200px] mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="relative rounded-3xl overflow-hidden"
-        >
-          {/* Ambient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--accent)]/[0.04] via-transparent to-emerald-500/[0.02]" />
-          <div className="absolute inset-0 border border-white/[0.04] rounded-3xl" />
-
-          <div className="relative z-10 py-20 px-12 max-md:py-14 max-md:px-8">
-            {/* Two column CTA */}
-            <div className="grid grid-cols-2 max-md:grid-cols-1 gap-16 max-md:gap-14">
-              {/* Buy side */}
-              <div>
-                <span className="text-[10px] uppercase tracking-[0.3em] text-[var(--accent)] font-medium">
-                  For Buyers
-                </span>
-                <h3 className="font-[family-name:var(--font-display)] text-[clamp(1.8rem,3.5vw,2.8rem)] font-[800] tracking-[-0.03em] leading-[1.1] mt-3 mb-5">
-                  Find your<br />next car.
-                </h3>
-                <p className="text-[13px] text-white/25 leading-relaxed mb-8 max-w-[320px]">
-                  Browse thousands of verified listings across Bangladesh. Your perfect car is waiting.
-                </p>
-                <button
-                  onClick={onBrowseClick}
-                  className="inline-flex items-center gap-2.5 px-7 py-3 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.06] hover:border-white/[0.1] text-white/80 hover:text-white rounded-xl text-[13px] font-medium cursor-pointer transition-all duration-300 group"
-                >
-                  Browse Cars
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-                </button>
-              </div>
-
-              {/* Sell side */}
-              <div className="max-md:pt-14 max-md:border-t border-white/[0.04]">
-                <span className="text-[10px] uppercase tracking-[0.3em] text-emerald-400/70 font-medium">
-                  For Sellers
-                </span>
-                <h3 className="font-[family-name:var(--font-display)] text-[clamp(1.8rem,3.5vw,2.8rem)] font-[800] tracking-[-0.03em] leading-[1.1] mt-3 mb-5">
-                  Sell your<br />car fast.
-                </h3>
-                <p className="text-[13px] text-white/25 leading-relaxed mb-8 max-w-[320px]">
-                  List for free. Reach thousands of verified buyers. Get the best price — no middleman.
-                </p>
-                <button
-                  onClick={onSellClick}
-                  className="inline-flex items-center gap-2.5 px-7 py-3 bg-transparent border border-white/[0.06] hover:border-emerald-500/30 text-white/50 hover:text-emerald-400/80 rounded-xl text-[13px] font-medium cursor-pointer transition-all duration-300 group"
-                >
-                  গাড়ি বিক্রি করুন
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="transition-transform duration-200 group-hover:translate-x-1"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg>
-                </button>
-              </div>
+    <section className="py-[120px] px-6 bg-[var(--bg-secondary)]" id="sell">
+      <div className="max-w-[1280px] mx-auto">
+        <div className="cta-grid grid grid-cols-2 max-md:grid-cols-1 gap-8">
+          {/* Buy */}
+          <div className="cta-card p-12 max-md:p-8 rounded-3xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:p-px before:bg-gradient-to-br before:from-[var(--accent)] before:to-transparent before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]">
+            <div className="relative z-[1]">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-6">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.3-4.3" />
+              </svg>
+              <h3 className="text-2xl font-extrabold mb-3">
+                Ready to Find Your Next Car?
+              </h3>
+              <p className="text-[var(--text-secondary)] mb-7 leading-relaxed">
+                Browse thousands of verified listings across Bangladesh. Your perfect car is waiting.
+              </p>
+              <button
+                onClick={onBrowseClick}
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg font-semibold text-[0.95rem] cursor-pointer transition-all hover:shadow-[0_8px_30px_var(--accent-glow)] border-none"
+              >
+                Browse Cars
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </button>
             </div>
           </div>
-        </motion.div>
+
+          {/* Sell */}
+          <div className="cta-card p-12 max-md:p-8 rounded-3xl relative overflow-hidden transition-all duration-300 hover:-translate-y-1 before:content-[''] before:absolute before:inset-0 before:rounded-3xl before:p-px before:bg-gradient-to-br before:from-emerald-500 before:to-transparent before:[mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] before:[-webkit-mask-composite:xor] before:[mask-composite:exclude]">
+            <div className="relative z-[1]">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="mb-6">
+                <line x1="12" x2="12" y1="2" y2="22" />
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+              </svg>
+              <h3 className="text-2xl font-extrabold mb-3">
+                Want to Sell Your Car?
+              </h3>
+              <p className="text-[var(--text-secondary)] mb-7 leading-relaxed">
+                List your car for free. Reach thousands of verified buyers. Get the best price — no middleman.
+              </p>
+              <button
+                onClick={onSellClick}
+                className="inline-flex items-center gap-2 px-8 py-3.5 bg-transparent border border-white/[0.06] hover:border-emerald-500 text-white hover:text-emerald-400 rounded-lg font-semibold text-[0.95rem] cursor-pointer transition-all"
+              >
+                গাড়ি বিক্রি করুন
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M5 12h14" />
+                  <path d="m12 5 7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );
