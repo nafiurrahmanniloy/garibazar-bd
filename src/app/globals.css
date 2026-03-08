@@ -1,27 +1,29 @@
 @import "tailwindcss";
 
 /* ============================================
-   GariBazar BD — Design Tokens
+   GariBazar BD — Premium Design System
    ============================================ */
 :root {
   --bg-primary: #03060a;
-  --bg-secondary: #0a1628;
-  --bg-card: #0d1b2a;
-  --bg-card-hover: #112240;
-  --text-primary: #ffffff;
-  --text-secondary: #7a8b9e;
-  --text-muted: #4a5568;
+  --bg-secondary: #070d1a;
+  --bg-card: #0a1220;
+  --bg-card-hover: #0f1a2e;
+  --text-primary: #eef2f7;
+  --text-secondary: #5a6d84;
+  --text-muted: #2e3d50;
   --accent: #3b82f6;
   --accent-hover: #2563eb;
-  --accent-glow: rgba(59, 130, 246, 0.3);
-  --accent-subtle: rgba(59, 130, 246, 0.1);
+  --accent-glow: rgba(59, 130, 246, 0.25);
+  --accent-subtle: rgba(59, 130, 246, 0.08);
   --success: #10b981;
   --warning: #f59e0b;
-  --border: rgba(255, 255, 255, 0.06);
-  --border-hover: rgba(255, 255, 255, 0.12);
+  --gold: #d4a853;
+  --border: rgba(255, 255, 255, 0.04);
+  --border-hover: rgba(255, 255, 255, 0.08);
+  --font-display: 'Inter', system-ui, sans-serif;
 }
 
-/* --- Base Reset --- */
+/* --- Lenis --- */
 html.lenis { height: auto; }
 .lenis-smooth { scroll-behavior: auto !important; }
 .lenis-stopped { overflow: hidden; }
@@ -35,17 +37,108 @@ body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   overflow-x: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-display);
 }
 
-/* --- Scroll Pulse --- */
+/* --- Film grain overlay --- */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+/* --- Selection --- */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.15); }
+
+/* --- Animations --- */
 @keyframes scrollPulse {
   0%, 100% { opacity: 0.3; transform: scaleY(0.5); }
   50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* --- Brand Scroll --- */
-@keyframes brandScroll {
+@keyframes marquee {
   0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  100% { transform: translateX(calc(-100% - var(--gap))); }
+}
+
+@keyframes marquee-reverse {
+  0% { transform: translateX(calc(-100% - var(--gap))); }
+  100% { transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+/* Tailwind animation classes */
+@utility animate-marquee {
+  animation: marquee var(--duration, 40s) linear infinite;
+}
+
+@utility animate-marquee-reverse {
+  animation: marquee-reverse var(--duration, 40s) linear infinite;
+}
+
+@utility animate-shimmer {
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+@utility animate-gradient {
+  animation: gradient-shift 6s ease infinite;
+  background-size: 200% 200%;
+}
+
+@utility animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* --- Noise texture for cards --- */
+@utility noise-texture {
+  position: relative;
+}
+
+/* --- Glass morphism --- */
+@utility glass {
+  background: rgba(10, 18, 32, 0.6);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+}
+
+/* --- Glow effects --- */
+@utility glow-blue {
+  box-shadow: 0 0 60px -12px rgba(59, 130, 246, 0.3);
+}
+
+@utility glow-gold {
+  box-shadow: 0 0 40px -12px rgba(212, 168, 83, 0.3);
+}
+
+/* --- Select styling --- */
+select option {
+  background: #0a1220;
+  color: #eef2f7;
 }

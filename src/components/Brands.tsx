@@ -1,38 +1,34 @@
 "use client";
 
 const brandNames = [
-  "TOYOTA", "HONDA", "NISSAN", "MITSUBISHI", "SUZUKI",
-  "HYUNDAI", "BMW", "MERCEDES", "MAZDA", "SUBARU",
+  "Toyota", "Honda", "Nissan", "Mitsubishi", "Suzuki",
+  "Hyundai", "BMW", "Mercedes", "Mazda", "Subaru",
 ];
 
 export default function Brands({ onBrandClick }: { onBrandClick: (brand: string) => void }) {
-  const allBrands = [...brandNames, ...brandNames];
+  const row = [...brandNames, ...brandNames];
 
   return (
-    <section className="py-20 px-6 overflow-hidden" id="brands">
-      <div className="max-w-[1280px] mx-auto">
-        <div className="section-header text-center mb-12">
-          <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--accent)] mb-3">
-            Popular Brands
-          </p>
-          <h2 className="text-[clamp(2rem,4vw,3rem)] font-extrabold leading-tight">
-            Browse by Brand
-          </h2>
-        </div>
+    <section className="py-20 overflow-hidden" id="brands">
+      {/* Minimal section label */}
+      <div className="flex items-center gap-3 mb-12 px-6 max-w-[1200px] mx-auto">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+        <span className="text-[10px] uppercase tracking-[0.25em] text-white/20 font-medium">Trusted Brands</span>
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
       </div>
 
-      {/* Infinite scrolling track */}
+      {/* Marquee track */}
       <div className="relative overflow-hidden">
-        {/* Fade edges */}
-        <div className="absolute top-0 left-0 w-[120px] h-full bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-[2] pointer-events-none" />
-        <div className="absolute top-0 right-0 w-[120px] h-full bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-[2] pointer-events-none" />
+        {/* Edge fades */}
+        <div className="absolute top-0 left-0 w-[160px] h-full bg-gradient-to-r from-[var(--bg-primary)] to-transparent z-[2] pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[160px] h-full bg-gradient-to-l from-[var(--bg-primary)] to-transparent z-[2] pointer-events-none" />
 
-        <div className="flex gap-[60px] animate-[brandScroll_30s_linear_infinite] w-max">
-          {allBrands.map((brand, i) => (
+        <div className="flex gap-[80px] animate-[marquee_35s_linear_infinite] w-max items-center">
+          {row.map((brand, i) => (
             <button
               key={i}
-              onClick={() => onBrandClick(brand.charAt(0) + brand.slice(1).toLowerCase())}
-              className="flex items-center justify-center min-w-[140px] h-[70px] px-8 py-4 bg-white/[0.03] border border-white/[0.06] rounded-lg text-[1.1rem] font-bold text-[var(--text-secondary)] tracking-wider whitespace-nowrap cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              onClick={() => onBrandClick(brand)}
+              className="font-[family-name:var(--font-display)] text-[clamp(1.4rem,3vw,2.2rem)] font-[700] tracking-[-0.02em] text-white/[0.07] hover:text-white/25 transition-colors duration-500 cursor-pointer bg-transparent border-none whitespace-nowrap uppercase"
             >
               {brand}
             </button>
