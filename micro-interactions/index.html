@@ -2089,26 +2089,64 @@
       <!-- Thumbnail strip -->
       <div class="cdp-thumbs" id="cdp-thumbs"></div>
 
+      <!-- Listing meta bar -->
+      <div class="cdp-meta-bar">
+        <div class="cdp-meta-bar-left" id="cdp-meta-left"></div>
+        <div class="cdp-meta-bar-right">
+          <button class="cdp-share-btn" onclick="cdpShare()" title="Share listing">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            Share
+          </button>
+          <button class="cdp-report-btn" onclick="cdpReport()" title="Report listing">⚑ Report</button>
+        </div>
+      </div>
+
       <!-- Price + CTA -->
       <div class="cdp-price-section">
         <div class="cdp-price-left">
           <div class="cdp-price-tag" id="cdp-price"></div>
           <div class="cdp-loc" id="cdp-loc"></div>
+          <div class="cdp-neg-tag" id="cdp-neg-tag"></div>
         </div>
         <div class="cdp-cta-btns">
           <button class="cdp-btn-primary" id="cdp-contact-btn">📞 Contact Seller</button>
           <a class="cdp-btn-wa" id="cdp-wa-btn" href="#" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
           <button class="cdp-btn-wish" id="cdp-wish-btn" onclick="cdpToggleWish(this)">🤍</button>
         </div>
+        <div class="cdp-extra-actions">
+          <button class="cdp-btn-offer" onclick="cdpOpenOffer()">💬 Make an Offer</button>
+          <button class="cdp-btn-testdrive" onclick="cdpOpenTestDrive()">🚗 Schedule Test Drive</button>
+        </div>
       </div>
 
       <!-- Quick overview chips -->
       <div class="cdp-overview" id="cdp-overview"></div>
 
+      <!-- Inspector Note banner -->
+      <div class="cdp-inspector-banner" id="cdp-inspector-banner"></div>
+
       <!-- Description -->
       <div class="cdp-section">
         <h3 class="cdp-sec-title">About This Car</h3>
         <p id="cdp-desc" class="cdp-desc-text"></p>
+      </div>
+
+      <!-- Accident & Damage History -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Accident & Damage History</h3>
+        <div id="cdp-accident"></div>
+      </div>
+
+      <!-- Ownership History -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Ownership History</h3>
+        <div class="cdp-ownership-timeline" id="cdp-ownership"></div>
+      </div>
+
+      <!-- Service & Maintenance -->
+      <div class="cdp-section">
+        <h3 class="cdp-sec-title">Service & Maintenance</h3>
+        <div id="cdp-service"></div>
       </div>
 
       <!-- Photo Gallery -->
@@ -2183,6 +2221,118 @@
     <button onclick="closeLightbox()" style="position:absolute;top:1.25rem;right:1.25rem;background:rgba(255,255,255,.1);border:none;color:#fff;font-size:1.5rem;width:3rem;height:3rem;border-radius:50%;cursor:pointer;">✕</button>
     <img id="lb-img" src="" alt="" style="max-width:90vw;max-height:80vh;object-fit:contain;border-radius:8px;">
     <p id="lb-label" style="margin-top:1rem;color:rgba(255,255,255,.6);font-size:.9rem;"></p>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="gb-toast"></div>
+
+  <!-- ═══ MAKE AN OFFER MODAL ══════════════════════════ -->
+  <div id="offer-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="Make an offer" hidden>
+    <div class="gb-modal" style="max-width:480px;">
+      <div class="gb-sell-header">
+        <div>
+          <h2 class="gb-modal-title" style="font-size:1.4rem;">💬 Make an Offer</h2>
+          <p style="color:var(--text-secondary);font-size:.82rem;margin-top:.2rem;" id="offer-car-name"></p>
+        </div>
+        <button class="gb-modal-close-top" onclick="closeOfferModal()" aria-label="Close">✕</button>
+      </div>
+      <div id="offer-form-wrap" style="padding:1.25rem 1.75rem 1.75rem;">
+        <div style="display:flex;align-items:center;gap:.75rem;padding:.85rem 1rem;background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);border-radius:.75rem;margin-bottom:1.25rem;">
+          <span style="font-size:1.3rem;">🏷️</span>
+          <div>
+            <div style="font-size:.72rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:.06em;">Listed Price</div>
+            <div style="font-size:1.1rem;font-weight:900;color:#fbbf24;" id="offer-list-price"></div>
+          </div>
+        </div>
+        <form id="offer-form" onsubmit="submitOffer(event)">
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Your Name</label>
+              <input type="text" required placeholder="Rahman Ali">
+            </div>
+            <div class="gb-form-group">
+              <label>Phone / WhatsApp</label>
+              <input type="tel" required placeholder="01700-000000">
+            </div>
+          </div>
+          <div class="gb-form-group" style="margin-bottom:.75rem;">
+            <label>Your Offer Amount (৳)</label>
+            <input type="text" required placeholder="e.g. 25,00,000" style="font-size:1.1rem;font-weight:700;">
+          </div>
+          <div class="gb-form-group" style="margin-bottom:1rem;">
+            <label>Message to Seller (optional)</label>
+            <textarea rows="2" placeholder="Why are you offering this price? Any conditions?"></textarea>
+          </div>
+          <button type="submit" class="gb-sell-submit" style="background:linear-gradient(135deg,#d97706,#f59e0b);">Send Offer to Seller</button>
+          <p style="text-align:center;font-size:.73rem;color:var(--text-muted);margin-top:.5rem;">Seller will respond via phone or WhatsApp within 24 hours.</p>
+        </form>
+      </div>
+      <div id="offer-success" hidden style="padding:2.5rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+        <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:.5rem;">Offer Sent!</h3>
+        <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:1.5rem;">The seller will review your offer and contact you shortly. Keep your phone nearby!</p>
+        <button onclick="closeOfferModal()" class="gb-sell-submit" style="width:auto;padding:.75rem 2.5rem;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SCHEDULE TEST DRIVE MODAL ════════════════════ -->
+  <div id="td-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="Schedule test drive" hidden>
+    <div class="gb-modal" style="max-width:480px;">
+      <div class="gb-sell-header">
+        <div>
+          <h2 class="gb-modal-title" style="font-size:1.4rem;">🚗 Schedule Test Drive</h2>
+          <p style="color:var(--text-secondary);font-size:.82rem;margin-top:.2rem;" id="td-car-name"></p>
+        </div>
+        <button class="gb-modal-close-top" onclick="closeTdModal()" aria-label="Close">✕</button>
+      </div>
+      <div id="td-form-wrap" style="padding:1.25rem 1.75rem 1.75rem;">
+        <form id="td-form" onsubmit="submitTd(event)">
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Your Name</label>
+              <input type="text" required placeholder="Rahman Ali">
+            </div>
+            <div class="gb-form-group">
+              <label>Phone / WhatsApp</label>
+              <input type="tel" required placeholder="01700-000000">
+            </div>
+          </div>
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Preferred Date</label>
+              <input type="date" required>
+            </div>
+            <div class="gb-form-group">
+              <label>Preferred Time</label>
+              <select required>
+                <option value="">Select Time</option>
+                <option>9:00 AM – 11:00 AM</option>
+                <option>11:00 AM – 1:00 PM</option>
+                <option>2:00 PM – 4:00 PM</option>
+                <option>4:00 PM – 6:00 PM</option>
+              </select>
+            </div>
+          </div>
+          <div class="gb-form-group" style="margin-bottom:1rem;">
+            <label>Your Location (for meetup)</label>
+            <input type="text" placeholder="e.g. Gulshan-2, Dhaka or Seller's location">
+          </div>
+          <div class="gb-form-group" style="margin-bottom:1rem;">
+            <label>Additional Notes (optional)</label>
+            <textarea rows="2" placeholder="Bring mechanic? Any specific areas to test?"></textarea>
+          </div>
+          <button type="submit" class="gb-sell-submit" style="background:linear-gradient(135deg,#5b21b6,#7c3aed);">Book Test Drive</button>
+          <p style="text-align:center;font-size:.73rem;color:var(--text-muted);margin-top:.5rem;">Seller will confirm via WhatsApp. GariBazar can arrange a certified inspector for ৳500.</p>
+        </form>
+      </div>
+      <div id="td-success" hidden style="padding:2.5rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🗓️</div>
+        <h3 style="font-size:1.2rem;font-weight:800;margin-bottom:.5rem;">Test Drive Scheduled!</h3>
+        <p style="color:var(--text-secondary);font-size:.88rem;margin-bottom:1.5rem;">The seller will confirm the time via WhatsApp. You'll receive a confirmation message shortly.</p>
+        <button onclick="closeTdModal()" class="gb-sell-submit" style="width:auto;padding:.75rem 2.5rem;background:linear-gradient(135deg,#5b21b6,#7c3aed);">Done</button>
+      </div>
+    </div>
   </div>
 
   <!-- ═══ SELL MODAL ════════════════════════════════════ -->
@@ -2378,13 +2528,77 @@
     .cdp-step strong { display: block; font-size: .9rem; font-weight: 700; color: #fff; margin-bottom: .2rem; }
     .cdp-step p { font-size: .82rem; color: var(--text-secondary, #7a8b9e); margin: 0; line-height: 1.5; }
 
+    /* ── Meta bar ─────────────────────────────────────── */
+    .cdp-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; padding:.65rem 1.25rem; background:rgba(255,255,255,.015); border-bottom:1px solid rgba(255,255,255,.06); font-size:.8rem; color:var(--text-secondary,#7a8b9e); }
+    .cdp-meta-bar-left { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
+    .cdp-meta-dot { display:inline-flex; align-items:center; gap:.3rem; }
+    .cdp-meta-bar-right { display:flex; gap:.5rem; }
+    .cdp-share-btn, .cdp-report-btn { display:inline-flex; align-items:center; gap:.35rem; padding:.35rem .75rem; border-radius:.5rem; font-size:.78rem; font-weight:600; border:none; cursor:pointer; transition:background .2s; font-family:inherit; }
+    .cdp-share-btn { background:rgba(59,130,246,.1); color:#3b82f6; }
+    .cdp-share-btn:hover { background:rgba(59,130,246,.2); }
+    .cdp-report-btn { background:rgba(239,68,68,.07); color:#ef4444; }
+    .cdp-report-btn:hover { background:rgba(239,68,68,.15); }
+
+    /* ── Negotiable tag ───────────────────────────────── */
+    .cdp-neg-tag:not(:empty) { display:inline-flex; align-items:center; gap:.3rem; margin-top:.35rem; padding:.2rem .6rem; background:rgba(16,185,129,.1); border:1px solid rgba(16,185,129,.25); border-radius:2rem; font-size:.72rem; font-weight:700; color:#10b981; }
+
+    /* ── Extra action buttons ─────────────────────────── */
+    .cdp-extra-actions { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.75rem; padding-top:.75rem; border-top:1px solid rgba(255,255,255,.06); width:100%; }
+    .cdp-btn-offer { flex:1; min-width:130px; padding:.6rem 1rem; background:rgba(251,191,36,.1); border:1px solid rgba(251,191,36,.25); border-radius:.6rem; color:#fbbf24; font-size:.85rem; font-weight:700; cursor:pointer; white-space:nowrap; transition:background .2s; font-family:inherit; }
+    .cdp-btn-offer:hover { background:rgba(251,191,36,.2); }
+    .cdp-btn-testdrive { flex:1; min-width:130px; padding:.6rem 1rem; background:rgba(139,92,246,.1); border:1px solid rgba(139,92,246,.25); border-radius:.6rem; color:#a78bfa; font-size:.85rem; font-weight:700; cursor:pointer; white-space:nowrap; transition:background .2s; font-family:inherit; }
+    .cdp-btn-testdrive:hover { background:rgba(139,92,246,.2); }
+
+    /* ── Inspector banner ─────────────────────────────── */
+    .cdp-inspector-banner:not(:empty) { display:flex; align-items:flex-start; gap:.75rem; margin:.75rem 1.25rem 0; padding:.85rem 1rem; background:rgba(59,130,246,.06); border:1px solid rgba(59,130,246,.18); border-radius:.75rem; font-size:.83rem; color:#c5d2e0; line-height:1.55; }
+    .cdp-insp-icon { font-size:1.25rem; flex-shrink:0; margin-top:.05rem; }
+    .cdp-inspector-banner strong { display:block; color:#3b82f6; font-size:.78rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; margin-bottom:.2rem; }
+
+    /* ── Accident history ─────────────────────────────── */
+    .cdp-accident-clean { display:flex; align-items:center; gap:.75rem; padding:1rem; background:rgba(16,185,129,.06); border:1px solid rgba(16,185,129,.18); border-radius:.75rem; color:#10b981; font-weight:700; font-size:.9rem; }
+    .cdp-acc-icon { font-size:1.4rem; }
+    .cdp-accident-row { display:flex; flex-direction:column; gap:.75rem; }
+    .cdp-accident-card { padding:1rem; background:rgba(239,68,68,.05); border:1px solid rgba(239,68,68,.15); border-radius:.75rem; }
+    .cdp-acc-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:.4rem; flex-wrap:wrap; gap:.3rem; }
+    .cdp-acc-type { font-weight:700; font-size:.9rem; color:#fff; }
+    .cdp-acc-date { font-size:.78rem; color:var(--text-secondary,#7a8b9e); margin-top:.15rem; }
+    .cdp-acc-desc { font-size:.82rem; color:var(--text-secondary,#7a8b9e); line-height:1.5; margin-top:.4rem; }
+    .cdp-severity-badge { font-size:.68rem; font-weight:700; padding:.2rem .55rem; border-radius:2rem; }
+    .cdp-severity-badge.minor { background:rgba(245,158,11,.15); color:#f59e0b; }
+    .cdp-severity-badge.moderate { background:rgba(239,68,68,.15); color:#ef4444; }
+    .cdp-severity-badge.major { background:rgba(239,68,68,.3); color:#ef4444; }
+
+    /* ── Ownership timeline ───────────────────────────── */
+    .cdp-ownership-timeline { display:flex; flex-direction:column; gap:0; }
+    .cdp-own-item { display:flex; gap:1rem; padding-bottom:1.25rem; position:relative; }
+    .cdp-own-item:not(:last-child)::before { content:''; position:absolute; left:1.05rem; top:2.2rem; bottom:0; width:2px; background:rgba(59,130,246,.2); }
+    .cdp-own-dot { flex-shrink:0; width:2.2rem; height:2.2rem; border-radius:50%; background:rgba(59,130,246,.12); border:2px solid rgba(59,130,246,.4); display:flex; align-items:center; justify-content:center; font-size:.8rem; font-weight:800; color:#3b82f6; }
+    .cdp-own-body { padding-top:.1rem; }
+    .cdp-own-period { font-size:.72rem; color:var(--text-secondary,#7a8b9e); margin-bottom:.2rem; }
+    .cdp-own-label { font-size:.9rem; font-weight:700; color:#fff; }
+    .cdp-own-note { font-size:.78rem; color:var(--text-secondary,#7a8b9e); margin-top:.2rem; line-height:1.4; }
+
+    /* ── Service history ──────────────────────────────── */
+    .cdp-service-list { display:flex; flex-direction:column; gap:.5rem; }
+    .cdp-service-item { display:flex; align-items:flex-start; gap:.85rem; padding:.85rem 1rem; background:rgba(255,255,255,.02); border:1px solid rgba(255,255,255,.07); border-radius:.75rem; }
+    .cdp-service-icon { width:2.2rem; height:2.2rem; flex-shrink:0; border-radius:.5rem; background:rgba(59,130,246,.1); display:flex; align-items:center; justify-content:center; font-size:1rem; }
+    .cdp-svc-title { font-size:.88rem; font-weight:700; color:#fff; }
+    .cdp-svc-meta { font-size:.76rem; color:var(--text-secondary,#7a8b9e); margin-top:.1rem; }
+    .cdp-svc-note { font-size:.78rem; color:#c5d2e0; margin-top:.25rem; line-height:1.45; }
+
+    /* ── Toast notification ───────────────────────────── */
+    #gb-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(1rem); background:#0d1b2a; border:1px solid rgba(59,130,246,.3); color:#fff; padding:.7rem 1.25rem; border-radius:.75rem; font-size:.85rem; font-weight:600; z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.5); }
+    #gb-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
     /* ── Responsive layout ────────────────────────────── */
     @media (min-width: 900px) {
       .cdp-scroll { display: grid; grid-template-columns: 1fr 340px; grid-template-rows: auto; }
       .cdp-hero-wrap { grid-column: 1; }
       .cdp-thumbs { grid-column: 1; }
-      .cdp-price-section { grid-column: 2; grid-row: 1 / 4; flex-direction: column; align-items: flex-start; position: sticky; top: 0; max-height: calc(100vh - 56px); overflow-y: auto; border-left: 1px solid rgba(255,255,255,.06); border-bottom: none; }
+      .cdp-meta-bar { grid-column: 1; }
+      .cdp-price-section { grid-column: 2; grid-row: 1 / 5; flex-direction: column; align-items: flex-start; position: sticky; top: 0; max-height: calc(100vh - 56px); overflow-y: auto; border-left: 1px solid rgba(255,255,255,.06); border-bottom: none; }
       .cdp-overview, .cdp-section { grid-column: 1; }
+      .cdp-inspector-banner { grid-column: 1; }
     }
   </style>
 
@@ -2750,6 +2964,20 @@
           { icon: "🔒", name: "Previous Owner Records", status: "confidential" },
           { icon: "💳", name: "Insurance", status: "verified" },
         ],
+        negotiable: true,
+        inspectorNote: "Inspected by GariBazar Certified Mechanic (March 2025). Engine and drivetrain in excellent condition. Interior scoring 9/10. Minor tyre wear — recommend replacing front pair within 12,000 km. No hidden issues found.",
+        listingMeta: { ref: "GB-2025-041", views: 487, listed: "15 Jan 2025" },
+        accidentHistory: { clean: true },
+        ownershipHistory: [
+          { num: 1, label: "Original Owner (Japan)", period: "2019 – 2020", note: "Company lease vehicle, dealer-maintained throughout." },
+          { num: 2, label: "Current Owner (BD)", period: "2020 – Present", location: "Dhaka", note: "Single individual owner. No accidents reported. Selling to upgrade." },
+        ],
+        serviceHistory: [
+          { icon: "🔧", date: "Feb 2025", km: "57,200 km", type: "Oil & Filter Change", note: "Fully synthetic 5W-30, OEM filter replaced." },
+          { icon: "⚙️", date: "Oct 2024", km: "52,000 km", type: "Air Filter + Brake Fluid", note: "Routine service, all within spec." },
+          { icon: "🛞", date: "Mar 2024", km: "47,500 km", type: "Rear Tyre Replacement", note: "Both rear tyres replaced — Bridgestone Ecopia." },
+          { icon: "🔧", date: "Jul 2023", km: "40,000 km", type: "Major 40k Service", note: "Spark plugs, coolant flush, transmission fluid changed." },
+        ],
       },
       "Honda Vezel": {
         badge: "Verified", badgeClass: "badge-verified",
@@ -2784,6 +3012,21 @@
           { icon: "🔧", name: "150-pt Inspection", status: "verified" },
           { icon: "🔒", name: "Insurance Records", status: "confidential" },
           { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
+        ],
+        negotiable: false,
+        inspectorNote: "GariBazar inspection (Jan 2025): Hybrid battery at 85% capacity — healthy range. Honda Sensing suite calibrated correctly. Minor stone chips on front bumper. Undercarriage clean with no rust. Recommend full service before purchase.",
+        listingMeta: { ref: "GB-2025-038", views: 612, listed: "10 Jan 2025" },
+        accidentHistory: { incidents: [
+          { date: "Sep 2022", type: "Minor Rear Fender Scratch", severity: "minor", desc: "Light contact in parking lot. Repaired and repainted by authorized workshop. No structural damage or airbag deployment." },
+        ]},
+        ownershipHistory: [
+          { num: 1, label: "Original Owner (Japan)", period: "2018 – 2019", note: "Private owner, one year use, dealer-serviced." },
+          { num: 2, label: "Current Owner (BD)", period: "2019 – Present", location: "Chittagong", note: "Imported and used for personal commute. One minor incident in 2022, properly repaired." },
+        ],
+        serviceHistory: [
+          { icon: "⚡", date: "Jan 2025", km: "71,500 km", type: "Hybrid Battery Check", note: "Capacity: 85%. Cells balanced and tested. Estimated 2+ years remaining." },
+          { icon: "🔧", date: "Aug 2024", km: "66,000 km", type: "Oil Change + Brake Pads", note: "Front brake pads replaced. Rear at 60% life." },
+          { icon: "⚙️", date: "Dec 2023", km: "60,000 km", type: "60k Major Service", note: "Transmission fluid, air filter, cabin filter, spark plugs replaced." },
         ],
       },
       "Nissan X-Trail": {
@@ -2820,6 +3063,22 @@
           { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
           { icon: "🔒", name: "Full Service History", status: "confidential" },
         ],
+        negotiable: true,
+        inspectorNote: "GariBazar inspection (Feb 2025): AWD system fully functional, tested on incline. Minor surface scratch on rear bumper noted — not structural. Tax token renewal in progress, seller confirmed completion before handover. Interior 7/10. Highly capable 7-seater.",
+        listingMeta: { ref: "GB-2025-052", views: 341, listed: "20 Jan 2025" },
+        accidentHistory: { incidents: [
+          { date: "Mar 2023", type: "Rear Bumper Surface Scratch", severity: "minor", desc: "Surface-level contact in car park. Professionally touched up. No sensors or structural damage." },
+        ]},
+        ownershipHistory: [
+          { num: 1, label: "Original Owner (Japan)", period: "2017 – 2022", note: "Family vehicle, dealer-maintained throughout ownership." },
+          { num: 2, label: "Current Owner (BD)", period: "2022 – Present", location: "Dhaka", note: "Imported via authorized agent. Tax token renewal currently in progress." },
+        ],
+        serviceHistory: [
+          { icon: "🔧", date: "Jan 2025", km: "88,500 km", type: "Oil & Filter + Air Filter", note: "Routine service completed at Capital Auto workshop." },
+          { icon: "🛞", date: "Jul 2024", km: "82,000 km", type: "All-Season Tyre Set", note: "All four Yokohama tyres replaced — new set installed." },
+          { icon: "⚙️", date: "Nov 2023", km: "75,000 km", type: "CVT Fluid + Transfer Case", note: "AWD transfer case fluid and CVT fluid replaced." },
+          { icon: "🔧", date: "Mar 2023", km: "68,000 km", type: "Brake Fluid + Coolant Flush", note: "Standard fluid maintenance completed." },
+        ],
       },
       "Toyota Axio": {
         badge: "Verified", badgeClass: "badge-verified",
@@ -2854,6 +3113,18 @@
           { icon: "🔧", name: "Inspection Report", status: "verified" },
           { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
           { icon: "💳", name: "Insurance", status: "verified" },
+        ],
+        negotiable: false,
+        inspectorNote: "GariBazar inspection (Mar 2025): Exceptional condition for a 2020 model. Interior 10/10 — seat covers maintained from day one. Hybrid system health check: 92% battery capacity. Engine bay spotless. No repairs or incidents recorded. Highly recommended listing.",
+        listingMeta: { ref: "GB-2025-067", views: 293, listed: "25 Feb 2025" },
+        accidentHistory: { clean: true },
+        ownershipHistory: [
+          { num: 1, label: "First & Only Owner (BD)", period: "2021 – Present", location: "Sylhet", note: "Imported new, single careful owner. Selling only to upgrade to a larger vehicle." },
+        ],
+        serviceHistory: [
+          { icon: "⚡", date: "Feb 2025", km: "40,500 km", type: "Hybrid Battery Health Check", note: "Capacity: 92%. System excellent — no cell replacement needed." },
+          { icon: "🔧", date: "Sep 2024", km: "35,000 km", type: "Oil Change + Cabin Filter", note: "Genuine Toyota parts used throughout." },
+          { icon: "⚙️", date: "Feb 2024", km: "28,000 km", type: "30k Service", note: "Brake fluid, air filter, spark plugs — all within spec." },
         ],
       },
       "Mitsubishi Outlander": {
@@ -2890,6 +3161,22 @@
           { icon: "🔒", name: "Accident History", status: "confidential" },
           { icon: "💳", name: "Insurance", status: "verified" },
         ],
+        negotiable: true,
+        inspectorNote: "GariBazar inspection (Dec 2024): High-mileage vehicle in solid mechanical condition. All four shock absorbers recently replaced. Timing belt changed at 80k. S-AWC system tested and functional on test drive. Body shows age-appropriate wear. Engine oil clean, no leaks. Recommended for value-focused buyers.",
+        listingMeta: { ref: "GB-2024-198", views: 218, listed: "5 Dec 2024" },
+        accidentHistory: { incidents: [
+          { date: "Jun 2021", type: "Front Bumper Impact", severity: "moderate", desc: "Minor collision at low speed in Japan. Front bumper replaced. No frame damage, no airbag deployment. Repaired at authorized Mitsubishi workshop before import to BD." },
+        ]},
+        ownershipHistory: [
+          { num: 1, label: "Original Owner (Japan)", period: "2016 – 2019", note: "Corporate fleet vehicle. Regularly serviced at Mitsubishi dealer Japan." },
+          { num: 2, label: "Second Owner (Japan)", period: "2019 – 2022", note: "Private individual. Minor accident in Jun 2021, properly repaired at authorized workshop." },
+          { num: 3, label: "Current Owner (BD)", period: "2022 – Present", location: "Rajshahi", note: "Imported 2022. Shocks and timing belt replaced. Owner relocating abroad — genuine sale." },
+        ],
+        serviceHistory: [
+          { icon: "🔧", date: "Nov 2024", km: "94,000 km", type: "Full Shock Absorber Replacement", note: "All four shock absorbers replaced — KYB Excel-G set." },
+          { icon: "⚙️", date: "Aug 2024", km: "90,000 km", type: "Oil + CVT Fluid Service", note: "CVT fluid changed. Engine running clean with no leaks." },
+          { icon: "🔩", date: "2022 (on import)", km: "80,000 km", type: "Timing Belt Replacement", note: "Done at certified workshop. Critical maintenance completed." },
+        ],
       },
       "BMW 3 Series": {
         badge: "Premium", badgeClass: "badge-hot",
@@ -2924,6 +3211,18 @@
           { icon: "🛡️", name: "Fitness Certificate", status: "verified" },
           { icon: "🔒", name: "Duty Payment Receipt", status: "confidential" },
           { icon: "💳", name: "Insurance (Comprehensive)", status: "verified" },
+        ],
+        negotiable: false,
+        inspectorNote: "GariBazar Premium Inspection (Mar 2025): Immaculate condition throughout. Full BMW service history at authorized service centre — all records intact. All M Sport components verified genuine. Tyres at 80% life. iDrive 7.0 and all driver assistance systems fully functional. Zero accidents. Our cleanest listing this quarter.",
+        listingMeta: { ref: "GB-2025-003", views: 1204, listed: "2 Jan 2025" },
+        accidentHistory: { clean: true },
+        ownershipHistory: [
+          { num: 1, label: "First & Only Owner (BD)", period: "2022 – Present", location: "Dhaka", note: "Purchased new from authorized BMW dealer. Full service at BMW Service Centre Dhaka. Selling to upgrade to BMW 5 Series." },
+        ],
+        serviceHistory: [
+          { icon: "🔧", date: "Feb 2025", km: "27,500 km", type: "BMW Annual Service", note: "Oil, filter, brake fluid at BMW Service Centre Dhaka. Warranty-compliant." },
+          { icon: "⚙️", date: "Aug 2024", km: "20,000 km", type: "20k Condition Based Service", note: "All systems green. Software update applied by dealer." },
+          { icon: "🔧", date: "Feb 2024", km: "12,000 km", type: "12k BMW Service", note: "Microfilter, engine oil, OBD check — official dealer service." },
         ],
       },
     };
@@ -2985,6 +3284,73 @@
 
       // Description
       document.getElementById('cdp-desc').textContent = d.description;
+
+      // Meta bar
+      const meta = d.listingMeta || {};
+      document.getElementById('cdp-meta-left').innerHTML =
+        (meta.ref   ? '<span class="cdp-meta-dot">🔖 Ref: <strong style="color:#fff;">' + meta.ref + '</strong></span>' : '') +
+        (meta.views ? '<span class="cdp-meta-dot">👁 ' + meta.views.toLocaleString() + ' views</span>' : '') +
+        (meta.listed? '<span class="cdp-meta-dot">📅 Listed ' + meta.listed + '</span>' : '');
+
+      // Negotiable tag
+      const negEl = document.getElementById('cdp-neg-tag');
+      negEl.textContent = d.negotiable ? '✓ Price Negotiable' : '';
+
+      // Inspector banner
+      const inspEl = document.getElementById('cdp-inspector-banner');
+      if (d.inspectorNote) {
+        inspEl.innerHTML = '<span class="cdp-insp-icon">🔍</span><div><strong>GariBazar Inspector Note</strong>' + d.inspectorNote + '</div>';
+      } else {
+        inspEl.innerHTML = '';
+      }
+
+      // Accident history
+      const accEl = document.getElementById('cdp-accident');
+      if (!d.accidentHistory) {
+        accEl.innerHTML = '<p style="font-size:.85rem;color:var(--text-secondary);">No accident history data available for this listing.</p>';
+      } else if (d.accidentHistory.clean) {
+        accEl.innerHTML = '<div class="cdp-accident-clean"><span class="cdp-acc-icon">✅</span><span>No accidents or damage reported. Clean vehicle history.</span></div>';
+      } else {
+        accEl.innerHTML = '<div class="cdp-accident-row">' + (d.accidentHistory.incidents || []).map(inc =>
+          '<div class="cdp-accident-card">' +
+          '<div class="cdp-acc-header"><span class="cdp-acc-type">' + inc.type + '</span>' +
+          '<span class="cdp-severity-badge ' + inc.severity + '">' + inc.severity.charAt(0).toUpperCase() + inc.severity.slice(1) + '</span></div>' +
+          '<div class="cdp-acc-date">📅 ' + inc.date + '</div>' +
+          '<div class="cdp-acc-desc">' + inc.desc + '</div>' +
+          '</div>'
+        ).join('') + '</div>';
+      }
+
+      // Ownership history
+      const ownEl = document.getElementById('cdp-ownership');
+      if (!d.ownershipHistory || !d.ownershipHistory.length) {
+        ownEl.innerHTML = '<p style="font-size:.85rem;color:var(--text-secondary);">Ownership data not available.</p>';
+      } else {
+        ownEl.innerHTML = d.ownershipHistory.map(o =>
+          '<div class="cdp-own-item">' +
+          '<div class="cdp-own-dot">' + o.num + '</div>' +
+          '<div class="cdp-own-body">' +
+          '<div class="cdp-own-period">' + o.period + (o.location ? ' · ' + o.location : '') + '</div>' +
+          '<div class="cdp-own-label">' + o.label + '</div>' +
+          (o.note ? '<div class="cdp-own-note">' + o.note + '</div>' : '') +
+          '</div></div>'
+        ).join('');
+      }
+
+      // Service history
+      const svcEl = document.getElementById('cdp-service');
+      if (!d.serviceHistory || !d.serviceHistory.length) {
+        svcEl.innerHTML = '<p style="font-size:.85rem;color:var(--text-secondary);">Service records not available.</p>';
+      } else {
+        svcEl.innerHTML = '<div class="cdp-service-list">' + d.serviceHistory.map(s =>
+          '<div class="cdp-service-item">' +
+          '<div class="cdp-service-icon">' + s.icon + '</div>' +
+          '<div class="cdp-service-info"><div class="cdp-svc-title">' + s.type + '</div>' +
+          '<div class="cdp-svc-meta">' + s.date + ' · ' + s.km + '</div>' +
+          (s.note ? '<div class="cdp-svc-note">' + s.note + '</div>' : '') +
+          '</div></div>'
+        ).join('') + '</div>';
+      }
 
       // Gallery
       document.getElementById('cdp-gallery').innerHTML = d.photos.map(p =>
@@ -3099,6 +3465,93 @@
       });
     });
 
+    // ─── 13a. Toast helper ────────────────────────────
+    let _toastTimer = null;
+    function showToast(msg) {
+      const t = document.getElementById('gb-toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      clearTimeout(_toastTimer);
+      _toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+    }
+
+    // ─── 13b. Share listing ───────────────────────────
+    function cdpShare() {
+      const title = document.getElementById('cdp-bar-title').textContent;
+      const d     = cdpCurrentData;
+      const text  = 'Check out this ' + title + ' — ' + (d ? d.price : '') + ' on GariBazar BD!';
+      const url   = window.location.href;
+      if (navigator.share) {
+        navigator.share({ title, text, url }).catch(() => {});
+      } else {
+        navigator.clipboard.writeText(text + '\n' + url)
+          .then(() => showToast('✓ Link copied to clipboard!'))
+          .catch(() => { prompt('Copy this link:', url); });
+      }
+    }
+
+    // ─── 13c. Report listing ──────────────────────────
+    function cdpReport() {
+      const reasons = ['Wrong information', 'Suspicious / too-good price', 'Duplicate listing', 'Fraudulent seller', 'Other'];
+      const list    = reasons.map((r, i) => (i + 1) + '. ' + r).join('\n');
+      const reason  = window.prompt('Report this listing — select a reason:\n\n' + list + '\n\nType your reason or number:');
+      if (reason && reason.trim()) {
+        showToast('✓ Report submitted. Our team will review within 24 hours.');
+      }
+    }
+
+    // ─── 13d. Make an Offer modal ─────────────────────
+    function cdpOpenOffer() {
+      const d = cdpCurrentData;
+      if (!d) return;
+      document.getElementById('offer-car-name').textContent  = document.getElementById('cdp-bar-title').textContent;
+      document.getElementById('offer-list-price').textContent = d.price;
+      document.getElementById('offer-form-wrap').hidden = false;
+      document.getElementById('offer-success').hidden   = true;
+      document.getElementById('offer-form')?.reset();
+      document.getElementById('offer-modal').hidden     = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeOfferModal() {
+      document.getElementById('offer-modal').hidden = true;
+      document.body.style.overflow = '';
+    }
+    function submitOffer(e) {
+      e.preventDefault();
+      document.getElementById('offer-form-wrap').hidden = true;
+      document.getElementById('offer-success').hidden   = false;
+    }
+    document.getElementById('offer-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeOfferModal();
+    });
+
+    // ─── 13e. Schedule Test Drive modal ───────────────
+    function cdpOpenTestDrive() {
+      const d = cdpCurrentData;
+      if (!d) return;
+      document.getElementById('td-car-name').textContent = document.getElementById('cdp-bar-title').textContent;
+      document.getElementById('td-form-wrap').hidden = false;
+      document.getElementById('td-success').hidden   = true;
+      document.getElementById('td-form')?.reset();
+      // Set min date to today
+      const dateInput = document.querySelector('#td-form input[type="date"]');
+      if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
+      document.getElementById('td-modal').hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTdModal() {
+      document.getElementById('td-modal').hidden = true;
+      document.body.style.overflow = '';
+    }
+    function submitTd(e) {
+      e.preventDefault();
+      document.getElementById('td-form-wrap').hidden = true;
+      document.getElementById('td-success').hidden   = false;
+    }
+    document.getElementById('td-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeTdModal();
+    });
+
     // ─── 13. Sell Modal ───────────────────────────────
     function openSellModal() {
       document.getElementById('sell-form-wrap').hidden = false;
@@ -3127,8 +3580,10 @@
     document.addEventListener('keydown', function(e) {
       if (e.key !== 'Escape') return;
       if (document.getElementById('photo-lightbox').style.display === 'flex') { closeLightbox(); return; }
+      if (!document.getElementById('offer-modal').hidden) { closeOfferModal(); return; }
+      if (!document.getElementById('td-modal').hidden) { closeTdModal(); return; }
+      if (!document.getElementById('sell-modal').hidden) { closeSellModal(); return; }
       if (document.getElementById('car-detail').style.display !== 'none') { closeCarDetail(); return; }
-      closeSellModal();
     });
 
     // ─── 15. Core Filter Engine ──────────────────────
