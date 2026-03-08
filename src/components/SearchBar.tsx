@@ -17,13 +17,16 @@ type Props = {
   onBrandChipClick: (brand: string) => void;
 };
 
-const selectCls = "w-full px-4 py-3 bg-white/[0.03] border border-white/[0.05] rounded-xl text-white/90 text-sm outline-none focus:border-[var(--accent)]/40 focus:bg-white/[0.05] transition-all duration-300 appearance-none cursor-pointer bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%234a5568%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10";
+const selectClass = "w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10";
 
 export default function SearchBar({ filters, setFilters, onSearch, onBrandChipClick }: Props) {
   useEffect(() => {
     gsap.from(".search-card", {
-      y: 40, opacity: 0, duration: 0.8, ease: "power3.out",
-      scrollTrigger: { trigger: ".search-section", start: "top 85%" },
+      y: 60,
+      opacity: 0,
+      duration: 1,
+      ease: "power3.out",
+      scrollTrigger: { trigger: ".search-section", start: "top 80%" },
     });
   }, []);
 
@@ -31,26 +34,32 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
     setFilters(f => ({ ...f, [field]: e.target.value }));
 
   return (
-    <section className="search-section relative z-50 -mt-12 pb-12 pt-16 px-6">
-      <div className="search-card max-w-[880px] mx-auto bg-[rgba(10,18,32,0.75)] backdrop-blur-2xl border border-white/[0.06] rounded-2xl p-8 shadow-[0_40px_80px_rgba(0,0,0,0.5)]">
-        {/* Minimal label */}
-        <div className="flex items-center gap-3 mb-8">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-          <span className="text-[10px] uppercase tracking-[0.25em] text-white/25 font-medium">Quick Search</span>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-        </div>
+    <section className="search-section relative z-50 -mt-16 pb-16 pt-20 px-6">
+      <div className="search-card max-w-[960px] mx-auto bg-[rgba(13,27,42,0.8)] backdrop-blur-[24px] border border-white/[0.06] rounded-3xl p-10 max-md:p-6">
+        <h3 className="text-xl font-bold text-center mb-6">
+          Find Your Perfect Car
+        </h3>
 
-        <div className="grid grid-cols-4 max-lg:grid-cols-2 max-md:grid-cols-1 gap-3 mb-4">
+        <div className="grid grid-cols-4 max-lg:grid-cols-2 max-md:grid-cols-1 gap-4 mb-6">
+          {/* Brand */}
           <div>
-            <label className="block text-[10px] font-medium text-white/20 uppercase tracking-[0.15em] mb-2 pl-1">Brand</label>
-            <select className={selectCls} value={filters.brand} onChange={set("brand")}>
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
+              Brand
+            </label>
+            <select className={selectClass} value={filters.brand} onChange={set("brand")}>
               <option value="">All Brands</option>
-              {brands.map(b => <option key={b} value={b}>{b}</option>)}
+              {brands.map((b) => (
+                <option key={b} value={b}>{b}</option>
+              ))}
             </select>
           </div>
+
+          {/* Price Range */}
           <div>
-            <label className="block text-[10px] font-medium text-white/20 uppercase tracking-[0.15em] mb-2 pl-1">Max Price</label>
-            <select className={selectCls} value={filters.price} onChange={set("price")}>
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
+              Max Price (BDT)
+            </label>
+            <select className={selectClass} value={filters.price} onChange={set("price")}>
               <option value="">Any Price</option>
               <option value="500000">Under ৳5 Lakh</option>
               <option value="1000000">Under ৳10 Lakh</option>
@@ -60,43 +69,57 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
               <option value="8000000">Under ৳80 Lakh</option>
             </select>
           </div>
+
+          {/* Location */}
           <div>
-            <label className="block text-[10px] font-medium text-white/20 uppercase tracking-[0.15em] mb-2 pl-1">Division</label>
-            <select className={selectCls} value={filters.location} onChange={set("location")}>
-              <option value="">Anywhere</option>
-              {divisions.map(d => <option key={d} value={d}>{d}</option>)}
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
+              Location
+            </label>
+            <select className={selectClass} value={filters.location} onChange={set("location")}>
+              <option value="">All Divisions</option>
+              {divisions.map((d) => (
+                <option key={d} value={d}>{d}</option>
+              ))}
             </select>
           </div>
+
+          {/* Year */}
           <div>
-            <label className="block text-[10px] font-medium text-white/20 uppercase tracking-[0.15em] mb-2 pl-1">Year</label>
-            <select className={selectCls} value={filters.year} onChange={set("year")}>
+            <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
+              Year
+            </label>
+            <select className={selectClass} value={filters.year} onChange={set("year")}>
               <option value="">Any Year</option>
-              {Array.from({ length: 15 }, (_, i) => 2026 - i).map(y => <option key={y} value={y}>{y}</option>)}
+              {Array.from({ length: 15 }, (_, i) => 2026 - i).map((y) => (
+                <option key={y} value={y}>{y}</option>
+              ))}
             </select>
           </div>
         </div>
 
+        {/* Search Button */}
         <button
           onClick={onSearch}
-          className="w-full flex items-center justify-center gap-2.5 py-3.5 bg-white/[0.06] hover:bg-white/[0.1] border border-white/[0.06] hover:border-white/[0.1] text-white/80 hover:text-white rounded-xl font-medium text-sm cursor-pointer transition-all duration-300"
+          className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg font-semibold text-base cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)]"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="11" cy="11" r="8" />
+            <path d="m21 21-4.3-4.3" />
           </svg>
           Search Cars
         </button>
 
-        {/* Brand chips */}
-        <div className="flex items-center gap-2 flex-wrap justify-center mt-8">
-          <span className="text-[10px] text-white/15 uppercase tracking-[0.2em] mr-1">Popular</span>
-          {brands.map(brand => (
+        {/* Quick brand chips */}
+        <div className="flex items-center gap-2.5 flex-wrap justify-center mt-6 pt-6 border-t border-white/[0.06]">
+          <span className="text-xs text-[var(--text-muted)]">Popular:</span>
+          {brands.map((brand) => (
             <button
               key={brand}
               onClick={() => onBrandChipClick(brand)}
-              className={`px-3.5 py-1.5 rounded-full text-[11px] font-medium cursor-pointer transition-all duration-200 border ${
+              className={`px-4 py-1.5 border rounded-full text-[0.82rem] font-medium cursor-pointer transition-all ${
                 filters.brand === brand
-                  ? "bg-[var(--accent)]/10 border-[var(--accent)]/30 text-[var(--accent)]"
-                  : "bg-transparent border-white/[0.04] text-white/25 hover:text-white/50 hover:border-white/[0.08]"
+                  ? "bg-[var(--accent-subtle)] border-[var(--accent)] text-[var(--accent)]"
+                  : "bg-white/[0.04] border-white/[0.06] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               }`}
             >
               {brand}
@@ -105,9 +128,9 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
           {filters.brand && (
             <button
               onClick={() => setFilters(f => ({ ...f, brand: "" }))}
-              className="px-2.5 py-1.5 text-[10px] text-white/20 hover:text-white/50 cursor-pointer transition-colors bg-transparent border-none"
+              className="px-3 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full text-[0.75rem] font-medium text-[var(--text-muted)] cursor-pointer hover:text-white transition-all"
             >
-              Clear
+              ✕ Clear
             </button>
           )}
         </div>
