@@ -92,7 +92,7 @@ export default function WhyChoose() {
   }, []);
 
   return (
-    <section className="why-section py-[120px] px-6 bg-[var(--bg-secondary)] overflow-hidden">
+    <section className="why-section py-[120px] px-6 bg-[var(--bg-secondary)] overflow-hidden" id="about">
       <div className="max-w-[1280px] mx-auto">
         <div className="section-header text-center mb-16">
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--accent)] mb-3">

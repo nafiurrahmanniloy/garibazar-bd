@@ -5,12 +5,11 @@ const brandNames = [
   "HYUNDAI", "BMW", "MERCEDES", "MAZDA", "SUBARU",
 ];
 
-export default function Brands() {
-  // Duplicate for seamless infinite scroll
+export default function Brands({ onBrandClick }: { onBrandClick: (brand: string) => void }) {
   const allBrands = [...brandNames, ...brandNames];
 
   return (
-    <section className="py-20 px-6 overflow-hidden">
+    <section className="py-20 px-6 overflow-hidden" id="brands">
       <div className="max-w-[1280px] mx-auto">
         <div className="section-header text-center mb-12">
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--accent)] mb-3">
@@ -30,12 +29,13 @@ export default function Brands() {
 
         <div className="flex gap-[60px] animate-[brandScroll_30s_linear_infinite] w-max">
           {allBrands.map((brand, i) => (
-            <div
+            <button
               key={i}
+              onClick={() => onBrandClick(brand.charAt(0) + brand.slice(1).toLowerCase())}
               className="flex items-center justify-center min-w-[140px] h-[70px] px-8 py-4 bg-white/[0.03] border border-white/[0.06] rounded-lg text-[1.1rem] font-bold text-[var(--text-secondary)] tracking-wider whitespace-nowrap cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
             >
               {brand}
-            </div>
+            </button>
           ))}
         </div>
       </div>

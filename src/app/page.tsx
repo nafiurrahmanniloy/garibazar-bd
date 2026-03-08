@@ -1,3 +1,6 @@
+"use client";
+
+import { useState, useCallback } from "react";
 import SmoothScroll from "@/components/SmoothScroll";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
@@ -9,20 +12,58 @@ import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import SellModal from "@/components/SellModal";
+import CarModal from "@/components/CarModal";
+import type { Car, SearchFilters } from "@/types";
+
+function scrollTo(id: string) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+}
 
 export default function Home() {
+  const [filters, setFilters] = useState<SearchFilters>({ brand: "", price: "", location: "", year: "" });
+  const [sellModalOpen, setSellModalOpen] = useState(false);
+  const [selectedCar, setSelectedCar] = useState<Car | null>(null);
+
+  const handleBrandSelect = useCallback((brand: string) => {
+    setFilters(f => ({ ...f, brand }));
+    setTimeout(() => scrollTo("browse-cars"), 80);
+  }, []);
+
+  const handleLocationSelect = useCallback((location: string) => {
+    setFilters(f => ({ ...f, location }));
+    setTimeout(() => scrollTo("browse-cars"), 80);
+  }, []);
+
   return (
     <SmoothScroll>
-      <Navbar />
+      <Navbar onSellClick={() => setSellModalOpen(true)} />
       <Hero />
-      <SearchBar />
-      <FeaturedCars />
+      <SearchBar
+        filters={filters}
+        setFilters={setFilters}
+        onSearch={() => scrollTo("browse-cars")}
+        onBrandChipClick={handleBrandSelect}
+      />
+      <FeaturedCars
+        filters={filters}
+        onCarClick={setSelectedCar}
+      />
       <WhyChoose />
-      <Brands />
+      <Brands onBrandClick={handleBrandSelect} />
       <HowItWorks />
       <Testimonials />
-      <CTA />
-      <Footer />
+      <CTA
+        onBrowseClick={() => scrollTo("browse-cars")}
+        onSellClick={() => setSellModalOpen(true)}
+      />
+      <Footer
+        onSellClick={() => setSellModalOpen(true)}
+        onLocationClick={handleLocationSelect}
+      />
+
+      {sellModalOpen && <SellModal onClose={() => setSellModalOpen(false)} />}
+      {selectedCar && <CarModal car={selectedCar} onClose={() => setSelectedCar(null)} />}
     </SmoothScroll>
   );
 }

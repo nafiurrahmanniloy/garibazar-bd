@@ -1296,21 +1296,21 @@
   <!-- ═══ NAVBAR ═══════════════════════════════════════ -->
   <nav class="site-nav" id="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-      <a href="#" class="nav-logo" aria-label="GariBazar BD Home">
+      <a href="#home" class="nav-logo" aria-label="GariBazar BD Home">
         <span class="logo-gari">Gari</span><span class="logo-bazar">Bazar</span>
         <span class="logo-bd">BD</span>
       </a>
 
       <ul class="nav-links" role="list">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Browse Cars</a></li>
-        <li><a href="#">How It Works</a></li>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#browse-cars">Browse Cars</a></li>
+        <li><a href="#how-it-works">How It Works</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
 
       <div class="nav-actions">
-        <a href="#" class="btn-sell-nav" lang="bn" aria-label="Sell your car">
+        <a href="#" class="btn-sell-nav" lang="bn" aria-label="Sell your car" onclick="openSellModal(); return false;">
           গাড়ি বিক্রি করুন →
         </a>
       </div>
@@ -1318,7 +1318,7 @@
   </nav>
 
   <!-- ═══ HERO: Scroll-to-Expand ═══════════════════════ -->
-  <section class="scroll-expand-section" aria-label="Hero section">
+  <section class="scroll-expand-section" id="home" aria-label="Hero section">
     <div class="bg-layer"></div>
 
     <div class="pinned-content">
@@ -1425,19 +1425,19 @@
   </section>
 
   <!-- ═══ FEATURED CARS ═════════════════════════════════ -->
-  <section class="cars-section" aria-label="Featured cars">
+  <section class="cars-section" id="browse-cars" aria-label="Featured cars">
     <div class="section-center">
       <div class="section-header">
         <div>
           <div class="section-label">Fresh Listings</div>
           <h2 class="gradient-text">Featured Cars</h2>
         </div>
-        <a href="#">View All Listings →</a>
+        <a href="#browse-cars">View All Listings →</a>
       </div>
 
       <div class="cars-grid">
 
-        <article class="car-card" tabindex="0">
+        <article class="car-card" tabindex="0" data-name="Toyota Allion" data-year="2019" data-mileage="58,000 km" data-price="৳26,50,000" data-location="Dhaka" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80" alt="Toyota Allion 2019 - Grey Sedan">
@@ -1461,7 +1461,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0">
+        <article class="car-card" tabindex="0" data-name="Honda Vezel" data-year="2018" data-mileage="72,000 km" data-price="৳22,80,000" data-location="Chittagong" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80" alt="Honda Vezel 2018 - Compact SUV">
@@ -1485,7 +1485,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0">
+        <article class="car-card" tabindex="0" data-name="Nissan X-Trail" data-year="2017" data-mileage="89,000 km" data-price="৳31,00,000" data-location="Dhaka" data-condition="Imported" data-img="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80" alt="Nissan X-Trail 2017 - SUV">
@@ -1509,7 +1509,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0">
+        <article class="car-card" tabindex="0" data-name="Toyota Axio" data-year="2020" data-mileage="41,000 km" data-price="৳18,50,000" data-location="Sylhet" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80" alt="Toyota Axio 2020 - Sedan">
@@ -1533,7 +1533,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0">
+        <article class="car-card" tabindex="0" data-name="Mitsubishi Outlander" data-year="2016" data-mileage="95,000 km" data-price="৳28,00,000" data-location="Rajshahi" data-condition="Used" data-img="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80" alt="Mitsubishi Outlander 2016 - SUV">
@@ -1556,7 +1556,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0">
+        <article class="car-card" tabindex="0" data-name="BMW 3 Series" data-year="2021" data-mileage="28,000 km" data-price="৳62,00,000" data-location="Dhaka" data-condition="Used" data-img="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80" alt="BMW 3 Series 2021 - Sedan">
@@ -1585,7 +1585,7 @@
   </section>
 
   <!-- ═══ WHY GARIBAZAR ════════════════════════════════ -->
-  <section class="why-section" aria-label="Why choose GariBazar">
+  <section class="why-section" id="about" aria-label="Why choose GariBazar">
     <div class="section-center">
       <div style="text-align:center; margin-bottom:3rem;">
         <div class="section-label">Trusted by Thousands</div>
@@ -1671,7 +1671,7 @@
   </section>
 
   <!-- ═══ HOW IT WORKS ══════════════════════════════════ -->
-  <section class="hiw-section" aria-label="How GariBazar works">
+  <section class="hiw-section" id="how-it-works" aria-label="How GariBazar works">
     <div class="section-center">
       <div style="text-align:center;">
         <div class="section-label">Simple Process</div>
@@ -1975,53 +1975,53 @@
           <div class="cta-emoji">🚗</div>
           <h3 class="gradient-text" lang="bn">আপনার স্বপ্নের গাড়ি খুঁজুন</h3>
           <p>Browse 5,000+ verified used cars across Bangladesh. Filter by brand, budget, location, and condition.</p>
-          <a href="#" class="btn-primary">Browse All Cars →</a>
+          <a href="#browse-cars" class="btn-primary">Browse All Cars →</a>
         </div>
 
         <div class="cta-card">
           <div class="cta-emoji">💰</div>
           <h3 class="gradient-text" lang="bn">আপনার গাড়ি বিক্রি করুন</h3>
           <p>List your car for free in minutes. Reach thousands of serious buyers across Bangladesh — no middleman fees.</p>
-          <a href="#" class="btn-outline">List Your Car Free →</a>
+          <a href="#" class="btn-outline" onclick="openSellModal(); return false;">List Your Car Free →</a>
         </div>
       </div>
     </div>
   </section>
 
   <!-- ═══ FOOTER ════════════════════════════════════════ -->
-  <footer class="site-footer" aria-label="Site footer">
+  <footer class="site-footer" id="contact" aria-label="Site footer">
     <div class="footer-grid">
 
       <div class="footer-brand">
         <div class="footer-logo">Gari<span class="logo-bazar">Bazar</span> BD</div>
         <p lang="bn">বাংলাদেশের বিশ্বস্ত সেকেন্ড-হ্যান্ড গাড়ির মার্কেটপ্লেস। আপনার স্বপ্নের গাড়ি, আপনার বাজেটে।</p>
         <div class="footer-socials">
-          <button class="social-btn" aria-label="Facebook">📘</button>
-          <button class="social-btn" aria-label="Instagram">📸</button>
-          <button class="social-btn" aria-label="YouTube">▶️</button>
+          <button class="social-btn" aria-label="Facebook" onclick="window.open('https://facebook.com','_blank')">📘</button>
+          <button class="social-btn" aria-label="Instagram" onclick="window.open('https://instagram.com','_blank')">📸</button>
+          <button class="social-btn" aria-label="YouTube" onclick="window.open('https://youtube.com','_blank')">▶️</button>
         </div>
       </div>
 
       <div class="footer-col">
         <h4>Quick Links</h4>
         <ul>
-          <li><a href="#">Browse Cars</a></li>
-          <li><a href="#">Sell Your Car</a></li>
-          <li><a href="#">How It Works</a></li>
-          <li><a href="#">Car Inspection</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="#browse-cars">Browse Cars</a></li>
+          <li><a href="#" onclick="openSellModal(); return false;">Sell Your Car</a></li>
+          <li><a href="#how-it-works">How It Works</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
         <h4>Popular Locations</h4>
         <ul>
-          <li><a href="#">Cars in Dhaka</a></li>
-          <li><a href="#">Cars in Chittagong</a></li>
-          <li><a href="#">Cars in Sylhet</a></li>
-          <li><a href="#">Cars in Rajshahi</a></li>
-          <li><a href="#">Cars in Khulna</a></li>
-          <li><a href="#">Cars in Barishal</a></li>
+          <li><a href="#browse-cars" onclick="filterByLocation('Dhaka')">Cars in Dhaka</a></li>
+          <li><a href="#browse-cars" onclick="filterByLocation('Chittagong')">Cars in Chittagong</a></li>
+          <li><a href="#browse-cars" onclick="filterByLocation('Sylhet')">Cars in Sylhet</a></li>
+          <li><a href="#browse-cars" onclick="filterByLocation('Rajshahi')">Cars in Rajshahi</a></li>
+          <li><a href="#browse-cars" onclick="filterByLocation('Khulna')">Cars in Khulna</a></li>
+          <li><a href="#browse-cars" onclick="filterByLocation('Barishal')">Cars in Barishal</a></li>
         </ul>
       </div>
 
@@ -2029,11 +2029,11 @@
         <h4>Contact Us</h4>
         <div class="footer-contact-item">
           <span class="footer-contact-icon">📞</span>
-          <span class="footer-contact-text">+880 1700-000000</span>
+          <a href="tel:+8801700000000" class="footer-contact-text" style="color:inherit;text-decoration:none;">+880 1700-000000</a>
         </div>
         <div class="footer-contact-item">
           <span class="footer-contact-icon">✉️</span>
-          <span class="footer-contact-text">info@garibazar.com.bd</span>
+          <a href="mailto:info@garibazar.com.bd" class="footer-contact-text" style="color:inherit;text-decoration:none;">info@garibazar.com.bd</a>
         </div>
         <div class="footer-contact-item">
           <span class="footer-contact-icon">📍</span>
@@ -2048,6 +2048,184 @@
       <p>Made with ❤️ in Bangladesh 🇧🇩</p>
     </div>
   </footer>
+
+  <!-- ═══ CAR DETAIL MODAL ════════════════════════════ -->
+  <div id="car-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="Car details" hidden>
+    <div class="gb-modal" id="car-modal-box">
+      <div class="gb-modal-img-wrap">
+        <img id="cm-img" src="" alt="" class="gb-modal-img">
+        <button class="gb-modal-close" onclick="closeCarModal()" aria-label="Close">✕</button>
+      </div>
+      <div class="gb-modal-body">
+        <h2 id="cm-name" class="gb-modal-title"></h2>
+        <p id="cm-sub" class="gb-modal-sub"></p>
+        <div class="gb-modal-specs">
+          <div class="gb-spec-box"><span class="gb-spec-label">Year</span><span id="cm-year" class="gb-spec-val"></span></div>
+          <div class="gb-spec-box"><span class="gb-spec-label">Mileage</span><span id="cm-mileage" class="gb-spec-val"></span></div>
+          <div class="gb-spec-box"><span class="gb-spec-label">Condition</span><span id="cm-condition" class="gb-spec-val"></span></div>
+        </div>
+        <div class="gb-modal-price-row">
+          <span class="gb-price-label">Asking Price</span>
+          <span id="cm-price" class="gb-price-val"></span>
+        </div>
+        <div class="gb-modal-actions">
+          <button class="gb-btn-contact" id="cm-contact-btn">📞 Contact Seller</button>
+          <a id="cm-whatsapp-btn" href="#" target="_blank" rel="noopener noreferrer" class="gb-btn-whatsapp">💬 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ SELL MODAL ════════════════════════════════════ -->
+  <div id="sell-modal" class="gb-modal-backdrop" aria-modal="true" role="dialog" aria-label="Sell your car" hidden>
+    <div class="gb-modal" style="max-width:520px;">
+      <div class="gb-sell-header">
+        <div>
+          <h2 class="gb-modal-title" style="font-size:1.5rem;">Sell Your Car</h2>
+          <p style="color:var(--text-secondary);font-size:.85rem;margin-top:.25rem;">Free listing · Published within 24 hours</p>
+        </div>
+        <button class="gb-modal-close-top" onclick="closeSellModal()" aria-label="Close">✕</button>
+      </div>
+      <div id="sell-form-wrap">
+        <form id="sell-form" class="gb-sell-form" onsubmit="submitSellForm(event)">
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Your Name</label>
+              <input type="text" required placeholder="Rahman Ali">
+            </div>
+            <div class="gb-form-group">
+              <label>Phone</label>
+              <input type="tel" required placeholder="01700-000000">
+            </div>
+          </div>
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Car Model</label>
+              <input type="text" required placeholder="Toyota Allion 2018">
+            </div>
+            <div class="gb-form-group">
+              <label>Year</label>
+              <input type="text" required placeholder="2018">
+            </div>
+          </div>
+          <div class="gb-form-row">
+            <div class="gb-form-group">
+              <label>Asking Price (৳)</label>
+              <input type="text" required placeholder="e.g. 28,50,000">
+            </div>
+            <div class="gb-form-group">
+              <label>Location</label>
+              <select required>
+                <option value="">Select Division</option>
+                <option>Dhaka</option><option>Chittagong</option><option>Sylhet</option>
+                <option>Rajshahi</option><option>Khulna</option><option>Barishal</option>
+                <option>Rangpur</option><option>Mymensingh</option>
+              </select>
+            </div>
+          </div>
+          <div class="gb-form-group" style="margin-top:.5rem;">
+            <label>Additional Details</label>
+            <textarea rows="3" placeholder="Mileage, condition, import papers, modifications..."></textarea>
+          </div>
+          <button type="submit" class="gb-sell-submit">Submit Listing — Free</button>
+          <p style="text-align:center;font-size:.75rem;color:var(--text-muted);margin-top:.5rem;">We'll verify and publish within 24 hours.</p>
+        </form>
+      </div>
+      <div id="sell-success" hidden style="padding:2.5rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">✅</div>
+        <h3 style="font-size:1.25rem;font-weight:800;margin-bottom:.5rem;">Listing Submitted!</h3>
+        <p style="color:var(--text-secondary);font-size:.9rem;margin-bottom:1.5rem;">Our team will contact you within 24 hours to verify and publish your listing.</p>
+        <button onclick="closeSellModal()" class="gb-sell-submit" style="width:auto;padding:.75rem 2.5rem;">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MODAL STYLES ══════════════════════════════════ -->
+  <style>
+    .gb-modal-backdrop {
+      position: fixed; inset: 0; z-index: 3000;
+      background: rgba(0,0,0,.72); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1rem; overflow-y: auto;
+    }
+    .gb-modal-backdrop[hidden] { display: none !important; }
+    .gb-modal {
+      background: #0d1b2a; border: 1px solid rgba(255,255,255,.08);
+      border-radius: 1.5rem; width: 100%; max-width: 540px;
+      box-shadow: 0 40px 100px rgba(0,0,0,.8); overflow: hidden;
+      animation: gb-slide-up .3s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes gb-slide-up { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    .gb-modal-img-wrap { position: relative; width: 100%; height: 200px; overflow: hidden; }
+    .gb-modal-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .gb-modal-close {
+      position: absolute; top: .75rem; right: .75rem;
+      width: 2.2rem; height: 2.2rem; border-radius: 50%;
+      background: rgba(0,0,0,.55); border: none; color: #fff;
+      font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+    }
+    .gb-modal-close:hover { background: rgba(0,0,0,.8); }
+    .gb-modal-close-top {
+      width: 2.2rem; height: 2.2rem; border-radius: 50%;
+      background: rgba(255,255,255,.06); border: none; color: #fff;
+      font-size: .9rem; cursor: pointer; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .gb-modal-close-top:hover { background: rgba(255,255,255,.12); }
+    .gb-modal-body { padding: 1.75rem; }
+    .gb-modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: .2rem; color: #fff; }
+    .gb-modal-sub { font-size: .85rem; color: var(--text-secondary,#7a8b9e); margin-bottom: 1.25rem; }
+    .gb-modal-specs { display: grid; grid-template-columns: repeat(3,1fr); gap: .75rem; margin-bottom: 1.25rem; }
+    .gb-spec-box { background: rgba(255,255,255,.04); border-radius: .75rem; padding: .75rem; text-align: center; }
+    .gb-spec-label { display: block; font-size: .7rem; color: var(--text-secondary,#7a8b9e); margin-bottom: .2rem; }
+    .gb-spec-val { font-size: .85rem; font-weight: 700; color: #fff; }
+    .gb-modal-price-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 0; border-top: 1px solid rgba(255,255,255,.06);
+      border-bottom: 1px solid rgba(255,255,255,.06); margin-bottom: 1.25rem;
+    }
+    .gb-price-label { font-size: .85rem; color: var(--text-secondary,#7a8b9e); }
+    .gb-price-val { font-size: 1.5rem; font-weight: 900; color: #fbbf24; }
+    .gb-modal-actions { display: flex; gap: .75rem; }
+    .gb-btn-contact {
+      flex: 1; padding: .875rem; background: #3b82f6; border: none; border-radius: .625rem;
+      color: #fff; font-weight: 700; font-size: .9rem; cursor: pointer; transition: background .2s;
+    }
+    .gb-btn-contact:hover { background: #2563eb; }
+    .gb-btn-whatsapp {
+      display: flex; align-items: center; justify-content: center; gap: .4rem;
+      padding: .875rem 1.25rem; background: rgba(37,211,102,.1);
+      border: 1px solid rgba(37,211,102,.3); border-radius: .625rem;
+      color: #25d366; font-weight: 700; font-size: .9rem; text-decoration: none; transition: background .2s;
+    }
+    .gb-btn-whatsapp:hover { background: rgba(37,211,102,.2); }
+    /* Sell form */
+    .gb-sell-header { display: flex; align-items: center; justify-content: space-between; padding: 1.75rem 1.75rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .gb-sell-form { padding: 1.25rem 1.75rem 1.75rem; }
+    .gb-form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; margin-bottom: .75rem; }
+    .gb-form-group { display: flex; flex-direction: column; gap: .35rem; }
+    .gb-form-group label { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--text-secondary,#7a8b9e); }
+    .gb-form-group input, .gb-form-group select, .gb-form-group textarea {
+      padding: .7rem 1rem; background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.08); border-radius: .5rem;
+      color: #fff; font-size: .85rem; outline: none; font-family: inherit;
+      transition: border-color .2s;
+    }
+    .gb-form-group input:focus, .gb-form-group select:focus, .gb-form-group textarea:focus { border-color: #3b82f6; }
+    .gb-form-group select { background-color: #0d1b2a; }
+    .gb-form-group textarea { resize: none; }
+    .gb-form-group input::placeholder, .gb-form-group textarea::placeholder { color: rgba(255,255,255,.2); }
+    .gb-sell-submit {
+      width: 100%; margin-top: .75rem; padding: .9rem;
+      background: #3b82f6; border: none; border-radius: .625rem;
+      color: #fff; font-weight: 700; font-size: .95rem; cursor: pointer; transition: background .2s;
+    }
+    .gb-sell-submit:hover { background: #2563eb; }
+    @media (max-width: 480px) {
+      .gb-form-row { grid-template-columns: 1fr; }
+      .gb-modal-specs { grid-template-columns: repeat(3,1fr); }
+    }
+  </style>
 
   <!-- ═══ SCRIPTS ═══════════════════════════════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
@@ -2226,8 +2404,10 @@
         document.querySelectorAll(".brand-chip").forEach(c => c.classList.remove("active"));
         this.classList.add("active");
         const brandSelect = document.getElementById("s-brand");
-        if (brandSelect) brandSelect.value = this.textContent;
+        if (brandSelect) brandSelect.value = this.textContent.trim();
         gsap.fromTo(this, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+        // Scroll to browse cars
+        document.getElementById('browse-cars')?.scrollIntoView({ behavior: 'smooth' });
       });
     });
 
@@ -2271,6 +2451,93 @@
     // ─── 10. ScrollTrigger.refresh after pin setup ───
     // Critical: recalculate positions after pinned hero adds scroll height
     window.addEventListener('load', () => ScrollTrigger.refresh());
+
+    // ─── 11. Search Button ────────────────────────────
+    document.querySelector('.btn-search')?.addEventListener('click', function() {
+      document.getElementById('browse-cars')?.scrollIntoView({ behavior: 'smooth' });
+    });
+
+    // ─── 12. Car Card Modal ───────────────────────────
+    function openCarModal(card) {
+      const d = card.dataset;
+      document.getElementById('cm-img').src = d.img || '';
+      document.getElementById('cm-img').alt = d.name || '';
+      document.getElementById('cm-name').textContent = d.name || '';
+      document.getElementById('cm-sub').textContent = (d.condition || '') + ' · ' + (d.location || '');
+      document.getElementById('cm-year').textContent = d.year || '';
+      document.getElementById('cm-mileage').textContent = d.mileage || '';
+      document.getElementById('cm-condition').textContent = d.condition || '';
+      document.getElementById('cm-price').textContent = d.price || '';
+
+      document.getElementById('cm-contact-btn').onclick = function() {
+        alert('📞 Contact Seller\nPhone: +880 1700-000000\nbKash / Nagad: 01700-000000');
+      };
+
+      const waMsg = encodeURIComponent("Hi, I'm interested in the " + d.name + " (" + d.year + ") listed on GariBazar BD. Price: " + d.price);
+      document.getElementById('cm-whatsapp-btn').href = 'https://wa.me/8801700000000?text=' + waMsg;
+
+      const modal = document.getElementById('car-modal');
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCarModal() {
+      document.getElementById('car-modal').hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    // Click car cards
+    document.querySelectorAll('.car-card').forEach(card => {
+      card.addEventListener('click', function(e) {
+        if (e.target.closest('.car-wishlist')) return; // ignore wishlist clicks
+        openCarModal(this);
+      });
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openCarModal(this); }
+      });
+    });
+
+    // Close on backdrop click
+    document.getElementById('car-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeCarModal();
+    });
+
+    // ─── 13. Sell Modal ───────────────────────────────
+    function openSellModal() {
+      document.getElementById('sell-form-wrap').hidden = false;
+      document.getElementById('sell-success').hidden = true;
+      document.getElementById('sell-form')?.reset();
+      document.getElementById('sell-modal').hidden = false;
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSellModal() {
+      document.getElementById('sell-modal').hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    function submitSellForm(e) {
+      e.preventDefault();
+      document.getElementById('sell-form-wrap').hidden = true;
+      document.getElementById('sell-success').hidden = false;
+    }
+
+    document.getElementById('sell-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeSellModal();
+    });
+
+    // ─── 14. Escape key closes any modal ─────────────
+    document.addEventListener('keydown', function(e) {
+      if (e.key !== 'Escape') return;
+      closeCarModal();
+      closeSellModal();
+    });
+
+    // ─── 15. Footer location filter ──────────────────
+    function filterByLocation(location) {
+      const sel = document.getElementById('s-location');
+      if (sel) sel.value = location;
+    }
 
   </script>
 </body>

@@ -48,7 +48,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="hero-section relative w-full h-screen overflow-hidden">
+    <section className="hero-section relative w-full h-screen overflow-hidden" id="home">
       {/* Background gradient */}
       <div className="hero-bg-layer absolute inset-0 bg-[radial-gradient(circle_at_center,#1a2536_0%,#03060a_100%)] z-0" />
 

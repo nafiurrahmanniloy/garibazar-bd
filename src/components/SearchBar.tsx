@@ -3,14 +3,23 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import type { SearchFilters } from "@/types";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const brands = ["Toyota", "Honda", "Nissan", "Suzuki", "Mitsubishi", "BMW", "Hyundai"];
-
 const divisions = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna", "Barishal", "Rangpur", "Mymensingh"];
 
-export default function SearchBar() {
+type Props = {
+  filters: SearchFilters;
+  setFilters: React.Dispatch<React.SetStateAction<SearchFilters>>;
+  onSearch: () => void;
+  onBrandChipClick: (brand: string) => void;
+};
+
+const selectClass = "w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10";
+
+export default function SearchBar({ filters, setFilters, onSearch, onBrandChipClick }: Props) {
   useEffect(() => {
     gsap.from(".search-card", {
       y: 60,
@@ -20,6 +29,9 @@ export default function SearchBar() {
       scrollTrigger: { trigger: ".search-section", start: "top 80%" },
     });
   }, []);
+
+  const set = (field: keyof SearchFilters) => (e: React.ChangeEvent<HTMLSelectElement>) =>
+    setFilters(f => ({ ...f, [field]: e.target.value }));
 
   return (
     <section className="search-section relative z-50 -mt-16 pb-16 pt-20 px-6">
@@ -34,7 +46,7 @@ export default function SearchBar() {
             <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
               Brand
             </label>
-            <select className="w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10">
+            <select className={selectClass} value={filters.brand} onChange={set("brand")}>
               <option value="">All Brands</option>
               {brands.map((b) => (
                 <option key={b} value={b}>{b}</option>
@@ -47,7 +59,7 @@ export default function SearchBar() {
             <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
               Max Price (BDT)
             </label>
-            <select className="w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10">
+            <select className={selectClass} value={filters.price} onChange={set("price")}>
               <option value="">Any Price</option>
               <option value="500000">Under ৳5 Lakh</option>
               <option value="1000000">Under ৳10 Lakh</option>
@@ -63,7 +75,7 @@ export default function SearchBar() {
             <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
               Location
             </label>
-            <select className="w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10">
+            <select className={selectClass} value={filters.location} onChange={set("location")}>
               <option value="">All Divisions</option>
               {divisions.map((d) => (
                 <option key={d} value={d}>{d}</option>
@@ -76,7 +88,7 @@ export default function SearchBar() {
             <label className="block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-2">
               Year
             </label>
-            <select className="w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10">
+            <select className={selectClass} value={filters.year} onChange={set("year")}>
               <option value="">Any Year</option>
               {Array.from({ length: 15 }, (_, i) => 2026 - i).map((y) => (
                 <option key={y} value={y}>{y}</option>
@@ -86,7 +98,10 @@ export default function SearchBar() {
         </div>
 
         {/* Search Button */}
-        <button className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg font-semibold text-base cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)]">
+        <button
+          onClick={onSearch}
+          className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg font-semibold text-base cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)]"
+        >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
@@ -100,11 +115,24 @@ export default function SearchBar() {
           {brands.map((brand) => (
             <button
               key={brand}
-              className="px-4 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full text-[0.82rem] font-medium text-[var(--text-secondary)] cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              onClick={() => onBrandChipClick(brand)}
+              className={`px-4 py-1.5 border rounded-full text-[0.82rem] font-medium cursor-pointer transition-all ${
+                filters.brand === brand
+                  ? "bg-[var(--accent-subtle)] border-[var(--accent)] text-[var(--accent)]"
+                  : "bg-white/[0.04] border-white/[0.06] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+              }`}
             >
               {brand}
             </button>
           ))}
+          {filters.brand && (
+            <button
+              onClick={() => setFilters(f => ({ ...f, brand: "" }))}
+              className="px-3 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full text-[0.75rem] font-medium text-[var(--text-muted)] cursor-pointer hover:text-white transition-all"
+            >
+              ✕ Clear
+            </button>
+          )}
         </div>
       </div>
     </section>
