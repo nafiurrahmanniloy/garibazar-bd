@@ -59,7 +59,7 @@ export default function Hero() {
       <div className="hero-pinned relative z-10 w-full h-screen flex items-center justify-center">
         <div className="hero-media-container relative w-[75vw] h-[55vh] flex items-center justify-center overflow-hidden z-5 shadow-[0_60px_120px_rgba(0,0,0,0.9)]">
           <div className="w-full h-full relative">
-            <video src="/videos/drift.mp4" autoPlay loop muted playsInline className="w-full h-full object-cover object-center" />
+            <video src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/videos/drift.mp4`} autoPlay loop muted playsInline className="w-full h-full object-cover object-center" />
             <div className="hero-media-overlay absolute inset-0 bg-[radial-gradient(circle,rgba(0,0,0,0)_20%,rgba(3,6,10,0.8)_100%)] z-[1]" />
           </div>
         </div>
