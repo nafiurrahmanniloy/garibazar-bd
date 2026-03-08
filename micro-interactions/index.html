@@ -318,7 +318,7 @@
     /* ─── Quick Search Bar ──────────────────────────── */
     .search-section {
       position: relative;
-      padding: 5rem 5% 0;
+      padding: 5rem 5% 2.5rem;
       background: var(--bg-secondary);
     }
     .search-section::before {
@@ -458,7 +458,7 @@
 
     /* ─── Featured Cars Grid ────────────────────────── */
     .cars-section {
-      padding: 3rem 5% 8rem;
+      padding: 0 5% 8rem;
       background: var(--bg-secondary);
     }
 
@@ -1435,15 +1435,10 @@
   <!-- ═══ FEATURED CARS ═════════════════════════════════ -->
   <section class="cars-section" id="browse-cars" aria-label="Featured cars">
     <div class="section-center">
-      <div class="section-header">
-        <div>
-          <div class="section-label">Fresh Listings</div>
-          <h2 class="gradient-text">Featured Cars</h2>
-          <p id="filter-count" style="display:none;margin-top:.4rem;font-size:.85rem;color:#3b82f6;font-weight:600;"></p>
-        </div>
+      <div class="section-header" style="margin-bottom:.75rem; padding-top:1.5rem; border-top:1px solid rgba(255,255,255,.05);">
+        <p id="filter-count" style="display:none;font-size:.85rem;color:#3b82f6;font-weight:600;"></p>
         <div style="display:flex;align-items:center;gap:1rem;">
           <button id="clear-filters-btn" onclick="clearFilters()" style="display:none;font-size:.8rem;color:#7a8b9e;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:.5rem;padding:.4rem .9rem;cursor:pointer;">✕ Clear Filters</button>
-          <a href="#browse-cars">View All Listings →</a>
         </div>
       </div>
 
@@ -2728,11 +2723,12 @@
     /* ── Zone Divider (Photo → Listing Details) ─────── */
     .cdp-zone-divider {
       display: flex; align-items: center; gap: .65rem;
-      padding: .6rem 1.25rem;
-      background: linear-gradient(90deg, rgba(59,130,246,.18) 0%, rgba(59,130,246,.06) 60%, transparent 100%);
-      border-top: 2px solid #3b82f6;
-      border-bottom: 1px solid rgba(59,130,246,.25);
+      padding: .7rem 1.25rem;
+      background: linear-gradient(90deg, rgba(59,130,246,.22) 0%, rgba(59,130,246,.08) 50%, transparent 100%);
+      border-top: 3px solid #3b82f6;
+      border-bottom: 2px solid rgba(59,130,246,.3);
       grid-column: 1;
+      margin-top: 2px;
     }
     .cdp-zone-icon { font-size: .85rem; flex-shrink: 0; }
     .cdp-zone-label {
@@ -2844,7 +2840,7 @@
     .cdp-step p { font-size: .82rem; color: var(--text-secondary, #7a8b9e); margin: 0; line-height: 1.5; }
 
     /* ── Meta bar ─────────────────────────────────────── */
-    .cdp-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; padding:.7rem 1.25rem; background:#0a111c; border-bottom:2px solid rgba(255,255,255,.08); font-size:.8rem; color:var(--text-secondary,#7a8b9e); position:relative; z-index:2; }
+    .cdp-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; padding:.7rem 1.25rem; background:rgba(59,130,246,0.06); border-bottom:1px solid rgba(59,130,246,.15); border-left:3px solid #3b82f6; font-size:.8rem; color:var(--text-secondary,#7a8b9e); position:relative; z-index:2; }
     .cdp-meta-bar-left { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
     .cdp-meta-dot { display:inline-flex; align-items:center; gap:.3rem; }
     .cdp-meta-bar-right { display:flex; gap:.5rem; }
