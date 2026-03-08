@@ -318,8 +318,8 @@
     /* ─── Quick Search Bar ──────────────────────────── */
     .search-section {
       position: relative;
-      padding: 5rem 5% 3rem;
-      background: var(--bg-primary);
+      padding: 5rem 5% 0;
+      background: var(--bg-secondary);
     }
     .search-section::before {
       content: '';
@@ -327,14 +327,6 @@
       top: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent-glow-strong), transparent);
-    }
-    .search-section::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 80px;
-      background: linear-gradient(to bottom, transparent, var(--bg-secondary));
-      pointer-events: none;
     }
 
     .search-header {
@@ -466,7 +458,7 @@
 
     /* ─── Featured Cars Grid ────────────────────────── */
     .cars-section {
-      padding: 4rem 5% 8rem;
+      padding: 3rem 5% 8rem;
       background: var(--bg-secondary);
     }
 
