@@ -44,9 +44,13 @@ function Stars() {
 
 export default function Testimonials() {
   useEffect(() => {
-    gsap.from(".testimonial-card", {
-      y: 40, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power3.out",
-      scrollTrigger: { trigger: ".testimonials-grid", start: "top 80%" },
+    ScrollTrigger.create({
+      trigger: ".testimonials-grid",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".testimonial-card", { y: 40, opacity: 0, duration: 0.7, stagger: 0.15, ease: "power3.out" });
+      },
     });
   }, []);
 

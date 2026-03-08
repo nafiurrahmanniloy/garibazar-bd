@@ -21,12 +21,13 @@ const selectClass = "w-full px-4 py-3 bg-white/5 border border-white/[0.06] roun
 
 export default function SearchBar({ filters, setFilters, onSearch, onBrandChipClick }: Props) {
   useEffect(() => {
-    gsap.from(".search-card", {
-      y: 60,
-      opacity: 0,
-      duration: 1,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".search-section", start: "top 80%" },
+    ScrollTrigger.create({
+      trigger: ".search-section",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".search-card", { y: 60, opacity: 0, duration: 1, ease: "power3.out" });
+      },
     });
   }, []);
 
@@ -35,8 +36,23 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
 
   return (
     <section className="search-section relative z-50 -mt-16 pb-16 pt-20 px-6">
-      <div className="search-card max-w-[960px] mx-auto bg-[rgba(13,27,42,0.8)] backdrop-blur-[24px] border border-white/[0.06] rounded-3xl p-10 max-md:p-6">
-        <h3 className="text-xl font-bold text-center mb-6">
+      {/* Headlight glow beams */}
+      <div className="absolute top-12 left-[30%] w-[200px] h-[120px] bg-[radial-gradient(ellipse,rgba(61,139,253,0.08),transparent_70%)] pointer-events-none blur-2xl" />
+      <div className="absolute top-12 right-[30%] w-[200px] h-[120px] bg-[radial-gradient(ellipse,rgba(61,139,253,0.08),transparent_70%)] pointer-events-none blur-2xl" />
+
+      <div className="search-card max-w-[960px] mx-auto bg-[rgba(14,26,46,0.85)] backdrop-blur-[24px] rounded-3xl p-10 max-md:p-6 relative">
+        {/* Chrome gradient border */}
+        <div className="absolute inset-0 rounded-3xl p-px bg-gradient-to-b from-white/[0.12] via-white/[0.03] to-white/[0.06] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude] pointer-events-none" />
+
+        <h3 className="text-xl font-bold text-center mb-6 flex items-center justify-center gap-3">
+          <svg className="w-6 h-6 text-[var(--accent)] opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="12" r="4" />
+            <line x1="12" x2="12" y1="2" y2="4" />
+            <line x1="12" x2="12" y1="20" y2="22" />
+            <line x1="2" x2="4" y1="12" y2="12" />
+            <line x1="20" x2="22" y1="12" y2="12" />
+          </svg>
           Find Your Perfect Car
         </h3>
 
@@ -100,13 +116,14 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
         {/* Search Button */}
         <button
           onClick={onSearch}
-          className="w-full flex items-center justify-center gap-2 py-3.5 bg-[var(--accent)] hover:bg-[var(--accent-hover)] text-white rounded-lg font-semibold text-base cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)]"
+          className="group/btn w-full flex items-center justify-center gap-2 py-3.5 bg-gradient-to-r from-[var(--accent)] to-[#2872e5] hover:from-[#2872e5] hover:to-[var(--accent)] text-white rounded-lg font-semibold text-base cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)] relative overflow-hidden"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-[1]">
             <circle cx="11" cy="11" r="8" />
             <path d="m21 21-4.3-4.3" />
           </svg>
-          Search Cars
+          <span className="relative z-[1]">Search Cars</span>
         </button>
 
         {/* Quick brand chips */}

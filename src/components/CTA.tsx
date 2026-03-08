@@ -13,9 +13,13 @@ type Props = {
 
 export default function CTA({ onBrowseClick, onSellClick }: Props) {
   useEffect(() => {
-    gsap.from(".cta-card", {
-      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out",
-      scrollTrigger: { trigger: ".cta-grid", start: "top 80%" },
+    ScrollTrigger.create({
+      trigger: ".cta-grid",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".cta-card", { y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" });
+      },
     });
   }, []);
 

@@ -19,6 +19,7 @@ const cars: Car[] = [
     condition: "Reconditioned",
     gradient: "from-blue-900/80 via-slate-800/60 to-slate-900/90",
     accent: "#3b82f6",
+    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=600&h=400&fit=crop&q=80",
   },
   {
     name: "Honda Grace Hybrid",
@@ -31,6 +32,7 @@ const cars: Car[] = [
     condition: "Reconditioned",
     gradient: "from-emerald-900/80 via-slate-800/60 to-slate-900/90",
     accent: "#10b981",
+    image: "https://images.unsplash.com/photo-1555626906-fcf10d6851b4?w=600&h=400&fit=crop&q=80",
   },
   {
     name: "Nissan X-Trail",
@@ -43,6 +45,7 @@ const cars: Car[] = [
     condition: "Used",
     gradient: "from-violet-900/80 via-slate-800/60 to-slate-900/90",
     accent: "#8b5cf6",
+    image: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=600&h=400&fit=crop&q=80",
   },
   {
     name: "Mitsubishi Pajero Sport",
@@ -55,6 +58,7 @@ const cars: Car[] = [
     condition: "Reconditioned",
     gradient: "from-amber-900/80 via-slate-800/60 to-slate-900/90",
     accent: "#f59e0b",
+    image: "https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?w=600&h=400&fit=crop&q=80",
   },
   {
     name: "Suzuki Swift GL",
@@ -67,6 +71,7 @@ const cars: Car[] = [
     condition: "Used",
     gradient: "from-cyan-900/80 via-slate-800/60 to-slate-900/90",
     accent: "#06b6d4",
+    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=600&h=400&fit=crop&q=80",
   },
   {
     name: "Toyota Land Cruiser Prado",
@@ -79,6 +84,7 @@ const cars: Car[] = [
     condition: "Used",
     gradient: "from-rose-900/80 via-slate-800/60 to-slate-900/90",
     accent: "#f43f5e",
+    image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=600&h=400&fit=crop&q=80",
   },
 ];
 
@@ -97,21 +103,6 @@ function filterCars(cars: Car[], filters: SearchFilters): Car[] {
   });
 }
 
-function CarPlaceholder({ name, accent }: { name: string; accent: string }) {
-  return (
-    <div className="w-full h-full flex flex-col items-center justify-center gap-3">
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke={accent} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" opacity="0.6">
-        <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0 0 13.7 6H10l-3.3.5A2 2 0 0 0 5 8.4V10" />
-        <circle cx="7" cy="17" r="2" />
-        <circle cx="17" cy="17" r="2" />
-        <path d="M5 17H3c-.6 0-1-.4-1-1v-4.5" />
-        <path d="M2 10h20" />
-      </svg>
-      <span className="text-xs font-medium opacity-40 text-white">{name}</span>
-    </div>
-  );
-}
-
 type Props = {
   filters: SearchFilters;
   onCarClick: (car: Car) => void;
@@ -119,13 +110,13 @@ type Props = {
 
 export default function FeaturedCars({ filters, onCarClick }: Props) {
   useEffect(() => {
-    gsap.from(".car-card", {
-      y: 60,
-      opacity: 0,
-      duration: 0.8,
-      stagger: 0.15,
-      ease: "power3.out",
-      scrollTrigger: { trigger: ".cars-grid", start: "top 80%" },
+    ScrollTrigger.create({
+      trigger: ".cars-grid",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".car-card", { y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power3.out" });
+      },
     });
   }, []);
 
@@ -158,16 +149,28 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
               <div
                 key={i}
                 onClick={() => onCarClick(car)}
-                className="car-card bg-[var(--bg-card)] border border-white/[0.06] rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:border-white/[0.12] hover:shadow-[0_20px_60px_rgba(0,0,0,0.4),0_0_40px_var(--accent-glow)]"
+                className="car-card group bg-[var(--bg-card)]/80 backdrop-blur-sm border border-white/[0.06] rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:border-white/[0.15] hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(59,130,246,0.1)]"
               >
-                {/* Image placeholder */}
+                {/* Car image */}
                 <div className={`relative w-full h-[220px] overflow-hidden bg-gradient-to-br ${car.gradient}`}>
-                  <CarPlaceholder name={car.name} accent={car.accent} />
-                  <span className={`absolute top-3 left-3 px-3 py-1 rounded-full text-[0.7rem] font-bold uppercase tracking-wide text-white ${car.badgeClass}`}>
-                    {car.badge}
-                  </span>
+                  <img
+                    src={car.image}
+                    alt={car.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  />
+                  {/* Showroom gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent opacity-60 pointer-events-none" />
+                  {/* Badge */}
+                  <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1.5 bg-black/50 backdrop-blur-md border border-white/15 rounded-full">
+                    <div className={`w-1.5 h-1.5 rounded-full ${car.badge === "Verified" ? "bg-emerald-400" : car.badge === "Featured" ? "bg-amber-400" : "bg-blue-400"}`} />
+                    <span className="text-[0.68rem] font-bold uppercase tracking-wide text-white">
+                      {car.badge}
+                    </span>
+                  </div>
                   {/* View Details overlay */}
-                  <div className="absolute inset-0 bg-black/0 hover:bg-black/30 transition-all duration-300 flex items-center justify-center opacity-0 hover:opacity-100">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
                     <span className="text-white text-sm font-semibold px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
                       View Details
                     </span>
@@ -175,7 +178,10 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
                 </div>
 
                 {/* Body */}
-                <div className="p-5">
+                <div className="p-5 relative">
+                  {/* Chrome separator line */}
+                  <div className="absolute top-0 left-4 right-4 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+
                   <h3 className="text-[1.1rem] font-bold mb-1">{car.name}</h3>
                   <div className="flex items-center gap-3 text-[0.82rem] text-[var(--text-secondary)] mb-4">
                     <span className="flex items-center gap-1">
@@ -200,7 +206,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
 
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-4 border-t border-white/[0.06]">
-                    <span className="text-[1.25rem] font-extrabold text-amber-400">
+                    <span className="text-[1.25rem] font-extrabold text-amber-400 font-[var(--font-rajdhani)] drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">
                       {car.price}
                     </span>
                     <span className="flex items-center gap-1 text-[0.8rem] text-[var(--text-secondary)]">

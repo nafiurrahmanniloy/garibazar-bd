@@ -27,28 +27,19 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
         className="relative bg-[#0d1b2a] border border-white/[0.08] rounded-3xl w-full max-w-[560px] overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.8)]"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Image / gradient area */}
-        <div className={`w-full h-[200px] bg-gradient-to-br ${car.gradient} flex items-center justify-center relative`}>
-          <svg
-            width="80"
-            height="80"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke={car.accent}
-            strokeWidth="1.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity="0.45"
-          >
-            <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18 10l-2.7-3.4A2 2 0 0 0 13.7 6H10l-3.3.5A2 2 0 0 0 5 8.4V10" />
-            <circle cx="7" cy="17" r="2" />
-            <circle cx="17" cy="17" r="2" />
-            <path d="M5 17H3c-.6 0-1-.4-1-1v-4.5" />
-            <path d="M2 10h20" />
-          </svg>
-          <span className={`absolute top-4 left-4 px-3 py-1 rounded-full text-[0.7rem] font-bold uppercase tracking-wide text-white ${car.badgeClass}`}>
-            {car.badge}
-          </span>
+        {/* Image area */}
+        <div className={`w-full h-[240px] bg-gradient-to-br ${car.gradient} relative overflow-hidden`}>
+          <img
+            src={car.image}
+            alt={car.name}
+            className="w-full h-full object-cover object-center"
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0d1b2a] via-transparent to-transparent" />
+          <div className="absolute top-4 left-4 flex items-center gap-2 px-3 py-1.5 bg-black/50 backdrop-blur-md border border-white/15 rounded-full">
+            <div className={`w-1.5 h-1.5 rounded-full ${car.badge === "Verified" ? "bg-emerald-400" : car.badge === "Featured" ? "bg-amber-400" : "bg-blue-400"}`} />
+            <span className="text-[0.68rem] font-bold uppercase tracking-wide text-white">{car.badge}</span>
+          </div>
           <button
             onClick={onClose}
             className="absolute top-4 right-4 w-9 h-9 bg-black/50 hover:bg-black/70 rounded-full flex items-center justify-center transition-colors"
@@ -82,7 +73,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
 
           <div className="flex items-center justify-between mb-6 py-4 border-y border-white/[0.06]">
             <span className="text-[var(--text-secondary)] text-sm">Asking Price</span>
-            <span className="text-2xl font-extrabold text-amber-400">{car.price}</span>
+            <span className="text-2xl font-extrabold text-amber-400 font-[var(--font-rajdhani)] drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">{car.price}</span>
           </div>
 
           <div className="flex gap-3">

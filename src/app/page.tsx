@@ -12,6 +12,7 @@ import HowItWorks from "@/components/HowItWorks";
 import Testimonials from "@/components/Testimonials";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import TrustStrip from "@/components/TrustStrip";
 import SellModal from "@/components/SellModal";
 import CarModal from "@/components/CarModal";
 import type { Car, SearchFilters } from "@/types";
@@ -45,14 +46,18 @@ export default function Home() {
         onSearch={() => scrollTo("browse-cars")}
         onBrandChipClick={handleBrandSelect}
       />
+      <TrustStrip />
       <FeaturedCars
         filters={filters}
         onCarClick={setSelectedCar}
       />
+      <div className="py-8 flex justify-center"><div className="road-divider" /></div>
       <WhyChoose />
       <Brands onBrandClick={handleBrandSelect} />
+      <div className="py-8 flex justify-center"><div className="road-divider" /></div>
       <HowItWorks />
       <Testimonials />
+      <div className="py-8 flex justify-center"><div className="road-divider" /></div>
       <CTA
         onBrowseClick={() => scrollTo("browse-cars")}
         onSellClick={() => setSellModalOpen(true)}

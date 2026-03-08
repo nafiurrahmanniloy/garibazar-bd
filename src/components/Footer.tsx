@@ -26,9 +26,13 @@ const locations = ["Dhaka", "Chittagong", "Sylhet", "Rajshahi", "Khulna", "Baris
 
 export default function Footer({ onSellClick, onLocationClick }: Props) {
   useEffect(() => {
-    gsap.from(".footer-col", {
-      y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out",
-      scrollTrigger: { trigger: ".footer-section", start: "top 90%" },
+    ScrollTrigger.create({
+      trigger: ".footer-section",
+      start: "top 90%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".footer-col", { y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+      },
     });
   }, []);
 

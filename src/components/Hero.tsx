@@ -39,7 +39,9 @@ export default function Hero() {
       .to(".title-right", { xPercent: 150, skewX: 15, opacity: 0, ease: "power2.in" }, 0)
       .to(".hero-media-container video", { scale: 1.1, ease: "none" }, 0)
       .to(".hero-tagline", { opacity: 1, y: 0, ease: "power2.out" }, 0.5)
-      .to(".hero-scroll-hint", { opacity: 0, ease: "power1.in" }, 0);
+      .to(".hero-scroll-hint", { opacity: 0, ease: "power1.in" }, 0)
+      .to(".hero-speed-lines", { opacity: 1, duration: 0.3, ease: "power1.in" }, 0.3)
+      .to(".hero-speed-lines", { opacity: 0, duration: 0.5, ease: "power1.out" }, 0.6);
 
     return () => {
       heroTl.scrollTrigger?.kill();
@@ -67,6 +69,22 @@ export default function Hero() {
             />
             <div className="hero-media-overlay absolute inset-0 bg-[radial-gradient(circle,rgba(0,0,0,0)_30%,rgba(0,0,0,0.7)_100%)] z-[1]" />
           </div>
+        </div>
+
+        {/* Speed lines — flash during scroll expansion */}
+        <div className="hero-speed-lines absolute inset-0 z-[15] pointer-events-none opacity-0">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"
+              style={{
+                top: `${20 + i * 15}%`,
+                left: "-100%",
+                width: "200%",
+                transform: `rotate(${-2 + i * 1}deg)`,
+              }}
+            />
+          ))}
         </div>
 
         {/* Split title */}

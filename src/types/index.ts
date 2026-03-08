@@ -9,6 +9,7 @@ export type Car = {
   condition: string;
   gradient: string;
   accent: string;
+  image: string;
 };
 
 export type SearchFilters = {

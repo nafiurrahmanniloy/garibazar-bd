@@ -46,9 +46,13 @@ const steps = [
 
 export default function HowItWorks() {
   useEffect(() => {
-    gsap.from(".step-card", {
-      y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out",
-      scrollTrigger: { trigger: ".steps-grid", start: "top 80%" },
+    ScrollTrigger.create({
+      trigger: ".steps-grid",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".step-card", { y: 50, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" });
+      },
     });
   }, []);
 

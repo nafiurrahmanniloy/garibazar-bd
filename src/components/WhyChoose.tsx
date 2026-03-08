@@ -76,18 +76,28 @@ export default function WhyChoose() {
               stat.textContent = Math.floor(this.targets()[0].val).toLocaleString("en-IN") + suffix;
             },
           });
+          const gauge = stat.closest(".stat-item")?.querySelector(".stat-gauge");
+          if (gauge) gsap.to(gauge, { strokeDashoffset: 0, duration: 2, ease: "power2.out" });
         },
       });
     });
 
-    gsap.from(".stat-item", {
-      y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out",
-      scrollTrigger: { trigger: ".stats-row", start: "top 85%" },
+    ScrollTrigger.create({
+      trigger: ".stats-row",
+      start: "top 85%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".stat-item", { y: 30, opacity: 0, duration: 0.6, stagger: 0.1, ease: "power3.out" });
+      },
     });
 
-    gsap.from(".feature-card", {
-      y: 40, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out",
-      scrollTrigger: { trigger: ".features-grid", start: "top 80%" },
+    ScrollTrigger.create({
+      trigger: ".features-grid",
+      start: "top 80%",
+      once: true,
+      onEnter: () => {
+        gsap.from(".feature-card", { y: 40, opacity: 0, duration: 0.7, stagger: 0.12, ease: "power3.out" });
+      },
     });
   }, []);
 
@@ -109,9 +119,14 @@ export default function WhyChoose() {
         {/* Stats */}
         <div className="stats-row grid grid-cols-4 max-lg:grid-cols-2 gap-6 mb-20">
           {stats.map((s, i) => (
-            <div key={i} className="stat-item text-center p-8 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+            <div key={i} className="stat-item text-center p-8 bg-white/[0.02] border border-white/[0.06] rounded-2xl relative">
+              {/* Gauge arc */}
+              <svg className="mx-auto mb-2 w-20 h-10 overflow-visible" viewBox="0 0 80 40">
+                <path d="M 5 40 A 35 35 0 0 1 75 40" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="3" strokeLinecap="round" />
+                <path className="stat-gauge" d="M 5 40 A 35 35 0 0 1 75 40" fill="none" stroke="var(--accent)" strokeWidth="3" strokeLinecap="round" strokeDasharray="110" strokeDashoffset="110" />
+              </svg>
               <div
-                className="stat-number text-[clamp(2rem,4vw,3rem)] font-black text-[var(--accent)] leading-none mb-2"
+                className="stat-number text-[clamp(2rem,4vw,3rem)] font-black text-[var(--accent)] leading-none mb-2 font-dashboard"
                 data-target={s.target}
                 data-suffix={s.suffix}
               >
