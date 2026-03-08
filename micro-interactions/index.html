@@ -318,7 +318,7 @@
     /* ─── Quick Search Bar ──────────────────────────── */
     .search-section {
       position: relative;
-      padding: 5rem 5% 6rem;
+      padding: 5rem 5% 3rem;
       background: var(--bg-primary);
     }
     .search-section::before {
@@ -327,6 +327,14 @@
       top: 0; left: 0; right: 0;
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--accent-glow-strong), transparent);
+    }
+    .search-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--bg-secondary));
+      pointer-events: none;
     }
 
     .search-header {
@@ -458,7 +466,7 @@
 
     /* ─── Featured Cars Grid ────────────────────────── */
     .cars-section {
-      padding: var(--section-pad);
+      padding: 4rem 5% 8rem;
       background: var(--bg-secondary);
     }
 
@@ -2474,7 +2482,7 @@
     .cdp-badges-hero { position: absolute; top: 1rem; left: 1rem; display: flex; gap: .4rem; flex-wrap: wrap; }
 
     /* ── Thumbnails ───────────────────────────────────── */
-    .cdp-thumbs { display: flex; gap: .5rem; padding: .75rem 1rem; overflow-x: auto; background: #050d18; scrollbar-width: none; }
+    .cdp-thumbs { display: flex; gap: .5rem; padding: .75rem 1rem; overflow-x: auto; background: #050d18; scrollbar-width: none; border-bottom: 1px solid rgba(255,255,255,.06); position:relative; z-index:1; }
     .cdp-thumbs::-webkit-scrollbar { display: none; }
     .cdp-thumb { flex-shrink: 0; width: 72px; height: 52px; border-radius: .5rem; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color .2s, opacity .2s; opacity: .6; }
     .cdp-thumb.active { border-color: #3b82f6; opacity: 1; }
@@ -2559,7 +2567,7 @@
     .cdp-step p { font-size: .82rem; color: var(--text-secondary, #7a8b9e); margin: 0; line-height: 1.5; }
 
     /* ── Meta bar ─────────────────────────────────────── */
-    .cdp-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; padding:.65rem 1.25rem; background:rgba(255,255,255,.015); border-bottom:1px solid rgba(255,255,255,.06); font-size:.8rem; color:var(--text-secondary,#7a8b9e); }
+    .cdp-meta-bar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:.5rem; padding:.65rem 1.25rem; background:#03060a; border-top:1px solid rgba(255,255,255,.06); border-bottom:1px solid rgba(255,255,255,.06); font-size:.8rem; color:var(--text-secondary,#7a8b9e); position:relative; z-index:2; }
     .cdp-meta-bar-left { display:flex; align-items:center; gap:1rem; flex-wrap:wrap; }
     .cdp-meta-dot { display:inline-flex; align-items:center; gap:.3rem; }
     .cdp-meta-bar-right { display:flex; gap:.5rem; }
@@ -2663,8 +2671,9 @@
       .cdp-overview, .cdp-inspector-banner,
       .cdp-group-hdr, .cdp-section { grid-column: 1; }
       .cdp-price-section {
-        grid-column: 2; grid-row: 1 / 6;
+        grid-column: 2; grid-row: 1 / -1;
         flex-direction: column; align-items: flex-start;
+        align-self: start;
         position: sticky; top: 0;
         max-height: calc(100vh - 56px); overflow-y: auto;
         border-left: 1px solid rgba(255,255,255,.06); border-bottom: none;
