@@ -51,13 +51,13 @@ export default function Home() {
         filters={filters}
         onCarClick={setSelectedCar}
       />
-      <div className="py-8 flex justify-center"><div className="road-divider" /></div>
+      <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
       <WhyChoose />
       <Brands onBrandClick={handleBrandSelect} />
-      <div className="py-8 flex justify-center"><div className="road-divider" /></div>
+      <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
       <HowItWorks />
       <Testimonials />
-      <div className="py-8 flex justify-center"><div className="road-divider" /></div>
+      <div className="py-6 flex justify-center"><div className="tire-track max-w-[400px]" /></div>
       <CTA
         onBrowseClick={() => scrollTo("browse-cars")}
         onSellClick={() => setSellModalOpen(true)}

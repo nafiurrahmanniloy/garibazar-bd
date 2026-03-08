@@ -124,9 +124,13 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
   const hasFilters = Object.values(filters).some(Boolean);
 
   return (
-    <section className="cars-section py-20 px-6" id="browse-cars">
-      <div className="max-w-[1280px] mx-auto">
+    <section className="cars-section py-20 px-6 relative overflow-hidden" id="browse-cars">
+      {/* Showroom overhead glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] bg-[radial-gradient(ellipse_600px_200px_at_50%_0%,rgba(61,139,253,0.05),transparent)] pointer-events-none" />
+
+      <div className="max-w-[1280px] mx-auto relative z-[1]">
         <div className="section-header text-center mb-16">
+          <div className="glow-line mb-6" />
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--accent)] mb-3">
             Featured Listings
           </p>

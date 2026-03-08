@@ -37,7 +37,9 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
   }, []);
 
   return (
-    <footer className="footer-section pt-20 pb-8 px-6 border-t border-white/[0.06]" id="contact">
+    <footer className="footer-section pt-20 pb-8 px-6 border-t border-white/[0.06] relative" id="contact">
+      {/* Subtle top glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[radial-gradient(ellipse_400px_100px_at_50%_0%,rgba(61,139,253,0.04),transparent)] pointer-events-none" />
       <div className="max-w-[1280px] mx-auto">
         <div className="grid grid-cols-[2fr_1fr_1fr_1.5fr] max-lg:grid-cols-2 max-md:grid-cols-1 gap-12 mb-12">
           {/* Brand */}

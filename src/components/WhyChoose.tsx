@@ -102,9 +102,10 @@ export default function WhyChoose() {
   }, []);
 
   return (
-    <section className="why-section py-[120px] px-6 bg-[var(--bg-secondary)] overflow-hidden" id="about">
-      <div className="max-w-[1280px] mx-auto">
+    <section className="why-section py-[120px] px-6 bg-[var(--bg-secondary)] overflow-hidden relative showroom-spot carbon-bg" id="about">
+      <div className="max-w-[1280px] mx-auto relative z-[1]">
         <div className="section-header text-center mb-16">
+          <div className="glow-line mb-6" />
           <p className="text-xs font-semibold tracking-[0.15em] uppercase text-[var(--accent)] mb-3">
             Why GariBazar
           </p>
@@ -119,7 +120,7 @@ export default function WhyChoose() {
         {/* Stats */}
         <div className="stats-row grid grid-cols-4 max-lg:grid-cols-2 gap-6 mb-20">
           {stats.map((s, i) => (
-            <div key={i} className="stat-item text-center p-8 bg-white/[0.02] border border-white/[0.06] rounded-2xl relative">
+            <div key={i} className="stat-item text-center p-8 bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] rounded-2xl relative transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.1]">
               {/* Gauge arc */}
               <svg className="mx-auto mb-2 w-20 h-10 overflow-visible" viewBox="0 0 80 40">
                 <path d="M 5 40 A 35 35 0 0 1 75 40" fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth="3" strokeLinecap="round" />
@@ -142,9 +143,11 @@ export default function WhyChoose() {
           {features.map((f, i) => (
             <div
               key={i}
-              className="feature-card p-9 bg-white/[0.02] border border-white/[0.06] rounded-2xl transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.12] hover:-translate-y-1"
+              className="feature-card p-9 bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] rounded-2xl transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.12] hover:-translate-y-1 relative overflow-hidden group"
             >
-              <div className="w-14 h-14 bg-[var(--accent-subtle)] rounded-lg flex items-center justify-center mb-5 text-[var(--accent)]">
+              {/* Top chrome edge */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+              <div className="w-14 h-14 bg-[var(--accent-subtle)] border border-[var(--accent)]/20 rounded-xl flex items-center justify-center mb-5 text-[var(--accent)] transition-transform duration-300 group-hover:scale-110">
                 {f.icon}
               </div>
               <h4 className="text-[1.1rem] font-bold mb-2.5">{f.title}</h4>
