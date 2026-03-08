@@ -91,13 +91,13 @@ export default function Dealers() {
                 <span className="text-[var(--text-muted)]">📍</span> {d.location}
               </div>
               <div className="flex items-center gap-2 flex-wrap mb-3 relative z-[1]">
-                <span className="text-[0.75rem] font-semibold text-[var(--text-secondary)] bg-white/[0.05] border border-white/[0.08] rounded-full px-2.5 py-1">
+                <span className="text-[0.75rem] font-semibold text-[var(--text-secondary)] bg-black/[0.05] border border-black/[0.08] rounded-full px-2.5 py-1">
                   {d.cars}
                 </span>
-                <span className="text-[0.75rem] font-semibold text-amber-400 bg-amber-500/[0.08] border border-amber-500/[0.15] rounded-full px-2.5 py-1">
+                <span className="text-[0.75rem] font-semibold text-amber-600 bg-amber-500/[0.08] border border-amber-500/[0.15] rounded-full px-2.5 py-1">
                   ★ {d.rating}
                 </span>
-                <span className="text-[0.68rem] font-bold text-emerald-400 bg-emerald-500/[0.08] border border-emerald-500/[0.2] rounded-full px-2.5 py-1">
+                <span className="text-[0.68rem] font-bold text-emerald-600 bg-emerald-500/[0.08] border border-emerald-500/[0.2] rounded-full px-2.5 py-1">
                   ✓ Verified
                 </span>
               </div>

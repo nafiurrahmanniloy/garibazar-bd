@@ -76,14 +76,14 @@ export default function FAQ() {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="faq-item glass-card rounded-2xl overflow-hidden hover:border-white/[0.1]"
+              className="faq-item glass-card rounded-2xl overflow-hidden hover:border-black/[0.1]"
               style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
                 className="w-full flex items-center justify-between gap-4 p-5 text-left cursor-pointer"
               >
-                <span className="font-bold text-[0.95rem] text-white leading-snug">{faq.q}</span>
+                <span className="font-bold text-[0.95rem] text-[var(--text-primary)] leading-snug">{faq.q}</span>
                 <span
                   className="text-[1.4rem] text-[var(--accent)] font-light flex-shrink-0 transition-transform duration-300"
                   style={{ transform: open === i ? "rotate(45deg)" : "rotate(0deg)" }}

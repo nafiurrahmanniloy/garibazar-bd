@@ -57,7 +57,7 @@ export default function Preloader() {
       aria-hidden="true"
     >
       {/* Top logo */}
-      <div className="absolute top-8 left-[5%] text-[0.72rem] font-bold tracking-[0.25em] uppercase text-white/25">
+      <div className="absolute top-8 left-[5%] text-[0.72rem] font-bold tracking-[0.25em] uppercase text-[var(--text-muted)]">
         GariBazar BD &middot; গাড়িবাজার
       </div>
 
@@ -66,7 +66,7 @@ export default function Preloader() {
         <div className="overflow-hidden leading-[1.05]">
           <span
             id="pw1"
-            className="block text-[clamp(2.8rem,8vw,6.5rem)] font-black italic tracking-[-0.04em] uppercase text-white translate-y-[110%]"
+            className="block text-[clamp(2.8rem,8vw,6.5rem)] font-black italic tracking-[-0.04em] uppercase text-[var(--text-primary)] translate-y-[110%]"
           >
             Find Your
           </span>
@@ -82,7 +82,7 @@ export default function Preloader() {
         <div className="overflow-hidden">
           <span
             id="pw3"
-            className="block text-[clamp(0.75rem,1.5vw,1rem)] font-semibold tracking-[0.2em] uppercase text-white/30 mt-6 translate-y-[110%]"
+            className="block text-[clamp(0.75rem,1.5vw,1rem)] font-semibold tracking-[0.2em] uppercase text-[var(--text-muted)] mt-6 translate-y-[110%]"
             lang="bn"
           >
             বাংলাদেশের বিশ্বস্ত গাড়ির মার্কেটপ্লেস
@@ -92,10 +92,10 @@ export default function Preloader() {
 
       {/* Bottom bar */}
       <div className="absolute bottom-10 left-[5%] right-[5%] flex items-center gap-8">
-        <div className="flex-1 h-px bg-white/[0.08] overflow-hidden">
+        <div className="flex-1 h-px bg-black/[0.08] overflow-hidden">
           <div id="pre-bar-fill" className="h-full w-0 bg-gradient-to-r from-transparent via-[var(--accent)] to-[rgba(59,130,246,0.3)]" />
         </div>
-        <span id="pre-counter-num" className="text-[0.8rem] font-bold tabular-nums text-white/25 tracking-[0.05em] min-w-[3ch] text-right">
+        <span id="pre-counter-num" className="text-[0.8rem] font-bold tabular-nums text-[var(--text-muted)] tracking-[0.05em] min-w-[3ch] text-right">
           0
         </span>
       </div>

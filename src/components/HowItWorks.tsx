@@ -67,7 +67,7 @@ export default function HowItWorks() {
         <div className="hiw-steps grid max-md:grid-cols-1 gap-0 items-start" style={{ gridTemplateColumns: "1fr auto 1fr auto 1fr" }}>
           {steps.map((step, i) => (
             <Fragment key={i}>
-              <div className="hiw-step text-center glass-card p-8 rounded-2xl hover:border-[rgba(61,139,253,0.2)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.3)]" style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}>
+              <div className="hiw-step text-center glass-card p-8 rounded-2xl hover:border-[rgba(61,139,253,0.2)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.08)]" style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}>
                 {/* Number badge */}
                 <div className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${step.accent} text-white text-lg font-black mb-5 shadow-lg`}>
                   {step.num}
@@ -84,9 +84,9 @@ export default function HowItWorks() {
               {i < steps.length - 1 && (
                 <div className="hidden md:flex items-center justify-center self-center pt-4">
                   <div className="flex items-center gap-0">
-                    <div className="w-12 h-px bg-gradient-to-r from-white/[0.08] to-white/[0.15]" />
-                    <div className="w-2.5 h-2.5 rounded-full border-2 border-white/[0.15] bg-transparent" />
-                    <div className="w-12 h-px bg-gradient-to-r from-white/[0.15] to-white/[0.08]" />
+                    <div className="w-12 h-px bg-gradient-to-r from-black/[0.06] to-black/[0.1]" />
+                    <div className="w-2.5 h-2.5 rounded-full border-2 border-black/[0.12] bg-transparent" />
+                    <div className="w-12 h-px bg-gradient-to-r from-black/[0.1] to-black/[0.06]" />
                   </div>
                 </div>
               )}

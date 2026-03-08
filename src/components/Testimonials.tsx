@@ -139,8 +139,8 @@ function Stars({ count, size = 14 }: { count: number; size?: number }) {
           width={size}
           height={size}
           viewBox="0 0 24 24"
-          fill={i < count ? "#f59e0b" : "rgba(255,255,255,0.1)"}
-          stroke={i < count ? "#f59e0b" : "rgba(255,255,255,0.1)"}
+          fill={i < count ? "#f59e0b" : "rgba(0,0,0,0.1)"}
+          stroke={i < count ? "#f59e0b" : "rgba(0,0,0,0.1)"}
           strokeWidth="1"
         >
           <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
@@ -152,7 +152,7 @@ function Stars({ count, size = 14 }: { count: number; size?: number }) {
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <div className="glass-card rounded-2xl p-6 w-[320px] flex-shrink-0 flex flex-col gap-4 hover:border-white/[0.12] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300">
+    <div className="glass-card rounded-2xl p-6 w-[320px] flex-shrink-0 flex flex-col gap-4 hover:border-black/[0.1] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-300">
       {/* Stars */}
       <Stars count={review.rating} />
 
@@ -170,7 +170,7 @@ function ReviewCard({ review }: { review: Review }) {
       </p>
 
       {/* Footer */}
-      <div className="flex items-center justify-between mt-auto pt-4 border-t border-white/[0.06]">
+      <div className="flex items-center justify-between mt-auto pt-4 border-t border-black/[0.06]">
         <div className="flex items-center gap-3">
           {/* Avatar */}
           <div
@@ -179,7 +179,7 @@ function ReviewCard({ review }: { review: Review }) {
             {review.initials}
           </div>
           <div>
-            <h5 className="text-[0.85rem] font-semibold text-white leading-tight">
+            <h5 className="text-[0.85rem] font-semibold text-[var(--text-primary)] leading-tight">
               {review.name}
             </h5>
             <span className="text-[0.7rem] text-[var(--text-muted)]">
@@ -189,7 +189,7 @@ function ReviewCard({ review }: { review: Review }) {
         </div>
 
         {/* Car tag */}
-        <span className="text-[0.65rem] font-medium text-[var(--text-muted)] bg-white/[0.04] border border-white/[0.06] rounded-full px-2.5 py-1 inline-flex items-center gap-1 whitespace-nowrap">
+        <span className="text-[0.65rem] font-medium text-[var(--text-muted)] bg-black/[0.04] border border-black/[0.06] rounded-full px-2.5 py-1 inline-flex items-center gap-1 whitespace-nowrap">
           <svg
             width="10"
             height="10"
@@ -257,7 +257,7 @@ export default function Testimonials() {
         <div className="flex items-center justify-center gap-4 flex-wrap">
           {/* Overall score */}
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-extrabold text-white font-dashboard drop-shadow-[0_0_12px_rgba(61,139,253,0.2)]">4.9</span>
+            <span className="text-3xl font-extrabold text-[var(--text-primary)] font-dashboard drop-shadow-[0_0_12px_rgba(61,139,253,0.2)]">4.9</span>
             <div className="flex flex-col items-start">
               <Stars count={5} size={14} />
               <span className="text-[0.7rem] text-[var(--text-muted)]">
@@ -267,7 +267,7 @@ export default function Testimonials() {
           </div>
 
           {/* Divider */}
-          <div className="w-px h-8 bg-white/[0.08] hidden sm:block" />
+          <div className="w-px h-8 bg-black/[0.08] hidden sm:block" />
 
           {/* Platform ratings */}
           <div className="flex items-center gap-3 text-[0.7rem] text-[var(--text-muted)]">
@@ -291,7 +291,7 @@ export default function Testimonials() {
               </svg>
             </div>
 
-            <div className="w-px h-4 bg-white/[0.08]" />
+            <div className="w-px h-4 bg-black/[0.08]" />
 
             <div className="flex items-center gap-1.5">
               <svg
@@ -328,10 +328,10 @@ export default function Testimonials() {
               </svg>
             </div>
 
-            <div className="w-px h-4 bg-white/[0.08]" />
+            <div className="w-px h-4 bg-black/[0.08]" />
 
             <div className="flex items-center gap-1.5">
-              <span className="font-semibold text-white text-[0.7rem]">
+              <span className="font-semibold text-[var(--text-primary)] text-[0.7rem]">
                 Bikroy
               </span>
               <span>4</span>

@@ -17,9 +17,9 @@ type Props = {
   onBrandChipClick: (brand: string) => void;
 };
 
-const selectClass = "w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10";
+const selectClass = "w-full px-4 py-3 bg-white border border-black/[0.08] rounded-lg text-[var(--text-primary)] text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all appearance-none bg-[url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%237a8b9e%22%20stroke-width%3D%222%22%3E%3Cpath%20d%3D%22m6%209%206%206%206-6%22/%3E%3C/svg%3E')] bg-no-repeat bg-[right_12px_center] pr-10";
 
-const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/[0.06] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all placeholder:text-[var(--text-muted)]";
+const inputClass = "w-full px-4 py-3 bg-white border border-black/[0.08] rounded-lg text-[var(--text-primary)] text-sm outline-none focus:border-[var(--accent)] focus:shadow-[0_0_0_3px_var(--accent-subtle)] transition-all placeholder:text-[var(--text-muted)]";
 
 export default function SearchBar({ filters, setFilters, onSearch, onBrandChipClick }: Props) {
   useEffect(() => {
@@ -65,9 +65,9 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
         <p className="text-[var(--text-secondary)] mt-3 text-[0.95rem]">5,000+ verified listings across 64 districts</p>
       </div>
 
-      <div className="search-card max-w-[960px] mx-auto bg-gradient-to-b from-[rgba(14,26,46,0.92)] to-[rgba(8,14,28,0.95)] backdrop-blur-[28px] rounded-3xl p-10 max-md:p-6 relative shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+      <div className="search-card max-w-[960px] mx-auto bg-white backdrop-blur-[28px] rounded-3xl p-10 max-md:p-6 relative shadow-[0_20px_60px_rgba(0,0,0,0.08)]">
         {/* Chrome gradient border — brighter top (overhead showroom light) */}
-        <div className="absolute inset-0 rounded-3xl p-px bg-gradient-to-b from-white/[0.15] via-white/[0.04] to-white/[0.06] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude] pointer-events-none" />
+        <div className="absolute inset-0 rounded-3xl p-px bg-gradient-to-b from-black/[0.08] via-black/[0.03] to-black/[0.04] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude] pointer-events-none" />
         {/* Inner accent glow at top */}
         <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-[var(--accent)]/20 to-transparent pointer-events-none" />
 
@@ -136,7 +136,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
               className={`px-3.5 py-1.5 border rounded-full text-[0.8rem] font-medium cursor-pointer transition-all ${
                 filters.brand === brand
                   ? "bg-[var(--accent-subtle)] border-[var(--accent)] text-[var(--accent)]"
-                  : "bg-white/[0.04] border-white/[0.06] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                  : "bg-black/[0.03] border-black/[0.08] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
               }`}
             >
               {brand}
@@ -145,7 +145,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
           {filters.brand && (
             <button
               onClick={() => setFilters(f => ({ ...f, brand: "" }))}
-              className="px-3 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full text-[0.75rem] font-medium text-[var(--text-muted)] cursor-pointer hover:text-white transition-all"
+              className="px-3 py-1.5 bg-black/[0.03] border border-black/[0.08] rounded-full text-[0.75rem] font-medium text-[var(--text-muted)] cursor-pointer hover:text-[var(--text-primary)] transition-all"
             >
               ✕ Clear
             </button>
@@ -159,7 +159,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
             className={`px-3.5 py-1.5 border rounded-full text-[0.78rem] font-medium cursor-pointer transition-all ${
               filters.price === "1000000"
                 ? "bg-[var(--accent-subtle)] border-[var(--accent)] text-[var(--accent)]"
-                : "bg-white/[0.04] border-white/[0.06] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                : "bg-black/[0.03] border-black/[0.08] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
             }`}
           >
             Under ৳10L
@@ -169,7 +169,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
             className={`px-3.5 py-1.5 border rounded-full text-[0.78rem] font-medium cursor-pointer transition-all ${
               filters.price === "2000000"
                 ? "bg-[var(--accent-subtle)] border-[var(--accent)] text-[var(--accent)]"
-                : "bg-white/[0.04] border-white/[0.06] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                : "bg-black/[0.03] border-black/[0.08] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
             }`}
           >
             ৳10L–20L
@@ -179,18 +179,18 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
             className={`px-3.5 py-1.5 border rounded-full text-[0.78rem] font-medium cursor-pointer transition-all ${
               filters.price === "3500000"
                 ? "bg-[var(--accent-subtle)] border-[var(--accent)] text-[var(--accent)]"
-                : "bg-white/[0.04] border-white/[0.06] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
+                : "bg-black/[0.03] border-black/[0.08] text-[var(--text-secondary)] hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]"
             }`}
           >
             ৳20L–35L
           </button>
 
-          <div className="w-px h-5 bg-white/[0.08]" />
+          <div className="w-px h-5 bg-black/[0.08]" />
 
-          <button className="px-3.5 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full text-[0.78rem] font-medium text-[var(--text-secondary)] cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]">
+          <button className="px-3.5 py-1.5 bg-black/[0.03] border border-black/[0.08] rounded-full text-[0.78rem] font-medium text-[var(--text-secondary)] cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]">
             Reconditioned
           </button>
-          <button className="px-3.5 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-full text-[0.78rem] font-medium text-[var(--text-secondary)] cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]">
+          <button className="px-3.5 py-1.5 bg-black/[0.03] border border-black/[0.08] rounded-full text-[0.78rem] font-medium text-[var(--text-secondary)] cursor-pointer transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)]">
             Local Used
           </button>
           <button className="px-3.5 py-1.5 bg-amber-500/[0.08] border border-amber-500/[0.2] rounded-full text-[0.78rem] font-medium text-amber-400 cursor-pointer transition-all hover:bg-amber-500/[0.15]">
@@ -203,7 +203,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
           onClick={onSearch}
           className="group/btn w-full flex items-center justify-center gap-2 py-3.5 bg-gradient-to-r from-[var(--accent)] to-[#2872e5] hover:from-[#2872e5] hover:to-[var(--accent)] text-white rounded-lg font-semibold text-base cursor-pointer transition-all hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)] relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
+          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.15] to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700" />
           <span className="relative z-[1]">🔍 Search Cars</span>
         </button>
       </div>

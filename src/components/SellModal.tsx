@@ -38,7 +38,7 @@ export default function SellModal({ onClose }: { onClose: () => void }) {
     setSubmitted(true);
   };
 
-  const inputClass = "w-full px-4 py-3 bg-white/[0.05] border border-white/[0.08] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] focus:bg-white/[0.07] transition-all placeholder:text-white/20";
+  const inputClass = "w-full px-4 py-3 bg-black/[0.03] border border-black/[0.08] rounded-lg text-[var(--text-primary)] text-sm outline-none focus:border-[var(--accent)] focus:bg-black/[0.05] transition-all placeholder:text-black/25";
   const labelClass = "block text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-widest mb-1.5";
 
   return (
@@ -47,18 +47,18 @@ export default function SellModal({ onClose }: { onClose: () => void }) {
       onClick={onClose}
     >
       <div
-        className="relative bg-[#0d1b2a] border border-white/[0.08] rounded-3xl w-full max-w-[540px] shadow-[0_40px_100px_rgba(0,0,0,0.8)] max-h-[90vh] flex flex-col"
+        className="relative bg-[var(--bg-primary)] border border-black/[0.08] rounded-3xl w-full max-w-[540px] shadow-[0_40px_100px_rgba(0,0,0,0.12)] max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-white/[0.06]">
+        <div className="flex items-center justify-between px-8 pt-8 pb-6 border-b border-black/[0.06]">
           <div>
             <h2 className="text-2xl font-extrabold">Sell Your Car</h2>
             <p className="text-[var(--text-secondary)] text-sm mt-1">Free listing · Published in 24 hours</p>
           </div>
           <button
             onClick={onClose}
-            className="w-9 h-9 bg-white/[0.05] hover:bg-white/[0.1] rounded-full flex items-center justify-center transition-colors"
+            className="w-9 h-9 bg-black/[0.05] hover:bg-black/[0.1] rounded-full flex items-center justify-center transition-colors"
             aria-label="Close"
           >
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -121,7 +121,7 @@ export default function SellModal({ onClose }: { onClose: () => void }) {
                   <label className={labelClass}>Location</label>
                   <select
                     required
-                    className="w-full px-4 py-3 bg-[#0d1b2a] border border-white/[0.08] rounded-lg text-white text-sm outline-none focus:border-[var(--accent)] transition-all appearance-none"
+                    className="w-full px-4 py-3 bg-[var(--bg-primary)] border border-black/[0.08] rounded-lg text-[var(--text-primary)] text-sm outline-none focus:border-[var(--accent)] transition-all appearance-none"
                     value={form.location}
                     onChange={set("location")}
                   >

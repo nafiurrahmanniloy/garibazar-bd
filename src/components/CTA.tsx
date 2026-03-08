@@ -73,7 +73,7 @@ export default function CTA({ onBrowseClick, onSellClick }: Props) {
             </p>
             <button
               onClick={onSellClick}
-              className="relative inline-flex items-center gap-2 px-8 py-3.5 border border-[rgba(16,185,129,0.3)] text-white hover:text-emerald-400 rounded-xl font-semibold text-[0.95rem] cursor-pointer transition-all hover:bg-emerald-500/[0.08] hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]"
+              className="relative inline-flex items-center gap-2 px-8 py-3.5 border border-[rgba(16,185,129,0.3)] text-[var(--text-primary)] hover:text-emerald-600 rounded-xl font-semibold text-[0.95rem] cursor-pointer transition-all hover:bg-emerald-500/[0.08] hover:border-emerald-500 hover:-translate-y-0.5 hover:shadow-[0_8px_30px_rgba(16,185,129,0.15)]"
             >
               List Your Car Free →
             </button>

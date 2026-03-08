@@ -36,10 +36,10 @@ export default function Brands({ onBrandClick }: { onBrandClick: (brand: string)
             <button
               key={i}
               onClick={() => onBrandClick(brand.charAt(0) + brand.slice(1).toLowerCase())}
-              className="group relative flex items-center justify-center min-w-[160px] h-[80px] px-8 py-4 bg-white/[0.02] backdrop-blur-sm border border-white/[0.06] rounded-xl text-[1.1rem] font-bold text-[var(--text-secondary)] tracking-wider whitespace-nowrap cursor-pointer transition-all duration-300 hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.3),0_0_20px_var(--accent-glow)] overflow-hidden"
+              className="group relative flex items-center justify-center min-w-[160px] h-[80px] px-8 py-4 bg-black/[0.02] backdrop-blur-sm border border-black/[0.06] rounded-xl text-[1.1rem] font-bold text-[var(--text-secondary)] tracking-wider whitespace-nowrap cursor-pointer transition-all duration-300 hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)]/40 hover:text-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06),0_0_20px_var(--accent-glow)] overflow-hidden"
             >
               {/* Chrome top edge */}
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.08] to-transparent group-hover:via-[var(--accent)]/30 transition-all" />
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent group-hover:via-[var(--accent)]/30 transition-all" />
               <span className="relative z-[1] font-dashboard">{brand}</span>
             </button>
           ))}

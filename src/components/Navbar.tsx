@@ -121,15 +121,15 @@ export default function Navbar({ onSellClick }: { onSellClick: () => void }) {
         <div
           className={`max-w-[920px] mx-auto flex items-center justify-between rounded-2xl px-3 py-2 transition-all duration-500 relative overflow-hidden
             ${scrolled
-              ? "bg-[rgba(5,7,9,0.85)] backdrop-blur-2xl border border-white/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.6),0_0_0_1px_rgba(255,255,255,0.03)_inset]"
-              : "bg-[rgba(5,7,9,0.6)] backdrop-blur-xl border border-white/[0.05] shadow-[0_4px_20px_rgba(0,0,0,0.4)]"
+              ? "bg-[rgba(255,255,255,0.85)] backdrop-blur-2xl border border-black/[0.08] shadow-[0_8px_32px_rgba(0,0,0,0.08),0_0_0_1px_rgba(0,0,0,0.04)_inset]"
+              : "bg-[rgba(255,255,255,0.7)] backdrop-blur-xl border border-black/[0.06] shadow-[0_4px_20px_rgba(0,0,0,0.06)]"
             }`}
         >
           {/* Chrome top edge */}
-          <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent pointer-events-none" />
+          <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-black/[0.06] to-transparent pointer-events-none" />
 
           {/* Subtle inner glow */}
-          <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none rounded-2xl" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/[0.01] to-transparent pointer-events-none rounded-2xl" />
 
           {/* Logo */}
           <button
@@ -144,7 +144,7 @@ export default function Navbar({ onSellClick }: { onSellClick: () => void }) {
                 <path d="M5 17H3c-.6 0-1-.4-1-1v-4.5" />
               </svg>
             </span>
-            <span className="text-white hidden sm:inline">
+            <span className="text-[var(--text-primary)] hidden sm:inline">
               Gari<span className="text-[var(--accent)]">Bazar</span>
             </span>
           </button>
@@ -154,7 +154,7 @@ export default function Navbar({ onSellClick }: { onSellClick: () => void }) {
             {/* Sliding pill indicator */}
             <div
               ref={pillRef}
-              className="absolute top-0 h-full rounded-xl bg-white/[0.07] border border-white/[0.06] pointer-events-none transition-opacity duration-200"
+              className="absolute top-0 h-full rounded-xl bg-black/[0.05] border border-black/[0.06] pointer-events-none transition-opacity duration-200"
               style={{ opacity: visible ? 1 : 0 }}
             />
 
@@ -167,8 +167,8 @@ export default function Navbar({ onSellClick }: { onSellClick: () => void }) {
                 onMouseLeave={() => setHoveredItem(null)}
                 className={`relative z-10 px-4 py-2 text-[0.82rem] font-medium bg-transparent border-none cursor-pointer transition-colors duration-200
                   ${activeSection === item.target
-                    ? "text-white"
-                    : "text-[var(--text-secondary)] hover:text-white"
+                    ? "text-[var(--text-primary)]"
+                    : "text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
                   }`}
               >
                 {item.label}
@@ -195,25 +195,25 @@ export default function Navbar({ onSellClick }: { onSellClick: () => void }) {
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            <span className={`w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
-            <span className={`w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
-            <span className={`w-5 h-[2px] bg-white rounded-full transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
+            <span className={`w-5 h-[2px] bg-[var(--text-primary)] rounded-full transition-all duration-300 ${mobileOpen ? "rotate-45 translate-y-[7px]" : ""}`} />
+            <span className={`w-5 h-[2px] bg-[var(--text-primary)] rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0" : ""}`} />
+            <span className={`w-5 h-[2px] bg-[var(--text-primary)] rounded-full transition-all duration-300 ${mobileOpen ? "-rotate-45 -translate-y-[7px]" : ""}`} />
           </button>
         </div>
       </nav>
 
       {/* Mobile Drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[998] bg-black/60 backdrop-blur-sm md:hidden" onClick={() => setMobileOpen(false)} />
+        <div className="fixed inset-0 z-[998] bg-black/20 backdrop-blur-sm md:hidden" onClick={() => setMobileOpen(false)} />
       )}
       <div
-        className={`fixed top-0 right-0 w-[280px] h-screen bg-[rgba(5,7,9,0.97)] backdrop-blur-2xl border-l border-white/[0.06] z-[999] md:hidden flex flex-col justify-center gap-2 p-8 transition-transform duration-300
+        className={`fixed top-0 right-0 w-[280px] h-screen bg-[rgba(255,255,255,0.98)] backdrop-blur-2xl border-l border-black/[0.06] z-[999] md:hidden flex flex-col justify-center gap-2 p-8 transition-transform duration-300
           ${mobileOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Close button */}
         <button
           onClick={() => setMobileOpen(false)}
-          className="absolute top-5 right-5 w-9 h-9 rounded-xl bg-white/[0.05] border border-white/[0.08] flex items-center justify-center text-white/50 hover:text-white hover:bg-white/[0.1] transition-all"
+          className="absolute top-5 right-5 w-9 h-9 rounded-xl bg-black/[0.04] border border-black/[0.08] flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] hover:bg-black/[0.06] transition-all"
           aria-label="Close menu"
         >
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -227,15 +227,15 @@ export default function Navbar({ onSellClick }: { onSellClick: () => void }) {
             onClick={() => handleNavClick(item.target)}
             className={`w-full text-left px-4 py-3 rounded-xl text-[0.95rem] font-medium bg-transparent border-none cursor-pointer transition-all duration-200
               ${activeSection === item.target
-                ? "text-white bg-white/[0.06] border border-white/[0.08]"
-                : "text-[var(--text-secondary)] hover:text-white hover:bg-white/[0.03]"
+                ? "text-[var(--text-primary)] bg-black/[0.04] border border-black/[0.06]"
+                : "text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-black/[0.03]"
               }`}
           >
             {item.label}
           </button>
         ))}
 
-        <div className="h-px bg-white/[0.06] my-3" />
+        <div className="h-px bg-black/[0.06] my-3" />
 
         <button
           onClick={() => { setMobileOpen(false); onSellClick(); }}

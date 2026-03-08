@@ -43,7 +43,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
   }, []);
 
   return (
-    <footer className="footer-section pt-20 pb-8 px-6 border-t border-white/[0.04] relative bg-[var(--bg-primary)]" id="contact">
+    <footer className="footer-section pt-20 pb-8 px-6 border-t border-black/[0.06] relative bg-[var(--bg-primary)]" id="contact">
       {/* Subtle top glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[radial-gradient(ellipse_400px_100px_at_50%_0%,rgba(61,139,253,0.04),transparent)] pointer-events-none" />
       <div className="max-w-[1280px] mx-auto">
@@ -62,7 +62,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
                   <path d="M5 17H3c-.6 0-1-.4-1-1v-4.5" />
                 </svg>
               </span>
-              <span className="text-white">Gari<span className="text-[var(--accent)]">Bazar</span></span>
+              <span className="text-[var(--text-primary)]">Gari<span className="text-[var(--accent)]">Bazar</span></span>
             </button>
             <p className="text-sm text-[var(--text-secondary)] leading-relaxed max-w-[300px]">
               Bangladesh&apos;s trusted marketplace for pre-owned cars.
@@ -93,7 +93,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={social.label}
-                  className="w-10 h-10 bg-white/[0.04] border border-white/[0.06] rounded-xl flex items-center justify-center text-[var(--text-secondary)] transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_4px_15px_var(--accent-glow)]"
+                  className="w-10 h-10 bg-black/[0.04] border border-black/[0.06] rounded-xl flex items-center justify-center text-[var(--text-secondary)] transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:text-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_4px_15px_var(--accent-glow)]"
                 >
                   {social.icon}
                 </a>
@@ -103,7 +103,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
 
           {/* Quick Links */}
           <div className="footer-col">
-            <h4 className="text-xs font-bold uppercase tracking-[0.15em] mb-5 text-white/80">Quick Links</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.15em] mb-5 text-[var(--text-primary)]">Quick Links</h4>
             <ul className="space-y-3">
               <li>
                 <button
@@ -136,7 +136,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
 
           {/* Locations */}
           <div className="footer-col">
-            <h4 className="text-xs font-bold uppercase tracking-[0.15em] mb-5 text-white/80">Popular Locations</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.15em] mb-5 text-[var(--text-primary)]">Popular Locations</h4>
             <ul className="space-y-3">
               {locations.map((city) => (
                 <li key={city}>
@@ -153,7 +153,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
 
           {/* Contact */}
           <div className="footer-col">
-            <h4 className="text-xs font-bold uppercase tracking-[0.15em] mb-5 text-white/80">Contact Us</h4>
+            <h4 className="text-xs font-bold uppercase tracking-[0.15em] mb-5 text-[var(--text-primary)]">Contact Us</h4>
             <div className="space-y-4">
               <a
                 href="tel:+8801700000000"
@@ -198,7 +198,7 @@ export default function Footer({ onSellClick, onLocationClick }: Props) {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-8 border-t border-white/[0.04] flex items-center justify-between max-md:flex-col max-md:gap-4 max-md:text-center text-xs text-[var(--text-muted)]">
+        <div className="pt-8 border-t border-black/[0.06] flex items-center justify-between max-md:flex-col max-md:gap-4 max-md:text-center text-xs text-[var(--text-muted)]">
           <span>&copy; 2026 GariBazar BD. All rights reserved. Made in Bangladesh.</span>
           <div className="flex gap-6">
             <button

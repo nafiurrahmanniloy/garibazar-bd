@@ -378,36 +378,36 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
       {/* Panel */}
       <div
         ref={panelRef}
-        className="fixed top-0 right-0 z-[2001] w-full max-w-[680px] h-full bg-[#060a12] border-l border-white/[0.06] shadow-[-20px_0_60px_rgba(0,0,0,0.7)] flex flex-col"
+        className="fixed top-0 right-0 z-[2001] w-full max-w-[680px] h-full bg-[var(--bg-primary)] border-l border-black/[0.06] shadow-[-20px_0_60px_rgba(0,0,0,0.12)] flex flex-col"
       >
         {/* ── Sticky header bar ── */}
-        <div className="flex items-center justify-between px-5 h-14 border-b border-white/[0.06] bg-[#060a12]/95 backdrop-blur-sm shrink-0">
-          <button onClick={animateClose} className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-white transition-colors cursor-pointer">
+        <div className="flex items-center justify-between px-5 h-14 border-b border-black/[0.06] bg-[var(--bg-primary)]/95 backdrop-blur-sm shrink-0">
+          <button onClick={animateClose} className="flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5"/><path d="m12 5-7 7 7 7"/></svg>
             Back
           </button>
           <span className="text-sm font-semibold truncate max-w-[60%]">{car.name} ({car.year})</span>
-          <button onClick={animateClose} className="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-white transition-colors cursor-pointer text-lg">✕</button>
+          <button onClick={animateClose} className="w-8 h-8 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors cursor-pointer text-lg">✕</button>
         </div>
 
         {/* ── Scrollable body ── */}
         <div ref={scrollRef} className="flex-1 overflow-y-auto overflow-x-hidden" data-lenis-prevent>
 
           {/* Hero photo */}
-          <div className="relative w-full aspect-[16/10] bg-gradient-to-br from-slate-900 to-slate-800 overflow-hidden">
+          <div className="relative w-full aspect-[16/10] bg-gradient-to-br from-slate-200 to-slate-100 overflow-hidden">
             <img
               src={photos[photoIdx].src}
               alt={photos[photoIdx].label}
               className="w-full h-full object-cover object-center transition-opacity duration-300"
               onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.3"; }}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#060a12] via-transparent to-transparent opacity-70 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-primary)] via-transparent to-transparent opacity-70 pointer-events-none" />
             {/* Nav arrows */}
             {photos.length > 1 && (
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-3">
-                <button onClick={() => navPhoto(-1)} className="w-9 h-9 bg-black/50 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center text-white text-lg hover:bg-black/70 transition-colors cursor-pointer">‹</button>
+                <button onClick={() => navPhoto(-1)} className="w-9 h-9 bg-black/50 backdrop-blur-sm border border-black/10 rounded-full flex items-center justify-center text-white text-lg hover:bg-black/70 transition-colors cursor-pointer">‹</button>
                 <span className="text-xs font-semibold text-white/80 bg-black/40 backdrop-blur-sm px-3 py-1 rounded-full">{photoIdx + 1} / {photos.length}</span>
-                <button onClick={() => navPhoto(1)} className="w-9 h-9 bg-black/50 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center text-white text-lg hover:bg-black/70 transition-colors cursor-pointer">›</button>
+                <button onClick={() => navPhoto(1)} className="w-9 h-9 bg-black/50 backdrop-blur-sm border border-black/10 rounded-full flex items-center justify-center text-white text-lg hover:bg-black/70 transition-colors cursor-pointer">›</button>
               </div>
             )}
             {/* Badges */}
@@ -439,10 +439,10 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           )}
 
           {/* ── Zone Divider ── */}
-          <div className="flex items-center gap-3 px-5 py-3 bg-white/[0.02] border-y border-white/[0.05]">
+          <div className="flex items-center gap-3 px-5 py-3 bg-black/[0.02] border-y border-black/[0.05]">
             <span className="text-base">📋</span>
             <span className="text-xs font-bold uppercase tracking-widest text-[var(--text-secondary)]">Listing Details</span>
-            <span className="flex-1 h-px bg-white/[0.06]" />
+            <span className="flex-1 h-px bg-black/[0.06]" />
           </div>
 
           {/* Listing meta bar */}
@@ -455,19 +455,19 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
             <div className="flex items-center gap-2">
               <button
                 onClick={() => { if (typeof navigator !== "undefined") navigator.clipboard?.writeText(window.location.href); }}
-                className="flex items-center gap-1 px-2 py-1 bg-white/[0.04] border border-white/[0.06] rounded-md hover:text-white transition-colors cursor-pointer"
+                className="flex items-center gap-1 px-2 py-1 bg-black/[0.04] border border-black/[0.06] rounded-md hover:text-[var(--text-primary)] transition-colors cursor-pointer"
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
                 Share
               </button>
-              <button className="px-2 py-1 bg-white/[0.04] border border-white/[0.06] rounded-md hover:text-white transition-colors cursor-pointer">⚑ Report</button>
+              <button className="px-2 py-1 bg-black/[0.04] border border-black/[0.06] rounded-md hover:text-[var(--text-primary)] transition-colors cursor-pointer">⚑ Report</button>
             </div>
           </div>
 
           {/* ── Price + CTAs section ── */}
-          <div className="mx-4 my-3 p-5 bg-white/[0.03] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 my-3 p-5 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <div className="text-xs text-[var(--text-secondary)] uppercase tracking-widest mb-1">Listing Price</div>
-            <div className="text-3xl font-extrabold text-amber-400 font-dashboard drop-shadow-[0_0_12px_rgba(251,191,36,0.3)] mb-1">{car.price}</div>
+            <div className="text-3xl font-extrabold text-amber-600 font-dashboard drop-shadow-[0_0_12px_rgba(217,119,6,0.15)] mb-1">{car.price}</div>
             <div className="flex items-center gap-2 text-xs text-[var(--text-muted)] mb-4">
               <span>📍 {car.location}</span>
               {d.negotiable && (
@@ -485,7 +485,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
                 { label: d.color, icon: "🎨" },
                 { label: d.bodyType, icon: "🚘" },
               ].map(c => (
-                <span key={c.label} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-lg text-[0.75rem] text-[var(--text-secondary)]">
+                <span key={c.label} className="flex items-center gap-1.5 px-3 py-1.5 bg-black/[0.03] border border-black/[0.06] rounded-lg text-[0.75rem] text-[var(--text-secondary)]">
                   <span>{c.icon}</span> {c.label}
                 </span>
               ))}
@@ -506,8 +506,8 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
 
             {/* Secondary actions */}
             <div className="flex gap-2 mb-3">
-              <button className="flex-1 py-2.5 bg-white/[0.04] border border-white/[0.06] rounded-lg text-sm text-[var(--text-secondary)] hover:text-white hover:border-white/[0.12] transition-all cursor-pointer">💬 Make an Offer</button>
-              <button className="flex-1 py-2.5 bg-white/[0.04] border border-white/[0.06] rounded-lg text-sm text-[var(--text-secondary)] hover:text-white hover:border-white/[0.12] transition-all cursor-pointer">🚗 Test Drive</button>
+              <button className="flex-1 py-2.5 bg-black/[0.03] border border-black/[0.06] rounded-lg text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-black/[0.12] transition-all cursor-pointer">💬 Make an Offer</button>
+              <button className="flex-1 py-2.5 bg-black/[0.03] border border-black/[0.06] rounded-lg text-sm text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-black/[0.12] transition-all cursor-pointer">🚗 Test Drive</button>
             </div>
 
             {/* Wishlist */}
@@ -515,15 +515,15 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
               onClick={() => setWishSaved(!wishSaved)}
               className={`w-full py-2.5 rounded-lg text-sm font-medium transition-all cursor-pointer border ${
                 wishSaved
-                  ? "bg-rose-500/10 border-rose-500/30 text-rose-400"
-                  : "bg-white/[0.03] border-white/[0.06] text-[var(--text-secondary)] hover:text-white"
+                  ? "bg-rose-500/10 border-rose-500/30 text-rose-500"
+                  : "bg-black/[0.02] border-black/[0.06] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               }`}
             >
               {wishSaved ? "❤️ Saved to Wishlist" : "🤍 Save to Wishlist"}
             </button>
 
             {/* Mini seller card */}
-            <div className="mt-4 pt-4 border-t border-white/[0.06] flex items-center gap-3">
+            <div className="mt-4 pt-4 border-t border-black/[0.06] flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-sm shrink-0">
                 {d.seller[0]}
               </div>
@@ -535,7 +535,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* ═══ SECTION: Quick Overview ═══ */}
-          <div className="mx-4 mt-4 mb-3 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mt-4 mb-3 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
               Quick Overview
@@ -551,9 +551,9 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
                 { label: "Seats", value: d.seats },
                 { label: "Imported From", value: d.importedFrom },
               ].map(item => (
-                <div key={item.label} className="flex items-center justify-between px-3 py-2.5 bg-white/[0.03] border border-white/[0.05] rounded-lg">
+                <div key={item.label} className="flex items-center justify-between px-3 py-2.5 bg-black/[0.02] border border-black/[0.05] rounded-lg">
                   <span className="text-[0.72rem] text-[var(--text-muted)]">{item.label}</span>
-                  <span className="text-[0.78rem] font-semibold text-white">{item.value}</span>
+                  <span className="text-[0.78rem] font-semibold text-[var(--text-primary)]">{item.value}</span>
                 </div>
               ))}
             </div>
@@ -571,7 +571,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* ═══ SECTION: About This Car ═══ */}
-          <div className="mx-4 mb-3 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-3 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-2 flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
               About This Car
@@ -587,12 +587,12 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Accident History */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">🚨 Accident & Damage History</h3>
             {d.accidentHistory.clean ? (
               <div className="flex items-center gap-2 px-3 py-2.5 bg-emerald-500/[0.06] border border-emerald-500/20 rounded-lg">
-                <span className="text-emerald-400 font-bold text-sm">✓</span>
-                <span className="text-[0.82rem] text-emerald-300">No accidents or damage reported — clean record</span>
+                <span className="text-emerald-600 font-bold text-sm">✓</span>
+                <span className="text-[0.82rem] text-emerald-700">No accidents or damage reported — clean record</span>
               </div>
             ) : (
               <div className="space-y-2">
@@ -615,13 +615,13 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Ownership History */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">👤 Ownership History</h3>
             <div className="space-y-0">
               {d.ownershipHistory.map((own, i) => (
                 <div key={i} className="flex gap-3 relative">
                   {i < d.ownershipHistory.length - 1 && (
-                    <div className="absolute left-[15px] top-8 bottom-0 w-px bg-white/[0.08]" />
+                    <div className="absolute left-[15px] top-8 bottom-0 w-px bg-black/[0.08]" />
                   )}
                   <div className="w-8 h-8 shrink-0 rounded-full bg-[var(--accent-subtle)] border border-[var(--accent)]/30 flex items-center justify-center text-[0.7rem] font-bold text-[var(--accent)]">{own.num}</div>
                   <div className="pb-4 flex-1">
@@ -636,11 +636,11 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
 
           {/* Service History */}
           {d.serviceHistory.length > 0 && (
-            <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+            <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
               <h3 className="text-sm font-bold mb-3">🔧 Service & Maintenance</h3>
               <div className="space-y-2">
                 {d.serviceHistory.map((svc, i) => (
-                  <div key={i} className="flex gap-3 p-3 bg-white/[0.02] border border-white/[0.04] rounded-xl">
+                  <div key={i} className="flex gap-3 p-3 bg-black/[0.02] border border-black/[0.04] rounded-xl">
                     <span className="text-lg shrink-0">{svc.icon}</span>
                     <div className="flex-1">
                       <div className="flex items-center justify-between mb-0.5">
@@ -664,14 +664,14 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Photo Gallery */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">Photo Gallery</h3>
             <div className="grid grid-cols-3 gap-2">
               {photos.map((p, i) => (
                 <button
                   key={i}
                   onClick={() => setLightbox(p)}
-                  className="relative aspect-[4/3] rounded-xl overflow-hidden border border-white/[0.06] group cursor-pointer"
+                  className="relative aspect-[4/3] rounded-xl overflow-hidden border border-black/[0.06] group cursor-pointer"
                 >
                   <img src={p.src} alt={p.label} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.3"; }} />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-end">
@@ -683,9 +683,9 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Video Walkthrough */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">Video Walkthrough</h3>
-            <div className="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-slate-900 to-slate-800 border border-white/[0.06]">
+            <div className="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-br from-slate-200 to-slate-100 border border-black/[0.06]">
               <img
                 src={photos[0]?.src}
                 alt="Video thumbnail"
@@ -693,10 +693,10 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
                 onError={(e) => { (e.target as HTMLImageElement).style.opacity = "0.2"; }}
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center gap-3">
-                <div className="w-16 h-16 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-2xl hover:bg-white/20 transition-colors cursor-pointer">
+                <div className="w-16 h-16 rounded-full bg-black/10 backdrop-blur-sm border border-black/20 flex items-center justify-center text-2xl hover:bg-black/20 transition-colors cursor-pointer text-[var(--text-primary)]">
                   ▶
                 </div>
-                <p className="text-xs text-white/60">Tap to play walkthrough video</p>
+                <p className="text-xs text-[var(--text-muted)]">Tap to play walkthrough video</p>
               </div>
             </div>
           </div>
@@ -709,24 +709,24 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Specs Grid */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">Technical Specs</h3>
-            <div className="grid grid-cols-2 gap-px bg-white/[0.04] rounded-xl overflow-hidden border border-white/[0.05]">
+            <div className="grid grid-cols-2 gap-px bg-black/[0.03] rounded-xl overflow-hidden border border-black/[0.05]">
               {d.specs.map(([key, val], i) => (
-                <div key={i} className="flex items-center justify-between px-3 py-2.5 bg-[#060a12]">
+                <div key={i} className="flex items-center justify-between px-3 py-2.5 bg-[var(--bg-primary)]">
                   <span className="text-[0.72rem] text-[var(--text-muted)]">{key}</span>
-                  <span className="text-[0.78rem] font-semibold text-white text-right">{val}</span>
+                  <span className="text-[0.78rem] font-semibold text-[var(--text-primary)] text-right">{val}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Features */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">Features & Equipment</h3>
             <div className="flex flex-wrap gap-2">
               {d.features.map((f, i) => (
-                <span key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-white/[0.04] border border-white/[0.06] rounded-lg text-[0.75rem] text-[var(--text-secondary)]">
+                <span key={i} className="flex items-center gap-1.5 px-3 py-1.5 bg-black/[0.03] border border-black/[0.06] rounded-lg text-[0.75rem] text-[var(--text-secondary)]">
                   <span className="text-emerald-400 text-xs">✓</span> {f}
                 </span>
               ))}
@@ -741,14 +741,14 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Papers Grid */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">Verified Documents</h3>
             <div className="grid grid-cols-2 gap-2 mb-3">
               {d.papers.map((p, i) => (
                 <div key={i} className={`flex items-center gap-2.5 p-3 rounded-xl border ${
                   p.status === "verified"
                     ? "bg-emerald-500/[0.04] border-emerald-500/20"
-                    : "bg-white/[0.02] border-white/[0.06]"
+                    : "bg-black/[0.02] border-black/[0.06]"
                 }`}>
                   <span className="text-lg">{p.icon}</span>
                   <div className="flex-1 min-w-0">
@@ -760,7 +760,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
                 </div>
               ))}
             </div>
-            <div className="flex items-start gap-2 px-3 py-2.5 bg-white/[0.02] border border-white/[0.05] rounded-xl text-[0.75rem] text-[var(--text-muted)]">
+            <div className="flex items-start gap-2 px-3 py-2.5 bg-black/[0.02] border border-black/[0.05] rounded-xl text-[0.75rem] text-[var(--text-muted)]">
               <span>🔒</span>
               <span>Original documents available for in-person inspection. Contact seller to schedule a visit. GariBazar team has verified all listed papers.</span>
             </div>
@@ -774,9 +774,9 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Seller Info */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">Seller Information</h3>
-            <div className="p-4 bg-white/[0.03] border border-white/[0.05] rounded-xl">
+            <div className="p-4 bg-black/[0.02] border border-black/[0.05] rounded-xl">
               <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white font-bold text-lg shrink-0">
                   {d.seller[0]}
@@ -787,16 +787,16 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
                 </div>
               </div>
               <div className="grid grid-cols-2 gap-2 text-[0.75rem]">
-                <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.03] rounded-lg">
+                <div className="flex items-center gap-2 px-3 py-2 bg-black/[0.02] rounded-lg">
                   <span>📍</span><span className="text-[var(--text-secondary)]">{car.location}</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.03] rounded-lg">
+                <div className="flex items-center gap-2 px-3 py-2 bg-black/[0.02] rounded-lg">
                   <span>📞</span><span className="text-[var(--text-secondary)]">{d.phone}</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.03] rounded-lg">
+                <div className="flex items-center gap-2 px-3 py-2 bg-black/[0.02] rounded-lg">
                   <span>🛡️</span><span className="text-[var(--text-secondary)]">Fitness: {d.fitnessExpiry}</span>
                 </div>
-                <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.03] rounded-lg">
+                <div className="flex items-center gap-2 px-3 py-2 bg-black/[0.02] rounded-lg">
                   <span>📋</span><span className="text-[var(--text-secondary)]">Reg: {d.registrationYear}</span>
                 </div>
               </div>
@@ -804,7 +804,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* How to Buy */}
-          <div className="mx-4 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <h3 className="text-sm font-bold mb-3">How to Complete This Purchase</h3>
             <div className="space-y-3">
               {[
@@ -827,7 +827,7 @@ export default function CarModal({ car, onClose }: { car: Car; onClose: () => vo
           </div>
 
           {/* Bottom CTAs */}
-          <div className="mx-4 mt-3 mb-2 p-4 bg-white/[0.02] border border-white/[0.06] rounded-2xl">
+          <div className="mx-4 mt-3 mb-2 p-4 bg-black/[0.02] border border-black/[0.06] rounded-2xl">
             <div className="flex gap-2">
               <button
                 onClick={() => window.alert(`📞 Contact Seller\nPhone: ${d.phone}`)}

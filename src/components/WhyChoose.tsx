@@ -137,7 +137,7 @@ export default function WhyChoose() {
               <h3 className="text-[1rem] font-extrabold mb-2">{f.title}</h3>
               <p className="text-[0.82rem] text-[var(--text-secondary)] leading-relaxed">
                 {f.desc}
-                <span className="block text-[0.75rem] text-white/25 mt-1" lang="bn">{f.bangla}</span>
+                <span className="block text-[0.75rem] text-black/20 mt-1" lang="bn">{f.bangla}</span>
               </p>
             </div>
           ))}

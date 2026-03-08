@@ -157,7 +157,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
     <section className="cars-section py-20 px-6 relative overflow-hidden showroom-spot" id="browse-cars">
       <div className="max-w-[1280px] mx-auto relative z-[1]">
         {/* Sort bar */}
-        <div className="flex items-center justify-between flex-wrap gap-3 mb-8 pb-4 border-b border-white/[0.06]">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-8 pb-4 border-b border-black/[0.06]">
           <div>
             <span className="text-[0.82rem] text-[var(--text-secondary)] font-semibold">
               <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)] mr-2 shadow-[0_0_8px_var(--accent-glow)]" />
@@ -166,7 +166,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
             {hasFilters && (
               <button
                 onClick={() => {}}
-                className="ml-3 text-[0.75rem] text-[var(--text-muted)] bg-white/[0.05] border border-white/[0.08] rounded-lg px-2.5 py-1 cursor-pointer hover:text-white transition-all"
+                className="ml-3 text-[0.75rem] text-[var(--text-muted)] bg-black/[0.04] border border-black/[0.08] rounded-lg px-2.5 py-1 cursor-pointer hover:text-[var(--text-primary)] transition-all"
               >
                 ✕ Clear Filters
               </button>
@@ -186,7 +186,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
                 className={`px-3 py-1.5 rounded-lg text-[0.75rem] font-semibold cursor-pointer transition-all ${
                   sortMode === s.key
                     ? "bg-[var(--accent-subtle)] text-[var(--accent)] border border-[var(--accent)]/30"
-                    : "bg-white/[0.04] text-[var(--text-secondary)] border border-white/[0.06] hover:text-white"
+                    : "bg-black/[0.03] text-[var(--text-secondary)] border border-black/[0.06] hover:text-[var(--text-primary)]"
                 }`}
               >
                 {s.label}
@@ -201,7 +201,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
               <div
                 key={i}
                 onClick={() => onCarClick(car)}
-                className="car-card group flex flex-col glass-card rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1.5 hover:border-[rgba(61,139,253,0.25)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.5),0_0_40px_rgba(61,139,253,0.08)]"
+                className="car-card group flex flex-col glass-card rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1.5 hover:border-[rgba(61,139,253,0.25)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.1),0_0_40px_rgba(61,139,253,0.06)]"
                 style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 {/* Car image */}
@@ -214,9 +214,9 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
                     onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                   />
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-transparent to-transparent opacity-70 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent opacity-70 pointer-events-none" />
                   {/* Top chrome edge */}
-                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent pointer-events-none z-[2]" />
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-black/[0.08] to-transparent pointer-events-none z-[2]" />
                   {/* Badges */}
                   <div className="absolute top-3 left-3 flex items-center gap-2 z-[3]">
                     <span className="px-2.5 py-1 bg-emerald-500/90 backdrop-blur-md text-white text-[0.65rem] font-bold uppercase rounded-full shadow-[0_2px_8px_rgba(16,185,129,0.3)]">
@@ -253,15 +253,15 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
                   <h3 className="text-[1.1rem] font-bold mb-1.5 group-hover:text-[var(--accent)] transition-colors">{car.name}</h3>
                   <div className="flex items-center gap-3 text-[0.8rem] text-[var(--text-secondary)] mb-4">
                     <span className="flex items-center gap-1"><span className="text-[var(--text-muted)]">📅</span> {car.year}</span>
-                    <span className="w-1 h-1 rounded-full bg-white/[0.15]" />
+                    <span className="w-1 h-1 rounded-full bg-black/[0.15]" />
                     <span className="flex items-center gap-1"><span className="text-[var(--text-muted)]">🛣</span> {car.mileage}</span>
                   </div>
                   {/* Footer */}
-                  <div className="flex items-center justify-between pt-4 border-t border-white/[0.06] mt-auto">
-                    <span className="text-[1.3rem] font-extrabold text-amber-400 font-dashboard drop-shadow-[0_0_12px_rgba(251,191,36,0.25)]">
+                  <div className="flex items-center justify-between pt-4 border-t border-black/[0.06] mt-auto">
+                    <span className="text-[1.3rem] font-extrabold text-amber-600 font-dashboard">
                       {car.price}
                     </span>
-                    <span className="text-[0.78rem] text-[var(--text-secondary)] bg-white/[0.03] px-2.5 py-1 rounded-lg border border-white/[0.05]">
+                    <span className="text-[0.78rem] text-[var(--text-secondary)] bg-black/[0.03] px-2.5 py-1 rounded-lg border border-black/[0.06]">
                       📍 {car.location}
                     </span>
                   </div>
@@ -279,7 +279,7 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
 
         {/* View All */}
         <div className="text-center mt-10">
-          <button className="inline-flex items-center gap-2 px-8 py-3.5 border border-white/[0.06] text-white font-semibold text-[0.95rem] rounded-lg cursor-pointer transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)]">
+          <button className="inline-flex items-center gap-2 px-8 py-3.5 border border-black/[0.08] text-[var(--text-primary)] font-semibold text-[0.95rem] rounded-lg cursor-pointer transition-all hover:border-[var(--accent)] hover:text-[var(--accent)] hover:bg-[var(--accent-subtle)]">
             View All Cars →
           </button>
         </div>

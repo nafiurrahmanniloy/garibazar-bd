@@ -5,7 +5,7 @@ const outlets = ["Prothom Alo", "Daily Star", "Channel i", "Bangla Tribune", "Ju
 export default function PressStrip() {
   return (
     <div
-      className="flex items-center justify-center gap-8 flex-wrap py-6 px-[5%] border-t border-b border-white/[0.05] bg-[var(--bg-primary)] relative"
+      className="flex items-center justify-center gap-8 flex-wrap py-6 px-[5%] border-t border-b border-black/[0.05] bg-[var(--bg-primary)] relative"
       aria-label="Media mentions"
     >
       {/* Subtle center glow */}
@@ -16,11 +16,11 @@ export default function PressStrip() {
       <div className="flex items-center gap-6 flex-wrap relative z-[1]">
         {outlets.map((name, i) => (
           <span key={name} className="flex items-center gap-6">
-            <span className="text-[0.92rem] font-bold text-white/30 tracking-wider hover:text-white/50 transition-colors cursor-default">
+            <span className="text-[0.92rem] font-bold text-black/30 tracking-wider hover:text-black/50 transition-colors cursor-default">
               {name}
             </span>
             {i < outlets.length - 1 && (
-              <span className="w-1 h-1 rounded-full bg-white/[0.12]" />
+              <span className="w-1 h-1 rounded-full bg-black/[0.12]" />
             )}
           </span>
         ))}
