@@ -32,7 +32,7 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
 
   return (
     <section className="search-section relative z-50 -mt-12 pb-12 pt-16 px-6">
-      <div className="search-card max-w-[880px] mx-auto">
+      <div className="search-card max-w-[880px] mx-auto bg-[rgba(10,18,32,0.75)] backdrop-blur-2xl border border-white/[0.06] rounded-2xl p-8 shadow-[0_40px_80px_rgba(0,0,0,0.5)]">
         {/* Minimal label */}
         <div className="flex items-center gap-3 mb-8">
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />

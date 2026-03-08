@@ -18,7 +18,7 @@ export default function Hero() {
       scrollTrigger: {
         trigger: ".hero-section",
         start: "top top",
-        end: "+=2500",
+        end: "+=1400",
         pin: true,
         scrub: 1.2,
         anticipatePin: 1,
