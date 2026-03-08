@@ -1361,60 +1361,60 @@
         <div class="search-grid">
           <div class="search-field">
             <label for="s-brand">Brand / <span lang="bn">ব্র্যান্ড</span></label>
-            <select id="s-brand">
+            <select id="s-brand" onchange="filterCars()">
               <option value="">All Brands</option>
-              <option>Toyota</option>
-              <option>Honda</option>
-              <option>Nissan</option>
-              <option>Mitsubishi</option>
-              <option>Suzuki</option>
-              <option>Hyundai</option>
-              <option>BMW</option>
-              <option>Mercedes-Benz</option>
-              <option>Kia</option>
-              <option>Lexus</option>
+              <option value="Toyota">Toyota</option>
+              <option value="Honda">Honda</option>
+              <option value="Nissan">Nissan</option>
+              <option value="Mitsubishi">Mitsubishi</option>
+              <option value="Suzuki">Suzuki</option>
+              <option value="Hyundai">Hyundai</option>
+              <option value="BMW">BMW</option>
+              <option value="Mercedes">Mercedes</option>
+              <option value="Kia">Kia</option>
+              <option value="Lexus">Lexus</option>
             </select>
           </div>
           <div class="search-field">
             <label for="s-model">Model / <span lang="bn">মডেল</span></label>
-            <input id="s-model" type="text" placeholder="e.g. Allion, Vezel…">
+            <input id="s-model" type="text" placeholder="e.g. Allion, Vezel…" oninput="filterCars()">
           </div>
           <div class="search-field">
             <label for="s-budget">Budget / <span lang="bn">বাজেট (৳)</span></label>
-            <select id="s-budget">
+            <select id="s-budget" onchange="filterCars()">
               <option value="">Any Price</option>
-              <option>Under ৳10 Lakh</option>
-              <option>৳10L – ৳20L</option>
-              <option>৳20L – ৳35L</option>
-              <option>৳35L – ৳60L</option>
-              <option>৳60L – ৳1 Crore</option>
-              <option>Above ৳1 Crore</option>
+              <option value="0-1000000">Under ৳10 Lakh</option>
+              <option value="1000000-2000000">৳10L – ৳20L</option>
+              <option value="2000000-3500000">৳20L – ৳35L</option>
+              <option value="3500000-6000000">৳35L – ৳60L</option>
+              <option value="6000000-10000000">৳60L – ৳1 Crore</option>
+              <option value="10000000-99999999">Above ৳1 Crore</option>
             </select>
           </div>
           <div class="search-field">
             <label for="s-location">Location / <span lang="bn">অবস্থান</span></label>
-            <select id="s-location">
+            <select id="s-location" onchange="filterCars()">
               <option value="">All Bangladesh</option>
-              <option>Dhaka</option>
-              <option>Chittagong</option>
-              <option>Sylhet</option>
-              <option>Rajshahi</option>
-              <option>Khulna</option>
-              <option>Barishal</option>
-              <option>Rangpur</option>
-              <option>Mymensingh</option>
+              <option value="Dhaka">Dhaka</option>
+              <option value="Chittagong">Chittagong</option>
+              <option value="Sylhet">Sylhet</option>
+              <option value="Rajshahi">Rajshahi</option>
+              <option value="Khulna">Khulna</option>
+              <option value="Barishal">Barishal</option>
+              <option value="Rangpur">Rangpur</option>
+              <option value="Mymensingh">Mymensingh</option>
             </select>
           </div>
         </div>
 
         <div class="search-footer">
           <div class="brand-chips" role="group" aria-label="Quick brand filter">
-            <button class="brand-chip active">Toyota</button>
-            <button class="brand-chip">Honda</button>
-            <button class="brand-chip">Nissan</button>
-            <button class="brand-chip">Suzuki</button>
-            <button class="brand-chip">Mitsubishi</button>
-            <button class="brand-chip">BMW</button>
+            <button class="brand-chip" data-brand="Toyota">Toyota</button>
+            <button class="brand-chip" data-brand="Honda">Honda</button>
+            <button class="brand-chip" data-brand="Nissan">Nissan</button>
+            <button class="brand-chip" data-brand="Suzuki">Suzuki</button>
+            <button class="brand-chip" data-brand="Mitsubishi">Mitsubishi</button>
+            <button class="brand-chip" data-brand="BMW">BMW</button>
           </div>
           <button class="btn-search" aria-label="Search cars">
             🔍 Search Cars
@@ -1431,13 +1431,23 @@
         <div>
           <div class="section-label">Fresh Listings</div>
           <h2 class="gradient-text">Featured Cars</h2>
+          <p id="filter-count" style="display:none;margin-top:.4rem;font-size:.85rem;color:#3b82f6;font-weight:600;"></p>
         </div>
-        <a href="#browse-cars">View All Listings →</a>
+        <div style="display:flex;align-items:center;gap:1rem;">
+          <button id="clear-filters-btn" onclick="clearFilters()" style="display:none;font-size:.8rem;color:#7a8b9e;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:.5rem;padding:.4rem .9rem;cursor:pointer;">✕ Clear Filters</button>
+          <a href="#browse-cars">View All Listings →</a>
+        </div>
+      </div>
+      <div id="no-results" style="display:none;text-align:center;padding:4rem 0;">
+        <div style="font-size:3rem;margin-bottom:1rem;">🔍</div>
+        <p style="font-size:1.1rem;color:#7a8b9e;margin-bottom:.5rem;">No cars match your filters.</p>
+        <p style="font-size:.85rem;color:#4a5568;margin-bottom:1.5rem;">Try changing your search criteria.</p>
+        <button onclick="clearFilters()" style="padding:.6rem 1.5rem;background:#3b82f6;border:none;border-radius:.5rem;color:#fff;font-weight:700;cursor:pointer;">Clear Filters</button>
       </div>
 
       <div class="cars-grid">
 
-        <article class="car-card" tabindex="0" data-name="Toyota Allion" data-year="2019" data-mileage="58,000 km" data-price="৳26,50,000" data-location="Dhaka" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80">
+        <article class="car-card" tabindex="0" data-name="Toyota Allion" data-brand="Toyota" data-year="2019" data-mileage="58,000 km" data-price="৳26,50,000" data-price-num="2650000" data-location="Dhaka" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80" alt="Toyota Allion 2019 - Grey Sedan">
@@ -1461,7 +1471,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0" data-name="Honda Vezel" data-year="2018" data-mileage="72,000 km" data-price="৳22,80,000" data-location="Chittagong" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80">
+        <article class="car-card" tabindex="0" data-name="Honda Vezel" data-brand="Honda" data-year="2018" data-mileage="72,000 km" data-price="৳22,80,000" data-price-num="2280000" data-location="Chittagong" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80" alt="Honda Vezel 2018 - Compact SUV">
@@ -1485,7 +1495,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0" data-name="Nissan X-Trail" data-year="2017" data-mileage="89,000 km" data-price="৳31,00,000" data-location="Dhaka" data-condition="Imported" data-img="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80">
+        <article class="car-card" tabindex="0" data-name="Nissan X-Trail" data-brand="Nissan" data-year="2017" data-mileage="89,000 km" data-price="৳31,00,000" data-price-num="3100000" data-location="Dhaka" data-condition="Imported" data-img="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80" alt="Nissan X-Trail 2017 - SUV">
@@ -1509,7 +1519,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0" data-name="Toyota Axio" data-year="2020" data-mileage="41,000 km" data-price="৳18,50,000" data-location="Sylhet" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80">
+        <article class="car-card" tabindex="0" data-name="Toyota Axio" data-brand="Toyota" data-year="2020" data-mileage="41,000 km" data-price="৳18,50,000" data-price-num="1850000" data-location="Sylhet" data-condition="Reconditioned" data-img="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80" alt="Toyota Axio 2020 - Sedan">
@@ -1533,7 +1543,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0" data-name="Mitsubishi Outlander" data-year="2016" data-mileage="95,000 km" data-price="৳28,00,000" data-location="Rajshahi" data-condition="Used" data-img="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80">
+        <article class="car-card" tabindex="0" data-name="Mitsubishi Outlander" data-brand="Mitsubishi" data-year="2016" data-mileage="95,000 km" data-price="৳28,00,000" data-price-num="2800000" data-location="Rajshahi" data-condition="Used" data-img="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80" alt="Mitsubishi Outlander 2016 - SUV">
@@ -1556,7 +1566,7 @@
           </div>
         </article>
 
-        <article class="car-card" tabindex="0" data-name="BMW 3 Series" data-year="2021" data-mileage="28,000 km" data-price="৳62,00,000" data-location="Dhaka" data-condition="Used" data-img="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80">
+        <article class="car-card" tabindex="0" data-name="BMW 3 Series" data-brand="BMW" data-year="2021" data-mileage="28,000 km" data-price="৳62,00,000" data-price-num="6200000" data-location="Dhaka" data-condition="Used" data-img="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80">
           <div class="car-image">
             <div class="car-image-bg">
               <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80" alt="BMW 3 Series 2021 - Sedan">
@@ -2401,13 +2411,19 @@
     // ─── 6. Brand Chip Interaction ────────────────────
     document.querySelectorAll(".brand-chip").forEach(chip => {
       chip.addEventListener("click", function() {
-        document.querySelectorAll(".brand-chip").forEach(c => c.classList.remove("active"));
-        this.classList.add("active");
         const brandSelect = document.getElementById("s-brand");
-        if (brandSelect) brandSelect.value = this.textContent.trim();
+        const alreadyActive = this.classList.contains("active");
+        document.querySelectorAll(".brand-chip").forEach(c => c.classList.remove("active"));
+        if (!alreadyActive) {
+          this.classList.add("active");
+          if (brandSelect) brandSelect.value = this.dataset.brand || this.textContent.trim();
+        } else {
+          // Clicking active chip clears the filter
+          if (brandSelect) brandSelect.value = "";
+        }
         gsap.fromTo(this, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
-        // Scroll to browse cars
-        document.getElementById('browse-cars')?.scrollIntoView({ behavior: 'smooth' });
+        filterCars();
+        document.getElementById('browse-cars').scrollIntoView({ behavior: 'smooth' });
       });
     });
 
@@ -2454,7 +2470,8 @@
 
     // ─── 11. Search Button ────────────────────────────
     document.querySelector('.btn-search')?.addEventListener('click', function() {
-      document.getElementById('browse-cars')?.scrollIntoView({ behavior: 'smooth' });
+      filterCars();
+      document.getElementById('browse-cars').scrollIntoView({ behavior: 'smooth' });
     });
 
     // ─── 12. Car Card Modal ───────────────────────────
@@ -2533,10 +2550,82 @@
       closeSellModal();
     });
 
-    // ─── 15. Footer location filter ──────────────────
+    // ─── 15. Core Filter Engine ──────────────────────
+    function filterCars() {
+      const brand    = (document.getElementById('s-brand')?.value    || '').toLowerCase();
+      const model    = (document.getElementById('s-model')?.value    || '').toLowerCase().trim();
+      const location = (document.getElementById('s-location')?.value || '');
+      const budget   = (document.getElementById('s-budget')?.value   || '');
+
+      let minPrice = 0, maxPrice = Infinity;
+      if (budget) {
+        const parts = budget.split('-');
+        minPrice = parseInt(parts[0]) || 0;
+        maxPrice = parseInt(parts[1]) || Infinity;
+      }
+
+      const cards = document.querySelectorAll('.car-card');
+      const grid  = document.querySelector('.cars-grid');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const d            = card.dataset;
+        const cardBrand    = (d.brand    || '').toLowerCase();
+        const cardName     = (d.name     || '').toLowerCase();
+        const cardLocation = (d.location || '');
+        const cardPrice    = parseInt(d.priceNum || d['price-num'] || 0);
+
+        const brandOk    = !brand    || cardBrand === brand;
+        const modelOk    = !model    || cardName.includes(model);
+        const locationOk = !location || cardLocation === location;
+        const priceOk    = !budget   || (cardPrice >= minPrice && cardPrice <= maxPrice);
+
+        const show = brandOk && modelOk && locationOk && priceOk;
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+
+      // Update counter
+      const hasFilters = brand || model || location || budget;
+      const countEl    = document.getElementById('filter-count');
+      const noResults  = document.getElementById('no-results');
+      const clearBtn   = document.getElementById('clear-filters-btn');
+      const carsGrid   = document.querySelector('.cars-grid');
+
+      if (hasFilters) {
+        countEl.textContent = visible
+          ? 'Showing ' + visible + ' of ' + cards.length + ' cars'
+          : '';
+        countEl.style.display = visible ? 'block' : 'none';
+        noResults.style.display = visible ? 'none' : 'block';
+        carsGrid.style.display  = visible ? '' : 'none';
+        clearBtn.style.display  = 'inline-block';
+      } else {
+        countEl.style.display   = 'none';
+        noResults.style.display = 'none';
+        carsGrid.style.display  = '';
+        clearBtn.style.display  = 'none';
+      }
+
+      // Sync brand chip active state
+      document.querySelectorAll('.brand-chip').forEach(chip => {
+        chip.classList.toggle('active', (chip.dataset.brand || '').toLowerCase() === brand && !!brand);
+      });
+    }
+
+    function clearFilters() {
+      document.getElementById('s-brand').value    = '';
+      document.getElementById('s-model').value    = '';
+      document.getElementById('s-location').value = '';
+      document.getElementById('s-budget').value   = '';
+      filterCars();
+    }
+
+    // ─── 16. Footer location filter ──────────────────
     function filterByLocation(location) {
       const sel = document.getElementById('s-location');
-      if (sel) sel.value = location;
+      if (sel) { sel.value = location; filterCars(); }
+      document.getElementById('browse-cars').scrollIntoView({ behavior: 'smooth' });
     }
 
   </script>
