@@ -2131,32 +2131,44 @@
         <p id="cdp-desc" class="cdp-desc-text"></p>
       </div>
 
+      <!-- ── GROUP: VEHICLE HISTORY ────────────────── -->
+      <div class="cdp-group-hdr history">
+        <span class="cdp-group-hdr-icon">📋</span>
+        <span class="cdp-group-hdr-label">Vehicle History</span>
+      </div>
+
       <!-- Accident & Damage History -->
-      <div class="cdp-section">
-        <h3 class="cdp-sec-title">Accident & Damage History</h3>
+      <div class="cdp-section s-history">
+        <h3 class="cdp-sec-title">🚨 Accident & Damage History</h3>
         <div id="cdp-accident"></div>
       </div>
 
       <!-- Ownership History -->
-      <div class="cdp-section">
-        <h3 class="cdp-sec-title">Ownership History</h3>
+      <div class="cdp-section s-history">
+        <h3 class="cdp-sec-title">👤 Ownership History</h3>
         <div class="cdp-ownership-timeline" id="cdp-ownership"></div>
       </div>
 
       <!-- Service & Maintenance -->
-      <div class="cdp-section">
-        <h3 class="cdp-sec-title">Service & Maintenance</h3>
+      <div class="cdp-section s-history">
+        <h3 class="cdp-sec-title">🔧 Service & Maintenance</h3>
         <div id="cdp-service"></div>
       </div>
 
+      <!-- ── GROUP: PHOTOS & VIDEO ───────────────── -->
+      <div class="cdp-group-hdr media">
+        <span class="cdp-group-hdr-icon">📸</span>
+        <span class="cdp-group-hdr-label">Photos & Video</span>
+      </div>
+
       <!-- Photo Gallery -->
-      <div class="cdp-section">
+      <div class="cdp-section s-media">
         <h3 class="cdp-sec-title">Photo Gallery</h3>
         <div class="cdp-gallery" id="cdp-gallery"></div>
       </div>
 
       <!-- Video Walkthrough -->
-      <div class="cdp-section">
+      <div class="cdp-section s-media">
         <h3 class="cdp-sec-title">Video Walkthrough</h3>
         <div class="cdp-video-wrap" id="cdp-video-wrap">
           <div class="cdp-video-placeholder" onclick="cdpPlayVideo(this)">
@@ -2167,21 +2179,33 @@
         </div>
       </div>
 
+      <!-- ── GROUP: SPECIFICATIONS ──────────────── -->
+      <div class="cdp-group-hdr specs">
+        <span class="cdp-group-hdr-icon">⚙️</span>
+        <span class="cdp-group-hdr-label">Full Specifications</span>
+      </div>
+
       <!-- Full Specifications -->
-      <div class="cdp-section">
-        <h3 class="cdp-sec-title">Full Specifications</h3>
+      <div class="cdp-section s-specs">
+        <h3 class="cdp-sec-title">Technical Specs</h3>
         <div class="cdp-spec-grid" id="cdp-spec-grid"></div>
       </div>
 
       <!-- Features & Equipment -->
-      <div class="cdp-section">
+      <div class="cdp-section s-specs">
         <h3 class="cdp-sec-title">Features & Equipment</h3>
         <div class="cdp-features-grid" id="cdp-features"></div>
       </div>
 
+      <!-- ── GROUP: DOCUMENTS ────────────────────── -->
+      <div class="cdp-group-hdr docs">
+        <span class="cdp-group-hdr-icon">📄</span>
+        <span class="cdp-group-hdr-label">Documents & Papers</span>
+      </div>
+
       <!-- Documents & Papers -->
-      <div class="cdp-section">
-        <h3 class="cdp-sec-title">Documents & Papers</h3>
+      <div class="cdp-section s-docs">
+        <h3 class="cdp-sec-title">Verified Documents</h3>
         <div class="cdp-papers-grid" id="cdp-papers"></div>
         <div class="cdp-paper-note">
           <span>🔒</span>
@@ -2189,14 +2213,20 @@
         </div>
       </div>
 
+      <!-- ── GROUP: SELLER & PURCHASE ───────────── -->
+      <div class="cdp-group-hdr purchase">
+        <span class="cdp-group-hdr-icon">🛒</span>
+        <span class="cdp-group-hdr-label">Seller & Purchase</span>
+      </div>
+
       <!-- Seller Info -->
-      <div class="cdp-section">
+      <div class="cdp-section s-purchase">
         <h3 class="cdp-sec-title">Seller Information</h3>
         <div class="cdp-seller-card" id="cdp-seller"></div>
       </div>
 
       <!-- How to Buy -->
-      <div class="cdp-section">
+      <div class="cdp-section s-purchase">
         <h3 class="cdp-sec-title">How to Complete This Purchase</h3>
         <div class="cdp-steps">
           <div class="cdp-step"><div class="cdp-step-num">1</div><div><strong>Contact Seller</strong><p>Call or WhatsApp to confirm availability and arrange a visit.</p></div></div>
@@ -2586,19 +2616,59 @@
     .cdp-svc-meta { font-size:.76rem; color:var(--text-secondary,#7a8b9e); margin-top:.1rem; }
     .cdp-svc-note { font-size:.78rem; color:#c5d2e0; margin-top:.25rem; line-height:1.45; }
 
+    /* ── Section group headers ────────────────────────── */
+    .cdp-group-hdr { display:flex; align-items:center; gap:.6rem; padding:.7rem 1.25rem; border-bottom:1px solid rgba(255,255,255,.06); }
+    .cdp-group-hdr-icon { font-size:1.1rem; }
+    .cdp-group-hdr-label { font-size:.7rem; font-weight:800; text-transform:uppercase; letter-spacing:.14em; }
+    .cdp-group-hdr.history { background:rgba(59,130,246,.07); border-color:rgba(59,130,246,.12); }
+    .cdp-group-hdr.history .cdp-group-hdr-label { color:#3b82f6; }
+    .cdp-group-hdr.media { background:rgba(139,92,246,.07); border-color:rgba(139,92,246,.12); }
+    .cdp-group-hdr.media .cdp-group-hdr-label { color:#a78bfa; }
+    .cdp-group-hdr.specs { background:rgba(245,158,11,.06); border-color:rgba(245,158,11,.12); }
+    .cdp-group-hdr.specs .cdp-group-hdr-label { color:#f59e0b; }
+    .cdp-group-hdr.docs { background:rgba(16,185,129,.07); border-color:rgba(16,185,129,.12); }
+    .cdp-group-hdr.docs .cdp-group-hdr-label { color:#10b981; }
+    .cdp-group-hdr.purchase { background:rgba(251,191,36,.07); border-color:rgba(251,191,36,.12); }
+    .cdp-group-hdr.purchase .cdp-group-hdr-label { color:#fbbf24; }
+
+    /* ── Section sub-theme backgrounds ───────────────── */
+    .cdp-section.s-history { background:rgba(59,130,246,.025); }
+    .cdp-section.s-media   { background:rgba(139,92,246,.02); }
+    .cdp-section.s-specs   { background:rgba(245,158,11,.02); }
+    .cdp-section.s-docs    { background:rgba(16,185,129,.02); }
+    .cdp-section.s-purchase{ background:rgba(251,191,36,.02); }
+
+    /* ── Text overflow prevention ─────────────────────── */
+    .cdp-own-label, .cdp-own-note, .cdp-own-period,
+    .cdp-acc-type, .cdp-acc-desc, .cdp-acc-date,
+    .cdp-svc-title, .cdp-svc-meta, .cdp-svc-note,
+    .cdp-spec-v, .cdp-spec-k,
+    .cdp-seller-name, .cdp-seller-meta,
+    .cdp-chip, .cdp-desc-text, .cdp-paper-name,
+    .cdp-step strong, .cdp-step p {
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+    .cdp-spec-v { white-space: normal; }
+    .cdp-feature-item { word-break: break-word; white-space: normal; }
+
     /* ── Toast notification ───────────────────────────── */
     #gb-toast { position:fixed; bottom:2rem; left:50%; transform:translateX(-50%) translateY(1rem); background:#0d1b2a; border:1px solid rgba(59,130,246,.3); color:#fff; padding:.7rem 1.25rem; border-radius:.75rem; font-size:.85rem; font-weight:600; z-index:9999; opacity:0; pointer-events:none; transition:opacity .3s, transform .3s; white-space:nowrap; box-shadow:0 8px 32px rgba(0,0,0,.5); }
     #gb-toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
     /* ── Responsive layout ────────────────────────────── */
     @media (min-width: 900px) {
-      .cdp-scroll { display: grid; grid-template-columns: 1fr 340px; grid-template-rows: auto; }
-      .cdp-hero-wrap { grid-column: 1; }
-      .cdp-thumbs { grid-column: 1; }
-      .cdp-meta-bar { grid-column: 1; }
-      .cdp-price-section { grid-column: 2; grid-row: 1 / 5; flex-direction: column; align-items: flex-start; position: sticky; top: 0; max-height: calc(100vh - 56px); overflow-y: auto; border-left: 1px solid rgba(255,255,255,.06); border-bottom: none; }
-      .cdp-overview, .cdp-section { grid-column: 1; }
-      .cdp-inspector-banner { grid-column: 1; }
+      .cdp-scroll { display: grid; grid-template-columns: 1fr 340px; }
+      .cdp-hero-wrap, .cdp-thumbs, .cdp-meta-bar,
+      .cdp-overview, .cdp-inspector-banner,
+      .cdp-group-hdr, .cdp-section { grid-column: 1; }
+      .cdp-price-section {
+        grid-column: 2; grid-row: 1 / 6;
+        flex-direction: column; align-items: flex-start;
+        position: sticky; top: 0;
+        max-height: calc(100vh - 56px); overflow-y: auto;
+        border-left: 1px solid rgba(255,255,255,.06); border-bottom: none;
+      }
     }
   </style>
 
@@ -2692,7 +2762,7 @@
   <!-- ═══ SCRIPTS ═══════════════════════════════════════ -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 
   <script>
     // ─── 0. GSAP Plugins (needed for preloader) ───────
@@ -2782,7 +2852,7 @@
     })();
 
     // ─── 1. Lenis Smooth Scroll ───────────────────────
-    const lenis = new Lenis();
+    const lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((time) => { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
@@ -2800,7 +2870,7 @@
       scrollTrigger: {
         trigger: ".scroll-expand-section",
         start: "top top",
-        end: "+=2500",
+        end: "+=1200",
         pin: true,
         scrub: 1.2,
         anticipatePin: 1
@@ -3399,6 +3469,7 @@
       const scroll = panel.querySelector('.cdp-scroll');
       if (scroll) scroll.scrollTop = 0;
       document.body.style.overflow = 'hidden';
+      lenis.stop();
     }
 
     function cdpSetPhoto(idx) {
@@ -3437,6 +3508,7 @@
         panel.style.display = 'none';
         panel.style.animation = '';
         document.body.style.overflow = '';
+        lenis.start();
       }, 280);
     }
 
@@ -3511,10 +3583,12 @@
       document.getElementById('offer-form')?.reset();
       document.getElementById('offer-modal').hidden     = false;
       document.body.style.overflow = 'hidden';
+      lenis.stop();
     }
     function closeOfferModal() {
       document.getElementById('offer-modal').hidden = true;
       document.body.style.overflow = '';
+      lenis.start();
     }
     function submitOffer(e) {
       e.preventDefault();
@@ -3533,15 +3607,16 @@
       document.getElementById('td-form-wrap').hidden = false;
       document.getElementById('td-success').hidden   = true;
       document.getElementById('td-form')?.reset();
-      // Set min date to today
       const dateInput = document.querySelector('#td-form input[type="date"]');
       if (dateInput) dateInput.min = new Date().toISOString().split('T')[0];
       document.getElementById('td-modal').hidden = false;
       document.body.style.overflow = 'hidden';
+      lenis.stop();
     }
     function closeTdModal() {
       document.getElementById('td-modal').hidden = true;
       document.body.style.overflow = '';
+      lenis.start();
     }
     function submitTd(e) {
       e.preventDefault();
@@ -3559,11 +3634,13 @@
       document.getElementById('sell-form')?.reset();
       document.getElementById('sell-modal').hidden = false;
       document.body.style.overflow = 'hidden';
+      lenis.stop();
     }
 
     function closeSellModal() {
       document.getElementById('sell-modal').hidden = true;
       document.body.style.overflow = '';
+      lenis.start();
     }
 
     function submitSellForm(e) {
