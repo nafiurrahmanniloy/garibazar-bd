@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Next.js build output
+.next/
+out/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Claude internal
+.claude/
+
+# Debug logs
+npm-debug.log*
+
+# Reference repo (not part of this project)
+nextjs-animated-components-ref/

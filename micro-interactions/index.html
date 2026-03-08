@@ -1,0 +1,2277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GariBazar BD — গাড়িবাজার | Bangladesh's Trusted Used Car Marketplace</title>
+  <meta name="description" content="Buy and sell verified pre-owned cars in Bangladesh. Best prices, nationwide coverage across Dhaka, Chittagong, Sylhet and more.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Preload car grid images so they're ready before the user scrolls -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80">
+
+  <style>
+    /* ─── Design Tokens ──────────────────────────────── */
+    :root {
+      --bg-primary:    #03060a;
+      --bg-secondary:  #0a1628;
+      --bg-card:       #0d1b2a;
+      --text-primary:  #ffffff;
+      --text-secondary:#7a8b9e;
+      --accent:        #3b82f6;
+      --accent-dark:   #2563eb;
+      --accent-glow:   rgba(59,130,246,0.25);
+      --accent-glow-strong: rgba(59,130,246,0.45);
+      --success:       #10b981;
+      --warning:       #f59e0b;
+      --danger:        #ef4444;
+      --border:        rgba(255,255,255,0.06);
+      --border-accent: rgba(59,130,246,0.3);
+      --radius-sm:     8px;
+      --radius-md:     16px;
+      --radius-lg:     24px;
+      --font:          'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --glass-bg:      rgba(13,27,42,0.75);
+      --glass-border:  rgba(255,255,255,0.08);
+      --section-pad:   8rem 5%;
+    }
+
+    /* ─── Reset & Base ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html.lenis { height: auto; }
+    .lenis-smooth { scroll-behavior: auto !important; }
+    .lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+    .lenis-stopped { overflow: hidden; }
+
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    img, video { display: block; max-width: 100%; }
+    a { text-decoration: none; color: inherit; }
+    button { cursor: pointer; border: none; background: none; font: inherit; }
+
+    /* ─── Utility ───────────────────────────────────── */
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: '';
+      width: 24px; height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #fff 0%, #7a8b9e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+      box-shadow: 0 0 30px var(--accent-glow);
+    }
+    .btn-primary:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px var(--accent-glow-strong);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.875rem 1.75rem;
+      border: 1px solid var(--border-accent);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background: var(--accent-glow);
+      transform: translateY(-2px);
+    }
+
+    /* ─── Sticky Navbar ─────────────────────────────── */
+    .site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      transform: translateY(-100%);
+      background: rgba(3,6,10,0.88);
+      backdrop-filter: blur(24px) saturate(160%);
+      -webkit-backdrop-filter: blur(24px) saturate(160%);
+      border-bottom: 1px solid var(--border);
+      will-change: transform;
+    }
+
+    .nav-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 5%;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: baseline;
+      gap: 0.15rem;
+      font-weight: 900;
+      font-size: 1.35rem;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+    .nav-logo .logo-gari { color: #fff; }
+    .nav-logo .logo-bazar { color: var(--accent); }
+    .nav-logo .logo-bd {
+      font-size: 0.65rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+      margin-left: 4px;
+      margin-bottom: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      list-style: none;
+    }
+    .nav-links a {
+      padding: 0.4rem 0.85rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+    .nav-links a:hover {
+      color: var(--text-primary);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 0.75rem; }
+
+    .btn-sell-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1.1rem;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.82rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.25s ease;
+      box-shadow: 0 0 20px var(--accent-glow);
+      white-space: nowrap;
+    }
+    .btn-sell-nav:hover {
+      background: var(--accent-dark);
+      box-shadow: 0 4px 24px var(--accent-glow-strong);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+    }
+
+    /* ─── Hero: Scroll-to-Expand ────────────────────── */
+    .scroll-expand-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .bg-layer {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at center, #1a2536 0%, #03060a 100%);
+      z-index: 0;
+      will-change: opacity;
+    }
+
+    .pinned-content {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .media-container {
+      position: relative;
+      width: 80vw;
+      height: 60vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 5;
+      will-change: transform, border-radius, width, height;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    }
+    .media-inner { width: 100%; height: 100%; position: relative; }
+    .media-container video { width: 100%; height: 100%; object-fit: cover; }
+    .media-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, rgba(0,0,0,0) 30%, rgba(0,0,0,0.7) 100%);
+      z-index: 1;
+      will-change: opacity;
+    }
+
+    .text-layer {
+      position: absolute;
+      z-index: 20;
+      display: flex;
+      gap: 4rem;
+      mix-blend-mode: difference;
+      pointer-events: none;
+    }
+    .text-contrast {
+      color: #fff;
+      font-size: clamp(3rem, 10vw, 8rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      line-height: 1;
+      will-change: transform, opacity;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0;
+      animation: fadeInHint 1s ease 1.5s forwards;
+    }
+    .hero-scroll-hint span {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 1.5s ease-in-out infinite;
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+    @keyframes fadeInHint {
+      to { opacity: 1; }
+    }
+
+    /* ─── Quick Search Bar ──────────────────────────── */
+    .search-section {
+      position: relative;
+      padding: 5rem 5% 6rem;
+      background: var(--bg-primary);
+    }
+    .search-section::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-glow-strong), transparent);
+    }
+
+    .search-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+    .search-header h2 {
+      font-size: clamp(1.75rem, 4vw, 3rem);
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 0.5rem;
+    }
+    .search-header p {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .search-card {
+      max-width: 960px;
+      margin: 0 auto;
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+    }
+
+    .search-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .search-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .search-field label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+    }
+    .search-field select,
+    .search-field input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font);
+      font-size: 0.875rem;
+      transition: border-color 0.2s;
+      -webkit-appearance: none;
+    }
+    .search-field select:focus,
+    .search-field input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+    .search-field select option { background: #0d1b2a; }
+
+    .search-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .brand-chip {
+      padding: 0.35rem 0.85rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .brand-chip:hover,
+    .brand-chip.active {
+      background: var(--accent-glow);
+      border-color: var(--border-accent);
+      color: var(--accent);
+    }
+
+    .btn-search {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 2rem;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.25s ease;
+      box-shadow: 0 0 30px var(--accent-glow);
+      white-space: nowrap;
+    }
+    .btn-search:hover {
+      background: var(--accent-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 40px var(--accent-glow-strong);
+    }
+
+    @media (max-width: 768px) {
+      .search-grid { grid-template-columns: 1fr 1fr; }
+      .search-footer { flex-direction: column; align-items: stretch; }
+      .btn-search { justify-content: center; }
+    }
+    @media (max-width: 480px) {
+      .search-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Featured Cars Grid ────────────────────────── */
+    .cars-section {
+      padding: var(--section-pad);
+      background: var(--bg-secondary);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .section-header h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 900;
+      font-style: italic;
+      line-height: 1.1;
+    }
+    .section-header a {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: gap 0.2s;
+    }
+    .section-header a:hover { gap: 0.6rem; }
+
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .car-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      will-change: transform;
+    }
+    .car-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 64px rgba(59,130,246,0.2);
+      border-color: var(--border-accent);
+    }
+
+    .car-image {
+      position: relative;
+      height: 210px;
+      overflow: hidden;
+    }
+    .car-image-bg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s ease;
+    }
+    .car-image-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      display: block;
+      transition: transform 0.5s ease;
+    }
+    .car-card:hover .car-image-bg img { transform: scale(1.06); }
+
+    .car-badges {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+    .badge {
+      padding: 0.2rem 0.6rem;
+      border-radius: 100px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .badge-verified { background: rgba(16,185,129,0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
+    .badge-recon { background: rgba(59,130,246,0.15); color: var(--accent); border: 1px solid var(--border-accent); }
+    .badge-hot { background: rgba(239,68,68,0.15); color: var(--danger); border: 1px solid rgba(239,68,68,0.3); }
+
+    .car-wishlist {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 34px;
+      height: 34px;
+      background: rgba(3,6,10,0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid var(--border);
+    }
+    .car-wishlist:hover { background: rgba(239,68,68,0.2); border-color: rgba(239,68,68,0.4); }
+
+    .car-info { padding: 1.25rem; }
+    .car-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      margin-bottom: 0.2rem;
+      letter-spacing: -0.01em;
+    }
+    .car-meta {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .car-meta span {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .car-price-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+    .car-price {
+      font-size: 1.2rem;
+      font-weight: 900;
+      color: var(--warning);
+      letter-spacing: -0.02em;
+    }
+    .car-location {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    @media (max-width: 900px) { .cars-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .cars-grid { grid-template-columns: 1fr; } }
+
+    /* ─── Why GariBazar — Stats + Features ─────────── */
+    .why-section {
+      padding: var(--section-pad);
+      background: var(--bg-primary);
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 5rem;
+    }
+    .stat-card {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(16px);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .stat-card:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 40px var(--accent-glow);
+    }
+    .stat-number {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 900;
+      font-style: italic;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+    }
+    .feature-card {
+      padding: 2rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(16px);
+      transition: all 0.35s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--border-accent);
+      box-shadow: 0 20px 60px rgba(59,130,246,0.12);
+    }
+    .feature-icon {
+      width: 52px;
+      height: 52px;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 0.5rem;
+    }
+    .feature-card p {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+    .feature-card p span[lang="bn"] {
+      display: block;
+      font-size: 0.78rem;
+      color: rgba(122,139,158,0.7);
+      margin-top: 0.2rem;
+    }
+
+    @media (max-width: 900px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 600px) {
+      .stats-row { grid-template-columns: 1fr; }
+      .features-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Brands Carousel ───────────────────────────── */
+    .brands-section {
+      padding: 5rem 0;
+      background: var(--bg-secondary);
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brands-label {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .brands-marquee {
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #fff 10%, #fff 90%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #fff 10%, #fff 90%, transparent);
+    }
+    .brands-track {
+      display: flex;
+      gap: 1.5rem;
+      animation: marquee 24s linear infinite;
+      will-change: transform;
+    }
+    .brands-track:nth-child(2) { animation-delay: -12s; }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .brand-logo {
+      flex-shrink: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 130px;
+      height: 80px;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.25s;
+      padding: 1rem;
+    }
+    .brand-logo:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 0 30px var(--accent-glow);
+      transform: translateY(-2px);
+    }
+    .brand-logo-emoji { font-size: 1.5rem; }
+    .brand-logo-name { font-size: 0.7rem; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.05em; text-transform: uppercase; }
+
+    /* ─── How It Works ──────────────────────────────── */
+    .hiw-section {
+      padding: var(--section-pad);
+      background: var(--bg-primary);
+    }
+
+    .hiw-steps {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 3.5rem;
+    }
+
+    .hiw-step {
+      text-align: center;
+      padding: 2rem 1.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      backdrop-filter: blur(16px);
+      position: relative;
+    }
+    .hiw-number {
+      position: absolute;
+      top: -1.1rem;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 36px;
+      height: 36px;
+      background: var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 900;
+      box-shadow: 0 0 20px var(--accent-glow-strong);
+    }
+    .hiw-icon { font-size: 2.5rem; margin: 0.5rem 0 1rem; }
+    .hiw-step h3 { font-size: 1.05rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .hiw-step p { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    .hiw-connector {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hiw-line {
+      width: 60px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--border-accent), transparent);
+      position: relative;
+    }
+    .hiw-arrow {
+      width: 0;
+      height: 0;
+      border-top: 5px solid transparent;
+      border-bottom: 5px solid transparent;
+      border-left: 8px solid var(--accent);
+    }
+
+    @media (max-width: 768px) {
+      .hiw-steps { grid-template-columns: 1fr; }
+      .hiw-connector { transform: rotate(90deg); }
+    }
+
+    /* ─── Testimonials ──────────────────────────────── */
+    .testi-section {
+      padding: 6rem 0;
+      background: var(--bg-secondary);
+      overflow: hidden;
+    }
+    .testi-header {
+      text-align: center;
+      padding: 0 5%;
+      margin-bottom: 3rem;
+    }
+    .testi-rating-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1.25rem;
+    }
+    .testi-overall {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .testi-overall-score {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--warning);
+      line-height: 1;
+    }
+    .testi-overall-info { text-align: left; }
+    .testi-overall-stars { color: var(--warning); font-size: 1.1rem; letter-spacing: 0.08em; }
+    .testi-overall-count { font-size: 0.8rem; color: var(--text-secondary); }
+    .testi-divider { width: 1px; height: 40px; background: var(--border); }
+    .testi-platform { display: flex; flex-direction: column; align-items: center; gap: 0.2rem; }
+    .testi-platform-name { font-size: 0.75rem; font-weight: 700; color: var(--text-secondary); letter-spacing: 0.08em; text-transform: uppercase; }
+    .testi-platform-stars { color: var(--warning); font-size: 0.9rem; }
+
+    /* Marquee rows */
+    .testi-marquee-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .testi-row {
+      display: flex;
+      overflow: hidden;
+      mask-image: linear-gradient(90deg, transparent, #fff 8%, #fff 92%, transparent);
+      -webkit-mask-image: linear-gradient(90deg, transparent, #fff 8%, #fff 92%, transparent);
+    }
+    .testi-track {
+      display: flex;
+      gap: 1.25rem;
+      will-change: transform;
+    }
+    .testi-row-1 .testi-track { animation: testi-left  50s linear infinite; }
+    .testi-row-2 .testi-track { animation: testi-right 55s linear infinite; }
+    .testi-row:hover .testi-track { animation-play-state: paused; }
+    @keyframes testi-left  { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes testi-right { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+
+    /* Review card */
+    .review-card {
+      flex-shrink: 0;
+      width: 320px;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      backdrop-filter: blur(16px);
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .review-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(400px circle at var(--mx,50%) var(--my,50%), rgba(59,130,246,0.12), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.35s;
+      pointer-events: none;
+    }
+    .review-card:hover { border-color: var(--border-accent); box-shadow: 0 8px 40px rgba(59,130,246,0.1); }
+    .review-card:hover::before { opacity: 1; }
+
+    .review-stars { color: var(--warning); font-size: 0.9rem; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .review-text {
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 1.1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .review-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+    }
+    .review-author { display: flex; align-items: center; gap: 0.65rem; }
+    .review-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent-dark));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 0.85rem; flex-shrink: 0;
+    }
+    .review-name { font-weight: 700; font-size: 0.85rem; line-height: 1.2; }
+    .review-location { font-size: 0.72rem; color: var(--text-secondary); }
+    .review-car-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: var(--accent-glow);
+      border: 1px solid var(--border-accent);
+      padding: 0.2rem 0.55rem;
+      border-radius: 100px;
+      white-space: nowrap;
+    }
+
+    /* ─── CTA Section ───────────────────────────────── */
+    .cta-section {
+      padding: var(--section-pad);
+      background: var(--bg-primary);
+    }
+
+    .cta-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .cta-card {
+      padding: 3rem 2.5rem;
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      backdrop-filter: blur(16px);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s ease;
+    }
+    .cta-card:hover {
+      border-color: var(--border-accent);
+      box-shadow: 0 30px 80px rgba(59,130,246,0.12);
+      transform: translateY(-4px);
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+    }
+    .cta-card .cta-emoji { font-size: 2.5rem; margin-bottom: 1.25rem; }
+    .cta-card h3 {
+      font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+      font-weight: 900;
+      font-style: italic;
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+    .cta-card p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 640px) { .cta-grid { grid-template-columns: 1fr; } }
+
+    /* ─── Footer ────────────────────────────────────── */
+    .site-footer {
+      background: #020508;
+      border-top: 1px solid var(--border);
+      padding: 5rem 5% 2rem;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1.25fr;
+      gap: 3rem;
+      margin-bottom: 4rem;
+    }
+
+    .footer-brand .footer-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.75rem;
+    }
+    .footer-logo .logo-bazar { color: var(--accent); }
+    .footer-brand p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      max-width: 280px;
+    }
+    .footer-socials {
+      display: flex;
+      gap: 0.75rem;
+    }
+    .social-btn {
+      width: 38px;
+      height: 38px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+    .social-btn:hover {
+      background: var(--accent-glow);
+      border-color: var(--border-accent);
+      transform: translateY(-2px);
+    }
+
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 1.25rem;
+    }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .footer-col ul a {
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.55);
+      transition: color 0.2s;
+    }
+    .footer-col ul a:hover { color: var(--accent); }
+
+    .footer-contact-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin-bottom: 0.85rem;
+    }
+    .footer-contact-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .footer-contact-text { font-size: 0.85rem; color: rgba(255,255,255,0.55); line-height: 1.5; }
+
+    .footer-bar {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-bar p { font-size: 0.8rem; color: var(--text-secondary); }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 540px) {
+      .footer-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Section center layout ─────────────────────── */
+    .section-center {
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+
+    /* ─── Cinematic Preloader ────────────────────────── */
+    #preloader {
+      position: fixed;
+      inset: 0;
+      z-index: 10000;
+      background: #03060a;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+    }
+    .pre-logo {
+      position: absolute;
+      top: 2rem; left: 5%;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+    }
+    .pre-words { text-align: center; }
+    .pre-line { overflow: hidden; line-height: 1.05; }
+    .pre-word {
+      display: block;
+      font-size: clamp(2.8rem, 8vw, 6.5rem);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+      color: #fff;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+    .pre-word.accent { color: var(--accent); }
+    .pre-subtext {
+      display: block;
+      font-size: clamp(0.75rem, 1.5vw, 1rem);
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.3);
+      transform: translateY(110%);
+      will-change: transform;
+      margin-top: 1.5rem;
+    }
+    .pre-bottom {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 5%; right: 5%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+    .pre-bar-wrap {
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .pre-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, transparent, var(--accent), rgba(59,130,246,0.3));
+      will-change: width;
+    }
+    .pre-counter-num {
+      font-size: 0.8rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.05em;
+      min-width: 3ch;
+      text-align: right;
+    }
+
+    /* ─── Custom Cursor ──────────────────────────────── */
+    @media (hover: hover) and (pointer: fine) {
+      body { cursor: none !important; }
+      body * { cursor: none !important; }
+
+      #cursor-dot {
+        position: fixed;
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: #fff;
+        z-index: 9998;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        will-change: transform;
+        mix-blend-mode: difference;
+      }
+      #cursor-ring {
+        position: fixed;
+        width: 38px; height: 38px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(255,255,255,0.45);
+        z-index: 9997;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        will-change: transform;
+        mix-blend-mode: difference;
+        transition: width 0.35s cubic-bezier(.17,.67,.32,1.28),
+                    height 0.35s cubic-bezier(.17,.67,.32,1.28),
+                    border-color 0.25s ease,
+                    opacity 0.25s ease;
+      }
+      body.cursor-hover #cursor-ring {
+        width: 60px; height: 60px;
+        border-color: var(--accent);
+      }
+      body.cursor-hover #cursor-dot {
+        background: var(--accent);
+      }
+    }
+
+    /* ─── Hero Tagline (fullscreen payoff) ───────────── */
+    .hero-tagline {
+      position: absolute;
+      bottom: 9vh;
+      left: 0; right: 0;
+      z-index: 22;
+      text-align: center;
+      pointer-events: none;
+      will-change: opacity, transform;
+    }
+    .hero-tag-main {
+      font-size: clamp(1.1rem, 2.8vw, 1.9rem);
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 30px rgba(0,0,0,0.9);
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .hero-tag-sub {
+      font-size: clamp(0.75rem, 1.5vw, 1rem);
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.9);
+      display: block;
+    }
+
+    /* ─── Grain overlay on hero video ───────────────── */
+    .hero-grain {
+      position: absolute;
+      inset: -50%;
+      width: 200%; height: 200%;
+      z-index: 4;
+      pointer-events: none;
+      opacity: 0.055;
+      animation: grain-anim 0.25s steps(1) infinite;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 256px 256px;
+    }
+    @keyframes grain-anim {
+      0%  { transform: translate(0,0); }
+      20% { transform: translate(-4%,-6%); }
+      40% { transform: translate(-8%, 5%); }
+      60% { transform: translate(4%,-7%); }
+      80% { transform: translate(-6%, 4%); }
+      100%{ transform: translate(5%,-2%); }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══ CUSTOM CURSOR ═════════════════════════════════ -->
+  <div id="cursor-dot" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div>
+
+  <!-- ═══ CINEMATIC PRELOADER ═══════════════════════════ -->
+  <div id="preloader" aria-hidden="true">
+    <div class="pre-logo">GariBazar BD · গাড়িবাজার</div>
+
+    <div class="pre-words">
+      <div class="pre-line"><span class="pre-word" id="pw1">Find Your</span></div>
+      <div class="pre-line"><span class="pre-word accent" id="pw2">Dream Car.</span></div>
+      <div class="pre-line"><span class="pre-subtext" id="pw3" lang="bn">বাংলাদেশের বিশ্বস্ত গাড়ির মার্কেটপ্লেস</span></div>
+    </div>
+
+    <div class="pre-bottom">
+      <div class="pre-bar-wrap"><div class="pre-bar-fill" id="pre-bar-fill"></div></div>
+      <span class="pre-counter-num" id="pre-counter-num">0</span>
+    </div>
+  </div>
+
+  <!-- ═══ NAVBAR ═══════════════════════════════════════ -->
+  <nav class="site-nav" id="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="GariBazar BD Home">
+        <span class="logo-gari">Gari</span><span class="logo-bazar">Bazar</span>
+        <span class="logo-bd">BD</span>
+      </a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Browse Cars</a></li>
+        <li><a href="#">How It Works</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a href="#" class="btn-sell-nav" lang="bn" aria-label="Sell your car">
+          গাড়ি বিক্রি করুন →
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ═══ HERO: Scroll-to-Expand ═══════════════════════ -->
+  <section class="scroll-expand-section" aria-label="Hero section">
+    <div class="bg-layer"></div>
+
+    <div class="pinned-content">
+      <div class="media-container">
+        <div class="media-inner">
+          <video src="drift.mp4" autoplay loop muted playsinline aria-hidden="true"></video>
+          <div class="media-overlay"></div>
+          <div class="hero-grain" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <div class="text-layer" aria-hidden="true">
+        <h1 class="title-left text-contrast">GARI</h1>
+        <h1 class="title-right text-contrast">BAZAR</h1>
+      </div>
+
+      <!-- Tagline appears when video fills fullscreen -->
+      <div class="hero-tagline" aria-label="Your dream car, within your budget">
+        <span class="hero-tag-main" lang="bn">আপনার স্বপ্নের গাড়ি, আপনার বাজেটে</span>
+        <span class="hero-tag-sub">Bangladesh's Trusted Used Car Marketplace</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- ═══ SEARCH BAR ════════════════════════════════════ -->
+  <section class="search-section" aria-label="Car search">
+    <div class="section-center">
+      <div class="search-header">
+        <div class="section-label">Bangladesh's #1 Used Car Marketplace</div>
+        <h2 class="gradient-text">Find Your Perfect Car</h2>
+        <p>5,000+ verified listings across 64 districts</p>
+      </div>
+
+      <div class="search-card">
+        <div class="search-grid">
+          <div class="search-field">
+            <label for="s-brand">Brand / <span lang="bn">ব্র্যান্ড</span></label>
+            <select id="s-brand">
+              <option value="">All Brands</option>
+              <option>Toyota</option>
+              <option>Honda</option>
+              <option>Nissan</option>
+              <option>Mitsubishi</option>
+              <option>Suzuki</option>
+              <option>Hyundai</option>
+              <option>BMW</option>
+              <option>Mercedes-Benz</option>
+              <option>Kia</option>
+              <option>Lexus</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label for="s-model">Model / <span lang="bn">মডেল</span></label>
+            <input id="s-model" type="text" placeholder="e.g. Allion, Vezel…">
+          </div>
+          <div class="search-field">
+            <label for="s-budget">Budget / <span lang="bn">বাজেট (৳)</span></label>
+            <select id="s-budget">
+              <option value="">Any Price</option>
+              <option>Under ৳10 Lakh</option>
+              <option>৳10L – ৳20L</option>
+              <option>৳20L – ৳35L</option>
+              <option>৳35L – ৳60L</option>
+              <option>৳60L – ৳1 Crore</option>
+              <option>Above ৳1 Crore</option>
+            </select>
+          </div>
+          <div class="search-field">
+            <label for="s-location">Location / <span lang="bn">অবস্থান</span></label>
+            <select id="s-location">
+              <option value="">All Bangladesh</option>
+              <option>Dhaka</option>
+              <option>Chittagong</option>
+              <option>Sylhet</option>
+              <option>Rajshahi</option>
+              <option>Khulna</option>
+              <option>Barishal</option>
+              <option>Rangpur</option>
+              <option>Mymensingh</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="search-footer">
+          <div class="brand-chips" role="group" aria-label="Quick brand filter">
+            <button class="brand-chip active">Toyota</button>
+            <button class="brand-chip">Honda</button>
+            <button class="brand-chip">Nissan</button>
+            <button class="brand-chip">Suzuki</button>
+            <button class="brand-chip">Mitsubishi</button>
+            <button class="brand-chip">BMW</button>
+          </div>
+          <button class="btn-search" aria-label="Search cars">
+            🔍 Search Cars
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FEATURED CARS ═════════════════════════════════ -->
+  <section class="cars-section" aria-label="Featured cars">
+    <div class="section-center">
+      <div class="section-header">
+        <div>
+          <div class="section-label">Fresh Listings</div>
+          <h2 class="gradient-text">Featured Cars</h2>
+        </div>
+        <a href="#">View All Listings →</a>
+      </div>
+
+      <div class="cars-grid">
+
+        <article class="car-card" tabindex="0">
+          <div class="car-image">
+            <div class="car-image-bg">
+              <img src="https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=700&auto=format&fit=crop&q=80" alt="Toyota Allion 2019 - Grey Sedan">
+            </div>
+            <div class="car-badges">
+              <span class="badge badge-verified">Verified</span>
+              <span class="badge badge-recon">Reconditioned</span>
+            </div>
+            <button class="car-wishlist" aria-label="Add to wishlist">🤍</button>
+          </div>
+          <div class="car-info">
+            <div class="car-name">Toyota Allion</div>
+            <div class="car-meta">
+              <span>📅 2019</span>
+              <span>🛣 58,000 km</span>
+            </div>
+            <div class="car-price-row">
+              <span class="car-price">৳26,50,000</span>
+              <span class="car-location">📍 Dhaka</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" tabindex="0">
+          <div class="car-image">
+            <div class="car-image-bg">
+              <img src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=700&auto=format&fit=crop&q=80" alt="Honda Vezel 2018 - Compact SUV">
+            </div>
+            <div class="car-badges">
+              <span class="badge badge-verified">Verified</span>
+              <span class="badge badge-hot">Hot</span>
+            </div>
+            <button class="car-wishlist" aria-label="Add to wishlist">🤍</button>
+          </div>
+          <div class="car-info">
+            <div class="car-name">Honda Vezel</div>
+            <div class="car-meta">
+              <span>📅 2018</span>
+              <span>🛣 72,000 km</span>
+            </div>
+            <div class="car-price-row">
+              <span class="car-price">৳22,80,000</span>
+              <span class="car-location">📍 Chittagong</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" tabindex="0">
+          <div class="car-image">
+            <div class="car-image-bg">
+              <img src="https://images.unsplash.com/photo-1568605117036-5fe5e7bab0b7?w=700&auto=format&fit=crop&q=80" alt="Nissan X-Trail 2017 - SUV">
+            </div>
+            <div class="car-badges">
+              <span class="badge badge-verified">Verified</span>
+              <span class="badge badge-recon">Imported</span>
+            </div>
+            <button class="car-wishlist" aria-label="Add to wishlist">🤍</button>
+          </div>
+          <div class="car-info">
+            <div class="car-name">Nissan X-Trail</div>
+            <div class="car-meta">
+              <span>📅 2017</span>
+              <span>🛣 89,000 km</span>
+            </div>
+            <div class="car-price-row">
+              <span class="car-price">৳31,00,000</span>
+              <span class="car-location">📍 Dhaka</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" tabindex="0">
+          <div class="car-image">
+            <div class="car-image-bg">
+              <img src="https://images.unsplash.com/photo-1583267746897-2cf415887172?w=700&auto=format&fit=crop&q=80" alt="Toyota Axio 2020 - Sedan">
+            </div>
+            <div class="car-badges">
+              <span class="badge badge-verified">Verified</span>
+              <span class="badge badge-recon">Reconditioned</span>
+            </div>
+            <button class="car-wishlist" aria-label="Add to wishlist">🤍</button>
+          </div>
+          <div class="car-info">
+            <div class="car-name">Toyota Axio</div>
+            <div class="car-meta">
+              <span>📅 2020</span>
+              <span>🛣 41,000 km</span>
+            </div>
+            <div class="car-price-row">
+              <span class="car-price">৳18,50,000</span>
+              <span class="car-location">📍 Sylhet</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" tabindex="0">
+          <div class="car-image">
+            <div class="car-image-bg">
+              <img src="https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?w=700&auto=format&fit=crop&q=80" alt="Mitsubishi Outlander 2016 - SUV">
+            </div>
+            <div class="car-badges">
+              <span class="badge badge-verified">Verified</span>
+            </div>
+            <button class="car-wishlist" aria-label="Add to wishlist">🤍</button>
+          </div>
+          <div class="car-info">
+            <div class="car-name">Mitsubishi Outlander</div>
+            <div class="car-meta">
+              <span>📅 2016</span>
+              <span>🛣 95,000 km</span>
+            </div>
+            <div class="car-price-row">
+              <span class="car-price">৳28,00,000</span>
+              <span class="car-location">📍 Rajshahi</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="car-card" tabindex="0">
+          <div class="car-image">
+            <div class="car-image-bg">
+              <img src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=700&auto=format&fit=crop&q=80" alt="BMW 3 Series 2021 - Sedan">
+            </div>
+            <div class="car-badges">
+              <span class="badge badge-verified">Verified</span>
+              <span class="badge badge-hot">Premium</span>
+            </div>
+            <button class="car-wishlist" aria-label="Add to wishlist">🤍</button>
+          </div>
+          <div class="car-info">
+            <div class="car-name">BMW 3 Series</div>
+            <div class="car-meta">
+              <span>📅 2021</span>
+              <span>🛣 28,000 km</span>
+            </div>
+            <div class="car-price-row">
+              <span class="car-price">৳62,00,000</span>
+              <span class="car-location">📍 Dhaka</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ WHY GARIBAZAR ════════════════════════════════ -->
+  <section class="why-section" aria-label="Why choose GariBazar">
+    <div class="section-center">
+      <div style="text-align:center; margin-bottom:3rem;">
+        <div class="section-label">Trusted by Thousands</div>
+        <h2 class="gradient-text" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:900; font-style:italic;">
+          Why Choose GariBazar BD?
+        </h2>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number" data-target="5000" data-suffix="+">0+</div>
+          <div class="stat-label">Cars Sold</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="12000" data-suffix="+">0+</div>
+          <div class="stat-label">Happy Customers</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="64" data-suffix="">0</div>
+          <div class="stat-label">Districts Covered</div>
+        </div>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3>Verified Inspections</h3>
+          <p>Every car inspected by certified mechanics before listing.
+            <span lang="bn">সার্টিফাইড মেকানিক দ্বারা পরীক্ষিত।</span>
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3>Secure Transactions</h3>
+          <p>Safe payment with escrow protection built in.
+            <span lang="bn">এসক্রো সুরক্ষা সহ নিরাপদ পেমেন্ট।</span>
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🗺️</div>
+          <h3>Nationwide Coverage</h3>
+          <p>Dhaka, Chittagong, Sylhet, Rajshahi, Khulna & all 64 districts.
+            <span lang="bn">সারা বাংলাদেশ জুড়ে সেবা।</span>
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💰</div>
+          <h3>Best Prices</h3>
+          <p>No middleman markup. Direct buyer–seller deals only.
+            <span lang="bn">কোনো মিডলম্যান নেই, সরাসরি ক্রেতা-বিক্রেতা।</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ BRANDS CAROUSEL ══════════════════════════════ -->
+  <section class="brands-section" aria-label="Popular car brands">
+    <div class="brands-label">
+      <div class="section-label" style="justify-content:center;">Popular Brands</div>
+    </div>
+    <div class="brands-marquee" role="marquee" aria-label="Scrolling brand logos">
+      <div class="brands-track" aria-hidden="true">
+        <div class="brand-logo"><span class="brand-logo-emoji">🚗</span><span class="brand-logo-name">Toyota</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">🚙</span><span class="brand-logo-name">Honda</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">🚕</span><span class="brand-logo-name">Nissan</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">🚘</span><span class="brand-logo-name">Mitsubishi</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">🚗</span><span class="brand-logo-name">Suzuki</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">🛻</span><span class="brand-logo-name">Hyundai</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">🏎️</span><span class="brand-logo-name">BMW</span></div>
+        <div class="brand-logo"><span class="brand-logo-emoji">⭐</span><span class="brand-logo-name">Mercedes</span></div>
+        <!-- duplicated for seamless loop -->
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🚗</span><span class="brand-logo-name">Toyota</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🚙</span><span class="brand-logo-name">Honda</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🚕</span><span class="brand-logo-name">Nissan</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🚘</span><span class="brand-logo-name">Mitsubishi</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🚗</span><span class="brand-logo-name">Suzuki</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🛻</span><span class="brand-logo-name">Hyundai</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">🏎️</span><span class="brand-logo-name">BMW</span></div>
+        <div class="brand-logo" aria-hidden="true"><span class="brand-logo-emoji">⭐</span><span class="brand-logo-name">Mercedes</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ HOW IT WORKS ══════════════════════════════════ -->
+  <section class="hiw-section" aria-label="How GariBazar works">
+    <div class="section-center">
+      <div style="text-align:center;">
+        <div class="section-label">Simple Process</div>
+        <h2 class="gradient-text" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:900; font-style:italic;">
+          How It Works
+        </h2>
+      </div>
+
+      <div class="hiw-steps">
+        <div class="hiw-step">
+          <div class="hiw-number">1</div>
+          <div class="hiw-icon">🔍</div>
+          <h3>Browse & Search</h3>
+          <p>Find cars by brand, budget, location or condition. Filter 5,000+ verified listings.</p>
+        </div>
+
+        <div class="hiw-connector">
+          <div class="hiw-line"></div>
+          <div class="hiw-arrow"></div>
+        </div>
+
+        <div class="hiw-step">
+          <div class="hiw-number">2</div>
+          <div class="hiw-icon">🔧</div>
+          <h3>Inspect & Verify</h3>
+          <p>Book a certified mechanic inspection and review the full history report before buying.</p>
+        </div>
+
+        <div class="hiw-connector">
+          <div class="hiw-line"></div>
+          <div class="hiw-arrow"></div>
+        </div>
+
+        <div class="hiw-step">
+          <div class="hiw-number">3</div>
+          <div class="hiw-icon">🚗</div>
+          <h3>Deal & Drive</h3>
+          <p>Secure payment, transfer ownership, get the papers — and drive home in your new car.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ TESTIMONIALS ══════════════════════════════════ -->
+  <section class="testi-section" aria-label="Customer testimonials">
+
+    <div class="testi-header">
+      <div class="section-label" style="justify-content:center;">Real Stories from Real Buyers</div>
+      <h2 class="gradient-text" style="font-size:clamp(1.75rem,4vw,2.75rem); font-weight:900; font-style:italic;">
+        What Our Customers Say
+      </h2>
+      <div class="testi-rating-row">
+        <div class="testi-overall">
+          <span class="testi-overall-score">4.9</span>
+          <div class="testi-overall-info">
+            <div class="testi-overall-stars">★★★★★</div>
+            <div class="testi-overall-count">1,240+ verified reviews</div>
+          </div>
+        </div>
+        <div class="testi-divider"></div>
+        <div class="testi-platform"><span class="testi-platform-name">Facebook</span><span class="testi-platform-stars">★★★★★</span></div>
+        <div class="testi-divider"></div>
+        <div class="testi-platform"><span class="testi-platform-name">Google</span><span class="testi-platform-stars">★★★★★</span></div>
+        <div class="testi-divider"></div>
+        <div class="testi-platform"><span class="testi-platform-name">Bikroy</span><span class="testi-platform-stars">★★★★☆</span></div>
+      </div>
+    </div>
+
+    <div class="testi-marquee-wrap">
+
+      <!-- Row 1 → scrolls left -->
+      <div class="testi-row testi-row-1">
+        <div class="testi-track">
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"GariBazar থেকে Toyota Axio কিনেছি। পুরো প্রক্রিয়া অনেক সহজ ছিল। ইন্সপেকশন রিপোর্ট দেখে মনে শান্তি পেলাম। দাম একদম ন্যায্য ছিল।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">রা</div><div><div class="review-name">রাহুল আহমেদ</div><div class="review-location">📍 Dhaka</div></div></div>
+              <span class="review-car-tag">Toyota Axio</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Honest sellers, fair prices, and the escrow payment made me feel completely safe. Bought a Honda Vezel — no regrets at all! Highly recommend GariBazar BD."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">NI</div><div><div class="review-name">Nadia Islam</div><div class="review-location">📍 Chittagong</div></div></div>
+              <span class="review-car-tag">Honda Vezel</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"নিসান এক্স-ট্রেইল কিনেছি এখান থেকে। গাড়ির কাগজপত্র একদম পরিষ্কার। মেকানিক ইন্সপেকশন রিপোর্ট দেখে বুঝলাম এরা সত্যিই বিশ্বস্ত।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">সা</div><div><div class="review-name">সালমান রশিদ</div><div class="review-location">📍 Dhaka</div></div></div>
+              <span class="review-car-tag">Nissan X-Trail</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Found my Toyota Allion within 2 days of searching. The seller was genuine and the inspection report was detailed. Price negotiation was smooth. Will use again!"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">TH</div><div><div class="review-name">Tanvir Hossain</div><div class="review-location">📍 Rajshahi</div></div></div>
+              <span class="review-car-tag">Toyota Allion</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★☆</div>
+            <p class="review-text" lang="bn">"সিলেট থেকে ঢাকায় গাড়ি কিনলাম। সবচেয়ে ভালো লেগেছে তাদের escrow payment system। টাকা দিয়ে ঠকার ভয় নেই। খুব সুন্দর service।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">মি</div><div><div class="review-name">মিনা বেগম</div><div class="review-location">📍 Sylhet</div></div></div>
+              <span class="review-car-tag">Toyota Premio</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Sold my old Suzuki Swift in 3 days! Got a fair price and the buyer was verified by GariBazar. The process was stress-free. Best platform for car selling in BD."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">AR</div><div><div class="review-name">Arif Rahman</div><div class="review-location">📍 Khulna</div></div></div>
+              <span class="review-car-tag">Seller ✓</span>
+            </div>
+          </div>
+
+          <!-- Duplicate for seamless loop -->
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"GariBazar থেকে Toyota Axio কিনেছি। পুরো প্রক্রিয়া অনেক সহজ ছিল। ইন্সপেকশন রিপোর্ট দেখে মনে শান্তি পেলাম। দাম একদম ন্যায্য ছিল।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">রা</div><div><div class="review-name">রাহুল আহমেদ</div><div class="review-location">📍 Dhaka</div></div></div>
+              <span class="review-car-tag">Toyota Axio</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Honest sellers, fair prices, and the escrow payment made me feel completely safe. Bought a Honda Vezel — no regrets at all! Highly recommend GariBazar BD."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">NI</div><div><div class="review-name">Nadia Islam</div><div class="review-location">📍 Chittagong</div></div></div>
+              <span class="review-car-tag">Honda Vezel</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"নিসান এক্স-ট্রেইল কিনেছি এখান থেকে। গাড়ির কাগজপত্র একদম পরিষ্কার। মেকানিক ইন্সপেকশন রিপোর্ট দেখে বুঝলাম এরা সত্যিই বিশ্বস্ত।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">সা</div><div><div class="review-name">সালমান রশিদ</div><div class="review-location">📍 Dhaka</div></div></div>
+              <span class="review-car-tag">Nissan X-Trail</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Found my Toyota Allion within 2 days of searching. The seller was genuine and the inspection report was detailed. Price negotiation was smooth. Will use again!"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">TH</div><div><div class="review-name">Tanvir Hossain</div><div class="review-location">📍 Rajshahi</div></div></div>
+              <span class="review-car-tag">Toyota Allion</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★☆</div>
+            <p class="review-text" lang="bn">"সিলেট থেকে ঢাকায় গাড়ি কিনলাম। সবচেয়ে ভালো লেগেছে তাদের escrow payment system। টাকা দিয়ে ঠকার ভয় নেই। খুব সুন্দর service।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">মি</div><div><div class="review-name">মিনা বেগম</div><div class="review-location">📍 Sylhet</div></div></div>
+              <span class="review-car-tag">Toyota Premio</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Sold my old Suzuki Swift in 3 days! Got a fair price and the buyer was verified by GariBazar. The process was stress-free. Best platform for car selling in BD."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">AR</div><div><div class="review-name">Arif Rahman</div><div class="review-location">📍 Khulna</div></div></div>
+              <span class="review-car-tag">Seller ✓</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Row 2 → scrolls right -->
+      <div class="testi-row testi-row-2">
+        <div class="testi-track">
+
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"মিতসুবিশি আউটল্যান্ডার কিনেছি। গাড়ির ইঞ্জিন একদম ভালো। GariBazar-এর যাচাইকৃত বিক্রেতার কাছ থেকে কিনলে নিশ্চিন্তে থাকা যায়।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">কা</div><div><div class="review-name">করিম সাহেব</div><div class="review-location">📍 Sylhet</div></div></div>
+              <span class="review-car-tag">Mitsubishi Outlander</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"I was skeptical at first about buying a car online but GariBazar changed my mind. The verification process, detailed photos, and inspection report gave me full confidence."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">SF</div><div><div class="review-name">Sumaiya Faruk</div><div class="review-location">📍 Barishal</div></div></div>
+              <span class="review-car-tag">Honda Fit</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"গাড়ি বিক্রির জন্য GariBazar-এ listing দিলাম। মাত্র ৫ দিনে বিক্রি হয়ে গেল। দামও আশার চেয়ে বেশি পেলাম। সবাইকে recommend করব।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">মো</div><div><div class="review-name">মোস্তফা কামাল</div><div class="review-location">📍 Mymensingh</div></div></div>
+              <span class="review-car-tag">Seller ✓</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Best car marketplace in Bangladesh. Compared to other platforms, GariBazar has the most genuine listings. Bought a BMW 3 Series here — the whole process was professional."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">ZA</div><div><div class="review-name">Zafar Ahmed</div><div class="review-location">📍 Dhaka</div></div></div>
+              <span class="review-car-tag">BMW 3 Series</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★☆</div>
+            <p class="review-text" lang="bn">"Hyundai Tucson কিনেছি Rajshahi থেকে। বিক্রেতা অনেক সহযোগিতামূলক ছিলেন। GariBazar-এর customer service-ও ভালো। পরের বার আবার এখান থেকেই কিনব।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">রি</div><div><div class="review-name">রিনা আক্তার</div><div class="review-location">📍 Rajshahi</div></div></div>
+              <span class="review-car-tag">Hyundai Tucson</span>
+            </div>
+          </div>
+
+          <div class="review-card">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"The nationwide coverage is what sets GariBazar apart. I'm from Rangpur and found the perfect Nissan Note. Delivery was arranged without any hassle. Outstanding service!"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">MR</div><div><div class="review-name">Mehedi Rahman</div><div class="review-location">📍 Rangpur</div></div></div>
+              <span class="review-car-tag">Nissan Note</span>
+            </div>
+          </div>
+
+          <!-- Duplicate for seamless loop -->
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"মিতসুবিশি আউটল্যান্ডার কিনেছি। গাড়ির ইঞ্জিন একদম ভালো। GariBazar-এর যাচাইকৃত বিক্রেতার কাছ থেকে কিনলে নিশ্চিন্তে থাকা যায়।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">কা</div><div><div class="review-name">করিম সাহেব</div><div class="review-location">📍 Sylhet</div></div></div>
+              <span class="review-car-tag">Mitsubishi Outlander</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"I was skeptical at first about buying a car online but GariBazar changed my mind. The verification process, detailed photos, and inspection report gave me full confidence."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">SF</div><div><div class="review-name">Sumaiya Faruk</div><div class="review-location">📍 Barishal</div></div></div>
+              <span class="review-car-tag">Honda Fit</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text" lang="bn">"গাড়ি বিক্রির জন্য GariBazar-এ listing দিলাম। মাত্র ৫ দিনে বিক্রি হয়ে গেল। দামও আশার চেয়ে বেশি পেলাম। সবাইকে recommend করব।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">মো</div><div><div class="review-name">মোস্তফা কামাল</div><div class="review-location">📍 Mymensingh</div></div></div>
+              <span class="review-car-tag">Seller ✓</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"Best car marketplace in Bangladesh. Compared to other platforms, GariBazar has the most genuine listings. Bought a BMW 3 Series here — the whole process was professional."</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">ZA</div><div><div class="review-name">Zafar Ahmed</div><div class="review-location">📍 Dhaka</div></div></div>
+              <span class="review-car-tag">BMW 3 Series</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★☆</div>
+            <p class="review-text" lang="bn">"Hyundai Tucson কিনেছি Rajshahi থেকে। বিক্রেতা অনেক সহযোগিতামূলক ছিলেন। GariBazar-এর customer service-ও ভালো। পরের বার আবার এখান থেকেই কিনব।"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">রি</div><div><div class="review-name">রিনা আক্তার</div><div class="review-location">📍 Rajshahi</div></div></div>
+              <span class="review-car-tag">Hyundai Tucson</span>
+            </div>
+          </div>
+          <div class="review-card" aria-hidden="true">
+            <div class="review-stars">★★★★★</div>
+            <p class="review-text">"The nationwide coverage is what sets GariBazar apart. I'm from Rangpur and found the perfect Nissan Note. Delivery was arranged without any hassle. Outstanding service!"</p>
+            <div class="review-footer">
+              <div class="review-author"><div class="review-avatar">MR</div><div><div class="review-name">Mehedi Rahman</div><div class="review-location">📍 Rangpur</div></div></div>
+              <span class="review-car-tag">Nissan Note</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ CALL TO ACTION ════════════════════════════════ -->
+  <section class="cta-section" aria-label="Call to action">
+    <div class="section-center">
+      <div class="cta-grid">
+        <div class="cta-card">
+          <div class="cta-emoji">🚗</div>
+          <h3 class="gradient-text" lang="bn">আপনার স্বপ্নের গাড়ি খুঁজুন</h3>
+          <p>Browse 5,000+ verified used cars across Bangladesh. Filter by brand, budget, location, and condition.</p>
+          <a href="#" class="btn-primary">Browse All Cars →</a>
+        </div>
+
+        <div class="cta-card">
+          <div class="cta-emoji">💰</div>
+          <h3 class="gradient-text" lang="bn">আপনার গাড়ি বিক্রি করুন</h3>
+          <p>List your car for free in minutes. Reach thousands of serious buyers across Bangladesh — no middleman fees.</p>
+          <a href="#" class="btn-outline">List Your Car Free →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ FOOTER ════════════════════════════════════════ -->
+  <footer class="site-footer" aria-label="Site footer">
+    <div class="footer-grid">
+
+      <div class="footer-brand">
+        <div class="footer-logo">Gari<span class="logo-bazar">Bazar</span> BD</div>
+        <p lang="bn">বাংলাদেশের বিশ্বস্ত সেকেন্ড-হ্যান্ড গাড়ির মার্কেটপ্লেস। আপনার স্বপ্নের গাড়ি, আপনার বাজেটে।</p>
+        <div class="footer-socials">
+          <button class="social-btn" aria-label="Facebook">📘</button>
+          <button class="social-btn" aria-label="Instagram">📸</button>
+          <button class="social-btn" aria-label="YouTube">▶️</button>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Browse Cars</a></li>
+          <li><a href="#">Sell Your Car</a></li>
+          <li><a href="#">How It Works</a></li>
+          <li><a href="#">Car Inspection</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Popular Locations</h4>
+        <ul>
+          <li><a href="#">Cars in Dhaka</a></li>
+          <li><a href="#">Cars in Chittagong</a></li>
+          <li><a href="#">Cars in Sylhet</a></li>
+          <li><a href="#">Cars in Rajshahi</a></li>
+          <li><a href="#">Cars in Khulna</a></li>
+          <li><a href="#">Cars in Barishal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📞</span>
+          <span class="footer-contact-text">+880 1700-000000</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">✉️</span>
+          <span class="footer-contact-text">info@garibazar.com.bd</span>
+        </div>
+        <div class="footer-contact-item">
+          <span class="footer-contact-icon">📍</span>
+          <span class="footer-contact-text">Level 8, Bashundhara City,<br>Panthapath, Dhaka 1215</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bar">
+      <p>© 2026 GariBazar BD. All rights reserved.</p>
+      <p>Made with ❤️ in Bangladesh 🇧🇩</p>
+    </div>
+  </footer>
+
+  <!-- ═══ SCRIPTS ═══════════════════════════════════════ -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+  <script>
+    // ─── 0. GSAP Plugins (needed for preloader) ───────
+    gsap.registerPlugin(ScrollTrigger);
+
+    // ─── CINEMATIC PRELOADER ──────────────────────────
+    (function initPreloader() {
+      const pre = document.getElementById('preloader');
+      if (!pre) return;
+
+      // Lock scroll while preloader is active
+      document.body.style.overflow = 'hidden';
+
+      const tl = gsap.timeline();
+
+      // Words slide up from clip (staggered)
+      tl.to(['#pw1', '#pw2'], {
+        y: 0,
+        stagger: 0.18,
+        duration: 0.85,
+        ease: 'power3.out',
+        delay: 0.15
+      })
+      .to('#pw3', { y: 0, duration: 0.7, ease: 'power3.out' }, '-=0.45');
+
+      // Progress bar + counter run independently
+      const counterEl = document.getElementById('pre-counter-num');
+      const obj = { val: 0 };
+      gsap.to(obj, {
+        val: 100,
+        duration: 2.4,
+        ease: 'power1.inOut',
+        onUpdate: function() {
+          if (counterEl) counterEl.textContent = Math.round(obj.val);
+        }
+      });
+      gsap.to('#pre-bar-fill', { width: '100%', duration: 2.4, ease: 'power1.inOut' });
+
+      // After 2.5s: wipe preloader up
+      gsap.to(pre, {
+        yPercent: -102,
+        duration: 0.9,
+        ease: 'power3.inOut',
+        delay: 2.5,
+        onComplete: () => {
+          pre.style.display = 'none';
+          document.body.style.overflow = '';
+        }
+      });
+    })();
+
+    // ─── CUSTOM CURSOR ────────────────────────────────
+    (function initCursor() {
+      if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+      const dot  = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      if (!dot || !ring) return;
+
+      let mx = window.innerWidth / 2,  my = window.innerHeight / 2;
+      let rx = mx, ry = my;
+
+      window.addEventListener('mousemove', e => {
+        mx = e.clientX; my = e.clientY;
+        gsap.to(dot, { x: mx, y: my, duration: 0.06, ease: 'none' });
+      });
+
+      // Ring lags behind with spring-like easing
+      gsap.ticker.add(() => {
+        rx += (mx - rx) * 0.13;
+        ry += (my - ry) * 0.13;
+        gsap.set(ring, { x: rx, y: ry });
+      });
+
+      // Expand ring on hover over interactive elements
+      document.addEventListener('mouseover', e => {
+        const t = e.target;
+        if (t.matches('a, button, .brand-chip, .car-card, .btn-primary, .btn-outline, .btn-sell-nav, .btn-search')) {
+          document.body.classList.add('cursor-hover');
+        }
+      });
+      document.addEventListener('mouseout', e => {
+        const t = e.target;
+        if (t.matches('a, button, .brand-chip, .car-card, .btn-primary, .btn-outline, .btn-sell-nav, .btn-search')) {
+          document.body.classList.remove('cursor-hover');
+        }
+      });
+    })();
+
+    // ─── 1. Lenis Smooth Scroll ───────────────────────
+    const lenis = new Lenis();
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+    gsap.ticker.lagSmoothing(0);
+
+
+
+    // ─── 3. Hero: Scroll-to-Expand ────────────────────
+    gsap.set(".media-container", {
+      scale: 0.8,
+      borderRadius: "30px",
+      transformOrigin: "center center"
+    });
+
+    const heroTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".scroll-expand-section",
+        start: "top top",
+        end: "+=2500",
+        pin: true,
+        scrub: 1.2,
+        anticipatePin: 1
+      }
+    });
+
+    // Tagline starts hidden + offset — GSAP will animate it in at scroll end
+    gsap.set(".hero-tagline", { y: 28, opacity: 0 });
+
+    heroTl
+      .to(".bg-layer", { opacity: 0, ease: "none" }, 0)
+      .to(".media-container", {
+        scale: 1, width: "100vw", height: "100vh",
+        borderRadius: "0px", ease: "power2.inOut"
+      }, 0)
+      .to(".media-overlay", { opacity: 0.35, ease: "power1.inOut" }, 0.2)
+      .to(".title-left",  { xPercent: -150, skewX: -15, opacity: 0, ease: "power2.in" }, 0)
+      .to(".title-right", { xPercent:  150, skewX:  15, opacity: 0, ease: "power2.in" }, 0)
+      .to(".media-container video", { scale: 1.08, ease: "none" }, 0)
+      .to(".hero-scroll-hint", { opacity: 0, ease: "none" }, 0)
+      // Tagline fades in as video fills the screen
+      .to(".hero-tagline", { opacity: 1, y: 0, ease: "power2.out", duration: 0.3 }, 0.72);
+
+    // ─── 4. Navbar Slide-In ───────────────────────────
+    gsap.set("#site-nav", { y: "-100%" });
+
+    ScrollTrigger.create({
+      trigger: ".scroll-expand-section",
+      start: "bottom 65%",
+      onEnter:     () => gsap.to("#site-nav", { y: 0,      duration: 0.55, ease: "power3.out" }),
+      onLeaveBack: () => gsap.to("#site-nav", { y: "-100%", duration: 0.35, ease: "power2.in"  })
+    });
+
+    // ─── 5. IntersectionObserver Reveals ─────────────
+    // Reliable cross-browser reveal — no GSAP ScrollTrigger position issues
+    const revealEls = document.querySelectorAll(
+      '.search-header, .search-card, .car-card, ' +
+      '.stat-card, .feature-card, .hiw-step, ' +
+      '.testi-header, .testi-marquee-wrap, .cta-card, .footer-grid > *'
+    );
+
+    revealEls.forEach((el, i) => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(40px)';
+      el.style.transition = `opacity 0.7s ease ${(i % 6) * 0.08}s, transform 0.7s ease ${(i % 6) * 0.08}s`;
+    });
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealEls.forEach(el => io.observe(el));
+
+    // ─── 6. Brand Chip Interaction ────────────────────
+    document.querySelectorAll(".brand-chip").forEach(chip => {
+      chip.addEventListener("click", function() {
+        document.querySelectorAll(".brand-chip").forEach(c => c.classList.remove("active"));
+        this.classList.add("active");
+        const brandSelect = document.getElementById("s-brand");
+        if (brandSelect) brandSelect.value = this.textContent;
+        gsap.fromTo(this, { scale: 0.92 }, { scale: 1, duration: 0.3, ease: "back.out(2)" });
+      });
+    });
+
+    // ─── 7. Wishlist Toggle ───────────────────────────
+    document.querySelectorAll(".car-wishlist").forEach(btn => {
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        const isLiked = this.textContent === "❤️";
+        this.textContent = isLiked ? "🤍" : "❤️";
+        gsap.fromTo(this, { scale: 0.7 }, { scale: 1, duration: 0.4, ease: "back.out(3)" });
+      });
+    });
+
+    // ─── 8. Stats Counter (IntersectionObserver) ─────
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || "";
+        const obj = { val: 0 };
+        gsap.to(obj, {
+          val: target, duration: 2.2, ease: "power2.out",
+          onUpdate() { el.textContent = Math.round(obj.val).toLocaleString("en-IN") + suffix; }
+        });
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll(".stat-number").forEach(el => counterObserver.observe(el));
+
+    // ─── 9. Review Card Mouse Glow ───────────────────
+    document.querySelectorAll(".review-card").forEach(card => {
+      card.addEventListener("mousemove", function(e) {
+        const r = this.getBoundingClientRect();
+        this.style.setProperty("--mx", (e.clientX - r.left) + "px");
+        this.style.setProperty("--my", (e.clientY - r.top)  + "px");
+      });
+    });
+
+    // ─── 10. ScrollTrigger.refresh after pin setup ───
+    // Critical: recalculate positions after pinned hero adds scroll height
+    window.addEventListener('load', () => ScrollTrigger.refresh());
+
+  </script>
+</body>
+</html>
