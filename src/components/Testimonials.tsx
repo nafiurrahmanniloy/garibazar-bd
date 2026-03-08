@@ -152,7 +152,7 @@ function Stars({ count, size = 14 }: { count: number; size?: number }) {
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <div className="glass-bg border border-white/[0.06] rounded-2xl p-6 w-[320px] flex-shrink-0 flex flex-col gap-4 hover:border-white/[0.12] transition-colors duration-300">
+    <div className="glass-card rounded-2xl p-6 w-[320px] flex-shrink-0 flex flex-col gap-4 hover:border-white/[0.12] hover:shadow-[0_20px_50px_rgba(0,0,0,0.3)] transition-all duration-300">
       {/* Stars */}
       <Stars count={review.rating} />
 
@@ -224,10 +224,10 @@ export default function Testimonials() {
         once: true,
         onEnter: () => {
           gsap.to(".testi-header", {
-            y: 0, opacity: 1, duration: 0.7, ease: "power3.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, duration: 0.4, ease: "power2.out", clearProps: "transform,opacity",
           });
           gsap.to(".testi-row", {
-            opacity: 1, duration: 0.8, delay: 0.3, ease: "power2.out", clearProps: "opacity",
+            opacity: 1, duration: 0.4, delay: 0.15, ease: "power2.out", clearProps: "opacity",
           });
         },
       });
@@ -238,11 +238,12 @@ export default function Testimonials() {
   return (
     <section
       id="testimonials"
-      className="py-[100px] bg-[var(--bg-secondary)] overflow-hidden relative"
+      className="py-[100px] bg-[var(--bg-secondary)] overflow-hidden relative showroom-spot"
     >
       {/* Header */}
       <div className="testi-header max-w-[1280px] mx-auto px-6 text-center mb-14">
-        <span className="section-label">Real Stories from Real Buyers</span>
+        <div className="glow-line mb-6" />
+        <span className="section-label" style={{ justifyContent: "center" }}>Real Stories from Real Buyers</span>
         <h2
           className="gradient-text text-[clamp(2rem,4vw,3rem)] leading-tight mb-6"
           style={{ fontWeight: 900, fontStyle: "italic" }}
@@ -256,7 +257,7 @@ export default function Testimonials() {
         <div className="flex items-center justify-center gap-4 flex-wrap">
           {/* Overall score */}
           <div className="flex items-center gap-2">
-            <span className="text-3xl font-extrabold text-white">4.9</span>
+            <span className="text-3xl font-extrabold text-white font-dashboard drop-shadow-[0_0_12px_rgba(61,139,253,0.2)]">4.9</span>
             <div className="flex flex-col items-start">
               <Stars count={5} size={14} />
               <span className="text-[0.7rem] text-[var(--text-muted)]">

@@ -206,9 +206,37 @@ body.cursor-hover [data-cursor-dot] { background: var(--accent) !important; }
 
 /* Glass bg utility */
 .glass-bg {
-  background: rgba(13, 27, 42, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: linear-gradient(165deg, rgba(13, 27, 42, 0.85), rgba(8, 14, 28, 0.92));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Glass card with chrome highlight */
+.glass-card {
+  background: linear-gradient(165deg, rgba(15, 30, 50, 0.9), rgba(8, 14, 28, 0.95));
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.glass-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(61,139,253,0.25), transparent);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Shimmer sweep on hover */
+@keyframes shimmer {
+  0% { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(200%) skewX(-12deg); }
 }
 
 /* Hero grain overlay */

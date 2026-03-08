@@ -63,60 +63,62 @@ export default function WhyChoose() {
       });
     });
 
-    gsap.set(".stat-card", { y: 25, opacity: 0 });
-    gsap.set(".feature-card", { y: 30, opacity: 0 });
+    gsap.set(".stat-card", { y: 20, opacity: 0 });
+    gsap.set(".feature-card", { y: 20, opacity: 0 });
 
     ScrollTrigger.create({
       trigger: ".stats-row",
-      start: "top 85%",
+      start: "top 88%",
       once: true,
       onEnter: () => {
         gsap.to(".stat-card", {
-          y: 0, opacity: 1, duration: 0.5, stagger: 0.1, ease: "power3.out", clearProps: "transform,opacity",
+          y: 0, opacity: 1, duration: 0.35, stagger: 0.06, ease: "power2.out", clearProps: "transform,opacity",
         });
       },
     });
 
     ScrollTrigger.create({
       trigger: ".features-grid",
-      start: "top 80%",
+      start: "top 85%",
       once: true,
       onEnter: () => {
         gsap.to(".feature-card", {
-          y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity",
+          y: 0, opacity: 1, duration: 0.4, stagger: 0.07, ease: "power2.out", clearProps: "transform,opacity",
         });
       },
     });
   }, []);
 
   return (
-    <section className="py-32 px-[5%] bg-[var(--bg-primary)]" id="about" aria-label="Why choose GariBazar">
-      <div className="max-w-[1300px] mx-auto">
-        <div className="text-center mb-12">
+    <section className="py-32 px-[5%] bg-[var(--bg-primary)] relative showroom-spot" id="about" aria-label="Why choose GariBazar">
+      <div className="max-w-[1300px] mx-auto relative z-[1]">
+        <div className="text-center mb-14">
+          <div className="glow-line mb-6" />
           <div className="section-label" style={{ justifyContent: "center" }}>Trusted by Thousands</div>
           <h2
             className="gradient-text"
-            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, fontStyle: "italic" }}
+            style={{ fontSize: "clamp(1.85rem, 4.5vw, 3rem)", fontWeight: 900, fontStyle: "italic" }}
           >
             Why Choose GariBazar BD?
           </h2>
         </div>
 
         {/* Stats */}
-        <div className="stats-row grid grid-cols-3 max-md:grid-cols-1 gap-4 mb-20">
+        <div className="stats-row grid grid-cols-3 max-md:grid-cols-1 gap-5 mb-20">
           {stats.map((s, i) => (
             <div
               key={i}
-              className="stat-card text-center p-8 glass-bg border border-white/[0.06] rounded-2xl transition-all duration-300 hover:border-[rgba(59,130,246,0.3)] hover:shadow-[0_0_40px_var(--accent-glow)]"
+              className="stat-card glass-card text-center p-8 rounded-2xl"
+              style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
             >
               <div
-                className="stat-number text-[clamp(2.5rem,5vw,3.5rem)] font-black italic text-[var(--accent)] leading-none mb-2"
+                className="stat-number text-[clamp(2.5rem,5vw,3.5rem)] font-black italic text-[var(--accent)] leading-none mb-2 font-dashboard drop-shadow-[0_0_20px_var(--accent-glow)]"
                 data-target={s.target}
                 data-suffix={s.suffix}
               >
                 0{s.suffix}
               </div>
-              <div className="text-[0.85rem] text-[var(--text-secondary)] font-medium">{s.label}</div>
+              <div className="text-[0.88rem] text-[var(--text-secondary)] font-semibold tracking-wide">{s.label}</div>
             </div>
           ))}
         </div>
@@ -126,15 +128,16 @@ export default function WhyChoose() {
           {features.map((f, i) => (
             <div
               key={i}
-              className="feature-card p-8 glass-bg border border-white/[0.06] rounded-2xl transition-all duration-350 hover:-translate-y-1.5 hover:border-[rgba(59,130,246,0.3)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.12)]"
+              className="feature-card glass-card p-7 rounded-2xl hover:-translate-y-1 hover:border-[rgba(61,139,253,0.25)] hover:shadow-[0_20px_60px_rgba(61,139,253,0.1)]"
+              style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
             >
-              <div className="w-[52px] h-[52px] bg-[var(--accent-glow)] border border-[rgba(59,130,246,0.3)] rounded-lg flex items-center justify-center text-[1.4rem] mb-5">
+              <div className="w-[52px] h-[52px] bg-gradient-to-br from-[var(--accent)]/20 to-[var(--accent)]/5 border border-[rgba(61,139,253,0.25)] rounded-xl flex items-center justify-center text-[1.4rem] mb-5 shadow-[0_4px_16px_rgba(61,139,253,0.1)]">
                 {f.emoji}
               </div>
               <h3 className="text-[1rem] font-extrabold mb-2">{f.title}</h3>
               <p className="text-[0.82rem] text-[var(--text-secondary)] leading-relaxed">
                 {f.desc}
-                <span className="block text-[0.78rem] text-white/30 mt-0.5" lang="bn">{f.bangla}</span>
+                <span className="block text-[0.75rem] text-white/25 mt-1" lang="bn">{f.bangla}</span>
               </p>
             </div>
           ))}

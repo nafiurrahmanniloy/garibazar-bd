@@ -44,14 +44,14 @@ const dealers = [
 export default function Dealers() {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".dealer-card", { y: 30, opacity: 0 });
+      gsap.set(".dealer-card", { y: 20, opacity: 0 });
       ScrollTrigger.create({
         trigger: ".dealers-grid",
-        start: "top 80%",
+        start: "top 85%",
         once: true,
         onEnter: () => {
           gsap.to(".dealer-card", {
-            y: 0, opacity: 1, duration: 0.6, stagger: 0.12, ease: "power3.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, duration: 0.4, stagger: 0.07, ease: "power2.out", clearProps: "transform,opacity",
           });
         },
       });
@@ -60,17 +60,20 @@ export default function Dealers() {
   }, []);
 
   return (
-    <section className="py-24 px-[5%] bg-[var(--bg-secondary)]" aria-label="Featured dealers">
-      <div className="max-w-[1300px] mx-auto">
-        <div className="text-center mb-12">
+    <section className="py-24 px-[5%] bg-[var(--bg-secondary)] relative" aria-label="Featured dealers">
+      {/* Showroom overhead */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[250px] bg-[radial-gradient(ellipse_600px_150px_at_50%_0%,rgba(61,139,253,0.04),transparent)] pointer-events-none" />
+      <div className="max-w-[1300px] mx-auto relative z-[1]">
+        <div className="text-center mb-14">
+          <div className="glow-line mb-6" />
           <div className="section-label" style={{ justifyContent: "center" }}>Verified Partners</div>
           <h2
             className="gradient-text"
-            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, fontStyle: "italic" }}
+            style={{ fontSize: "clamp(1.85rem, 4.5vw, 3rem)", fontWeight: 900, fontStyle: "italic" }}
           >
             Featured Dealers
           </h2>
-          <p className="text-[var(--text-secondary)] mt-3">
+          <p className="text-[var(--text-secondary)] mt-3 text-[0.95rem]">
             Trusted dealerships verified by GariBazar across Bangladesh
           </p>
         </div>
@@ -79,32 +82,34 @@ export default function Dealers() {
           {dealers.map((d, i) => (
             <div
               key={i}
-              className="dealer-card glass-bg border border-white/[0.06] rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1 hover:border-[rgba(59,130,246,0.3)] hover:shadow-[0_20px_60px_rgba(59,130,246,0.1)]"
+              className="dealer-card glass-card rounded-2xl p-6 hover:-translate-y-1 hover:border-[rgba(61,139,253,0.25)] hover:shadow-[0_20px_60px_rgba(61,139,253,0.08)]"
+              style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
             >
-              <div className="text-3xl mb-4">{d.emoji}</div>
-              <div className="font-extrabold text-[1.05rem] mb-1">{d.name}</div>
-              <div className="text-[0.82rem] text-[var(--text-secondary)] mb-3 flex items-center gap-1">
-                <span>📍</span> {d.location}
+              <div className="text-3xl mb-4 relative z-[1]">{d.emoji}</div>
+              <div className="font-extrabold text-[1.05rem] mb-1 relative z-[1]">{d.name}</div>
+              <div className="text-[0.82rem] text-[var(--text-secondary)] mb-3 flex items-center gap-1 relative z-[1]">
+                <span className="text-[var(--text-muted)]">📍</span> {d.location}
               </div>
-              <div className="flex items-center gap-2 flex-wrap mb-3">
+              <div className="flex items-center gap-2 flex-wrap mb-3 relative z-[1]">
                 <span className="text-[0.75rem] font-semibold text-[var(--text-secondary)] bg-white/[0.05] border border-white/[0.08] rounded-full px-2.5 py-1">
                   {d.cars}
                 </span>
-                <span className="text-[0.75rem] font-semibold text-[var(--warning)] bg-white/[0.05] border border-white/[0.08] rounded-full px-2.5 py-1">
+                <span className="text-[0.75rem] font-semibold text-amber-400 bg-amber-500/[0.08] border border-amber-500/[0.15] rounded-full px-2.5 py-1">
                   ★ {d.rating}
                 </span>
-                <span className="text-[0.68rem] font-bold text-[var(--success)] bg-[rgba(16,185,129,0.1)] border border-[rgba(16,185,129,0.25)] rounded-full px-2.5 py-1">
+                <span className="text-[0.68rem] font-bold text-emerald-400 bg-emerald-500/[0.08] border border-emerald-500/[0.2] rounded-full px-2.5 py-1">
                   ✓ Verified
                 </span>
               </div>
-              <p className="text-[0.82rem] text-[var(--text-secondary)] leading-relaxed">{d.desc}</p>
+              <p className="text-[0.82rem] text-[var(--text-secondary)] leading-relaxed relative z-[1]">{d.desc}</p>
             </div>
           ))}
         </div>
 
-        <div className="text-center mt-8">
-          <button className="inline-flex items-center gap-2 px-7 py-3.5 border border-[rgba(59,130,246,0.3)] text-[var(--accent)] font-bold text-[0.9rem] rounded-lg transition-all hover:bg-[var(--accent-glow)] hover:-translate-y-0.5">
-            View All Dealers →
+        <div className="text-center mt-10">
+          <button className="group/btn relative inline-flex items-center gap-2 px-7 py-3.5 border border-[rgba(61,139,253,0.25)] text-[var(--accent)] font-bold text-[0.9rem] rounded-xl transition-all hover:bg-[var(--accent-subtle)] hover:border-[var(--accent)] hover:-translate-y-0.5 hover:shadow-[0_8px_30px_var(--accent-glow)] overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[var(--accent)]/[0.05] to-transparent -translate-x-full group-hover/btn:translate-x-full transition-transform duration-600" />
+            <span className="relative z-[1]">View All Dealers →</span>
           </button>
         </div>
       </div>

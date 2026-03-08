@@ -49,12 +49,13 @@ const signals = [
 
 export default function TrustStrip() {
   return (
-    <section className="py-5 px-6 border-y border-white/[0.04] relative z-40">
+    <section className="py-5 px-6 border-y border-white/[0.04] bg-gradient-to-r from-transparent via-[rgba(61,139,253,0.02)] to-transparent relative z-40">
       <div className="max-w-[1280px] mx-auto flex items-center justify-center gap-8 max-lg:gap-5 flex-wrap">
         {signals.map((s, i) => (
-          <div key={i} className="flex items-center gap-2 text-[var(--text-secondary)]">
-            <span className="text-emerald-400 flex-shrink-0">{s.icon}</span>
-            <span className="text-xs font-medium whitespace-nowrap">{s.text}</span>
+          <div key={i} className="flex items-center gap-2.5 text-[var(--text-secondary)] group">
+            <span className="text-emerald-400 flex-shrink-0 drop-shadow-[0_0_6px_rgba(16,185,129,0.3)] group-hover:drop-shadow-[0_0_10px_rgba(16,185,129,0.5)] transition-all">{s.icon}</span>
+            <span className="text-[0.78rem] font-semibold whitespace-nowrap tracking-wide">{s.text}</span>
+            {i < signals.length - 1 && <span className="hidden lg:block w-px h-4 bg-white/[0.08] ml-4" />}
           </div>
         ))}
       </div>

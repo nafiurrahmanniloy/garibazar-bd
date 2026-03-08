@@ -113,16 +113,15 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hide cards immediately so there's no visible flash before animation
-      gsap.set(".car-card", { y: 40, opacity: 0 });
+      gsap.set(".car-card", { y: 25, opacity: 0 });
 
       ScrollTrigger.create({
         trigger: ".cars-grid",
-        start: "top 85%",
+        start: "top 90%",
         once: true,
         onEnter: () => {
           gsap.to(".car-card", {
-            y: 0, opacity: 1, duration: 0.7, stagger: 0.12, ease: "power3.out",
+            y: 0, opacity: 1, duration: 0.4, stagger: 0.06, ease: "power2.out",
             clearProps: "transform,opacity",
           });
         },
@@ -155,13 +154,14 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
   const hasFilters = Object.values(filters).some(Boolean);
 
   return (
-    <section className="cars-section py-20 px-6 relative overflow-hidden" id="browse-cars">
+    <section className="cars-section py-20 px-6 relative overflow-hidden showroom-spot" id="browse-cars">
       <div className="max-w-[1280px] mx-auto relative z-[1]">
         {/* Sort bar */}
-        <div className="flex items-center justify-between flex-wrap gap-3 mb-6 pb-4 border-b border-white/[0.05]">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-8 pb-4 border-b border-white/[0.06]">
           <div>
-            <span className="text-[0.8rem] text-[var(--text-secondary)] font-semibold">
-              🔵 {filtered.length > 0 ? `${filtered.length === cars.length ? "247" : filtered.length}` : "0"} verified listings
+            <span className="text-[0.82rem] text-[var(--text-secondary)] font-semibold">
+              <span className="inline-block w-2 h-2 rounded-full bg-[var(--accent)] mr-2 shadow-[0_0_8px_var(--accent-glow)]" />
+              {filtered.length > 0 ? `${filtered.length === cars.length ? "247" : filtered.length}` : "0"} verified listings
             </span>
             {hasFilters && (
               <button
@@ -201,7 +201,8 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
               <div
                 key={i}
                 onClick={() => onCarClick(car)}
-                className="car-card group flex flex-col bg-[var(--bg-card)]/80 backdrop-blur-sm border border-white/[0.06] rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:border-white/[0.15] hover:shadow-[0_20px_60px_rgba(0,0,0,0.5),0_0_30px_rgba(59,130,246,0.1)]"
+                className="car-card group flex flex-col glass-card rounded-2xl overflow-hidden cursor-pointer hover:-translate-y-1.5 hover:border-[rgba(61,139,253,0.25)] hover:shadow-[0_25px_70px_rgba(0,0,0,0.5),0_0_40px_rgba(61,139,253,0.08)]"
+                style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
               >
                 {/* Car image */}
                 <div className={`relative w-full h-[220px] overflow-hidden bg-gradient-to-br ${car.gradient}`}>
@@ -209,21 +210,23 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
                     src={car.image}
                     alt={`${car.name} ${car.year}`}
                     loading="lazy"
-                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-105"
+                    className="w-full h-full object-cover object-center transition-transform duration-500 group-hover:scale-[1.06]"
                     onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
                   />
                   {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-[var(--bg-card)] via-transparent to-transparent opacity-60 pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-transparent to-transparent opacity-70 pointer-events-none" />
+                  {/* Top chrome edge */}
+                  <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent pointer-events-none z-[2]" />
                   {/* Badges */}
-                  <div className="absolute top-3 left-3 flex items-center gap-2">
-                    <span className="px-2.5 py-1 bg-emerald-500/90 backdrop-blur text-white text-[0.65rem] font-bold uppercase rounded-full">
+                  <div className="absolute top-3 left-3 flex items-center gap-2 z-[3]">
+                    <span className="px-2.5 py-1 bg-emerald-500/90 backdrop-blur-md text-white text-[0.65rem] font-bold uppercase rounded-full shadow-[0_2px_8px_rgba(16,185,129,0.3)]">
                       Verified
                     </span>
                     {car.badge !== "Verified" && (
-                      <span className={`px-2.5 py-1 backdrop-blur text-white text-[0.65rem] font-bold uppercase rounded-full ${
-                        car.badge === "Hot" ? "bg-rose-500/90" :
-                        car.badge === "Premium" ? "bg-amber-500/90 text-black" :
-                        "bg-blue-500/90"
+                      <span className={`px-2.5 py-1 backdrop-blur-md text-white text-[0.65rem] font-bold uppercase rounded-full ${
+                        car.badge === "Hot" ? "bg-rose-500/90 shadow-[0_2px_8px_rgba(244,63,94,0.3)]" :
+                        car.badge === "Premium" ? "bg-amber-500/90 text-black shadow-[0_2px_8px_rgba(245,158,11,0.3)]" :
+                        "bg-blue-500/90 shadow-[0_2px_8px_rgba(59,130,246,0.3)]"
                       }`}>
                         {car.badge}
                       </span>
@@ -232,32 +235,33 @@ export default function FeaturedCars({ filters, onCarClick }: Props) {
                   {/* Wishlist button */}
                   <button
                     onClick={(e) => toggleWishlist(car.name, e)}
-                    className="absolute top-3 right-3 w-9 h-9 bg-black/40 backdrop-blur-sm border border-white/10 rounded-full flex items-center justify-center text-lg transition-all hover:bg-black/60 hover:scale-110"
+                    className="absolute top-3 right-3 w-9 h-9 bg-black/50 backdrop-blur-md border border-white/10 rounded-full flex items-center justify-center text-lg transition-all hover:bg-black/70 hover:scale-110 hover:border-white/20 z-[3]"
                     aria-label="Add to wishlist"
                   >
                     {wishlist.has(car.name) ? "❤️" : "🤍"}
                   </button>
                   {/* View Details overlay */}
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
-                    <span className="text-white text-sm font-semibold px-4 py-2 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20">
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100 z-[2]">
+                    <span className="text-white text-sm font-semibold px-5 py-2.5 bg-white/[0.08] backdrop-blur-lg rounded-xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
                       View Details
                     </span>
                   </div>
                 </div>
 
                 {/* Body */}
-                <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-[1.1rem] font-bold mb-1">{car.name}</h3>
-                  <div className="flex items-center gap-3 text-[0.82rem] text-[var(--text-secondary)] mb-4">
-                    <span>📅 {car.year}</span>
-                    <span>🛣 {car.mileage}</span>
+                <div className="p-5 flex flex-col flex-1 relative z-[1]">
+                  <h3 className="text-[1.1rem] font-bold mb-1.5 group-hover:text-[var(--accent)] transition-colors">{car.name}</h3>
+                  <div className="flex items-center gap-3 text-[0.8rem] text-[var(--text-secondary)] mb-4">
+                    <span className="flex items-center gap-1"><span className="text-[var(--text-muted)]">📅</span> {car.year}</span>
+                    <span className="w-1 h-1 rounded-full bg-white/[0.15]" />
+                    <span className="flex items-center gap-1"><span className="text-[var(--text-muted)]">🛣</span> {car.mileage}</span>
                   </div>
                   {/* Footer */}
                   <div className="flex items-center justify-between pt-4 border-t border-white/[0.06] mt-auto">
-                    <span className="text-[1.25rem] font-extrabold text-amber-400 font-dashboard drop-shadow-[0_0_8px_rgba(251,191,36,0.3)]">
+                    <span className="text-[1.3rem] font-extrabold text-amber-400 font-dashboard drop-shadow-[0_0_12px_rgba(251,191,36,0.25)]">
                       {car.price}
                     </span>
-                    <span className="text-[0.8rem] text-[var(--text-secondary)]">
+                    <span className="text-[0.78rem] text-[var(--text-secondary)] bg-white/[0.03] px-2.5 py-1 rounded-lg border border-white/[0.05]">
                       📍 {car.location}
                     </span>
                   </div>

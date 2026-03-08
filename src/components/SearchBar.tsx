@@ -24,15 +24,15 @@ const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/[0.06] round
 export default function SearchBar({ filters, setFilters, onSearch, onBrandChipClick }: Props) {
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".search-card", { y: 40, opacity: 0 });
+      gsap.set(".search-card", { y: 30, opacity: 0 });
 
       ScrollTrigger.create({
         trigger: ".search-section",
-        start: "top 80%",
+        start: "top 85%",
         once: true,
         onEnter: () => {
           gsap.to(".search-card", {
-            y: 0, opacity: 1, duration: 0.8, ease: "power3.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, duration: 0.45, ease: "power2.out", clearProps: "transform,opacity",
           });
         },
       });
@@ -45,23 +45,31 @@ export default function SearchBar({ filters, setFilters, onSearch, onBrandChipCl
 
   return (
     <section className="search-section relative z-50 -mt-16 pb-16 pt-20 px-6">
+      {/* Headlight glow beams */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[400px] pointer-events-none z-0">
+        <div className="absolute top-[60%] left-[20%] w-[300px] h-[180px] bg-[radial-gradient(ellipse_at_center,rgba(61,139,253,0.06),transparent_70%)] blur-sm" />
+        <div className="absolute top-[60%] right-[20%] w-[300px] h-[180px] bg-[radial-gradient(ellipse_at_center,rgba(61,139,253,0.06),transparent_70%)] blur-sm" />
+      </div>
+
       {/* Section header */}
-      <div className="text-center mb-8">
+      <div className="text-center mb-10 relative z-[1]">
         <div className="section-label" style={{ justifyContent: "center" }}>
           Bangladesh&apos;s #1 Used Car Marketplace
         </div>
         <h2
           className="gradient-text"
-          style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, fontStyle: "italic" }}
+          style={{ fontSize: "clamp(1.85rem, 4.5vw, 3rem)", fontWeight: 900, fontStyle: "italic" }}
         >
           Find Your Perfect Car
         </h2>
-        <p className="text-[var(--text-secondary)] mt-2">5,000+ verified listings across 64 districts</p>
+        <p className="text-[var(--text-secondary)] mt-3 text-[0.95rem]">5,000+ verified listings across 64 districts</p>
       </div>
 
-      <div className="search-card max-w-[960px] mx-auto bg-[rgba(14,26,42,0.85)] backdrop-blur-[24px] rounded-3xl p-10 max-md:p-6 relative">
-        {/* Chrome gradient border */}
-        <div className="absolute inset-0 rounded-3xl p-px bg-gradient-to-b from-white/[0.12] via-white/[0.03] to-white/[0.06] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude] pointer-events-none" />
+      <div className="search-card max-w-[960px] mx-auto bg-gradient-to-b from-[rgba(14,26,46,0.92)] to-[rgba(8,14,28,0.95)] backdrop-blur-[28px] rounded-3xl p-10 max-md:p-6 relative shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+        {/* Chrome gradient border — brighter top (overhead showroom light) */}
+        <div className="absolute inset-0 rounded-3xl p-px bg-gradient-to-b from-white/[0.15] via-white/[0.04] to-white/[0.06] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] [-webkit-mask-composite:xor] [mask-composite:exclude] pointer-events-none" />
+        {/* Inner accent glow at top */}
+        <div className="absolute top-0 left-[15%] right-[15%] h-px bg-gradient-to-r from-transparent via-[var(--accent)]/20 to-transparent pointer-events-none" />
 
         <div className="grid grid-cols-4 max-lg:grid-cols-2 max-md:grid-cols-1 gap-4 mb-6">
           {/* Brand */}

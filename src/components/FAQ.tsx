@@ -42,14 +42,14 @@ export default function FAQ() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.set(".faq-item", { y: 25, opacity: 0 });
+      gsap.set(".faq-item", { y: 18, opacity: 0 });
       ScrollTrigger.create({
         trigger: ".faq-list",
-        start: "top 80%",
+        start: "top 85%",
         once: true,
         onEnter: () => {
           gsap.to(".faq-item", {
-            y: 0, opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out", clearProps: "transform,opacity",
+            y: 0, opacity: 1, duration: 0.35, stagger: 0.05, ease: "power2.out", clearProps: "transform,opacity",
           });
         },
       });
@@ -58,13 +58,15 @@ export default function FAQ() {
   }, []);
 
   return (
-    <section className="py-24 px-[5%] bg-[var(--bg-secondary)]" id="faq" aria-label="Frequently asked questions">
-      <div className="max-w-[800px] mx-auto">
-        <div className="text-center mb-12">
+    <section className="py-24 px-[5%] bg-[var(--bg-secondary)] relative" id="faq" aria-label="Frequently asked questions">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[radial-gradient(ellipse_400px_100px_at_50%_0%,rgba(61,139,253,0.03),transparent)] pointer-events-none" />
+      <div className="max-w-[800px] mx-auto relative z-[1]">
+        <div className="text-center mb-14">
+          <div className="glow-line mb-6" />
           <div className="section-label" style={{ justifyContent: "center" }}>Got Questions?</div>
           <h2
             className="gradient-text"
-            style={{ fontSize: "clamp(1.75rem, 4vw, 2.75rem)", fontWeight: 900, fontStyle: "italic" }}
+            style={{ fontSize: "clamp(1.85rem, 4.5vw, 3rem)", fontWeight: 900, fontStyle: "italic" }}
           >
             Frequently Asked Questions
           </h2>
@@ -74,7 +76,8 @@ export default function FAQ() {
           {faqs.map((faq, i) => (
             <div
               key={i}
-              className="faq-item glass-bg border border-white/[0.06] rounded-2xl overflow-hidden transition-all"
+              className="faq-item glass-card rounded-2xl overflow-hidden hover:border-white/[0.1]"
+              style={{ transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)" }}
             >
               <button
                 onClick={() => setOpen(open === i ? null : i)}
