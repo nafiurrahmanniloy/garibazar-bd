@@ -2073,7 +2073,7 @@
     </div>
 
     <!-- Scrollable body -->
-    <div class="cdp-scroll">
+    <div class="cdp-scroll" data-lenis-prevent>
 
       <!-- Hero photo + nav -->
       <div class="cdp-hero-wrap">
@@ -3469,7 +3469,6 @@
       const scroll = panel.querySelector('.cdp-scroll');
       if (scroll) scroll.scrollTop = 0;
       document.body.style.overflow = 'hidden';
-      lenis.stop();
     }
 
     function cdpSetPhoto(idx) {
@@ -3508,7 +3507,6 @@
         panel.style.display = 'none';
         panel.style.animation = '';
         document.body.style.overflow = '';
-        lenis.start();
       }, 280);
     }
 
