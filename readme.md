@@ -2,13 +2,15 @@
 
 > Bangladesh's trusted marketplace for pre-owned cars. Find your next ride, sell with confidence.
 
+**Live:** [nafiurrahmanniloy.github.io/garibazar-bd](https://nafiurrahmanniloy.github.io/garibazar-bd/)
+
 ---
 
 ## Overview
 
-GariBazar BD is a modern, cinematic web platform for buying and selling **second-hand cars in Bangladesh**. The website targets the Bangladeshi automotive market — from reconditioned Japanese imports (Toyota, Honda, Nissan, Mitsubishi) to locally used vehicles across Dhaka, Chittagong, Sylhet, Rajshahi, and beyond.
+GariBazar BD is a modern, animated web platform for buying and selling **second-hand cars in Bangladesh**. The website targets the Bangladeshi automotive market — from reconditioned Japanese imports (Toyota, Honda, Nissan, Mitsubishi) to locally used vehicles across Dhaka, Chittagong, Sylhet, Rajshahi, and beyond.
 
-The design is **dark, cinematic, and premium** — inspired by a scroll-to-expand drift video hero that sets the tone for a high-end car browsing experience.
+The design is a **clean white automotive showroom** with frosted glass cards, blur-reveal scroll animations, and a cinematic drift video hero.
 
 ---
 
@@ -19,82 +21,92 @@ The design is **dark, cinematic, and premium** — inspired by a scroll-to-expan
 | Framework    | Next.js 16 (App Router, TypeScript)                 |
 | UI           | React 19 + Tailwind CSS 4                           |
 | Animations   | GSAP 3 + ScrollTrigger + Lenis smooth scroll        |
-| Icons        | Lucide Icons (inline SVG)                           |
-| Fonts        | Inter (next/font/google)                            |
-| Backend      | *Coming later*                                      |
-| Deployment   | *TBD*                                               |
+| Icons        | Inline SVG                                          |
+| Fonts        | Inter (body) + Rajdhani (dashboard prices/stats)    |
+| Deployment   | GitHub Pages (static export)                        |
 
 ---
 
 ## Landing Page Sections
 
 ### 1. Hero — Scroll-to-Expand Video
-- Full cinematic drift video (`drift.mp4`) inside a rounded container
+- Full cinematic drift video (`drift.mp4`) inside a rounded container on a light slate background
 - On scroll: container expands to fullscreen, title text flies outward
 - Brand name "GARI" + "BAZAR" split across the video with `mix-blend-mode: difference`
 - Tagline fades in: "আপনার স্বপ্নের গাড়ি, আপনার বাজেটে" *(Your dream car, within your budget)*
 
-### 2. Navbar (Sticky after scroll)
-- Logo: GariBazar BD
-- Links: Home, Browse Cars, How It Works, About, Contact
+### 2. Navbar (Floating Glass Pill)
+- Floating frosted glass pill that appears on scroll
+- Links: Home, Browse, How It Works, About, Contact
 - CTA button: "গাড়ি বিক্রি করুন" *(Sell Your Car)*
-- Appears with a slide-down animation after hero section
+- Sliding active indicator pill
+- Mobile hamburger with full-screen drawer
 
 ### 3. Quick Search Bar
-- Search by: Brand, Model, Price Range (৳), Location (Division)
-- Dark glassmorphism card floating above the section
+- Search by: Brand, Price Range (৳), Location (Division), Year
+- White frosted glass card with subtle shadows
 - Popular brands as quick-filter chips (Toyota, Honda, Nissan, Suzuki, Mitsubishi, BMW)
 
-### 4. Featured Cars Grid
-- 6 car cards in a responsive grid (3×2 on desktop, 2×3 on tablet, 1×6 on mobile)
+### 4. Car Types — Browse by Category
+- 6 car type cards: Sedan, SUV, Hatchback, Pickup, Microbus, Luxury
+- SVG car silhouette icons for each type
+- Example models and listing counts
+- Click to scroll to browse section
+
+### 5. Featured Cars Grid
+- Car cards in a responsive grid with sort/filter bar
 - Each card: Car image, name, year, mileage, price in ৳, location badge, condition tag
-- Hover: subtle lift + glow effect
-- Cards animate in with staggered scroll reveal
+- Hover: lift + shadow effect with View Details overlay
+- Blur+slide scroll reveal animations
 
-### 5. Why Choose GariBazar
-- 4 feature cards with icons:
-  - Verified Inspections — Every car inspected by certified mechanics
-  - Secure Transactions — Safe payment with escrow protection
-  - Nationwide Coverage — Dhaka, Chittagong, Sylhet, Rajshahi, Khulna & more
-  - Best Prices — No middleman markup, direct buyer-seller deals
-- Animated counter stats above: 5,000+ Cars Sold | 12,000+ Happy Customers | 64 Districts
+### 6. Why Choose GariBazar
+- 4 feature cards: Verified Inspections, Secure Transactions, Nationwide Coverage, Best Prices
+- Animated counter stats: 5,000+ Cars Sold | 12,000+ Happy Customers | 64 Districts
+- Gauge arc animations on stat counters
 
-### 6. Popular Brands Carousel
-- Logo strip of popular car brands in Bangladesh
+### 7. Press Strip
+- Credibility strip with press/media outlet mentions
+- Dot separators between outlets
+
+### 8. Popular Brands
+- Brand buttons for popular car brands in Bangladesh
 - Toyota, Honda, Nissan, Mitsubishi, Suzuki, Hyundai, BMW, Mercedes-Benz
-- Infinite horizontal scroll animation
-- Click a brand to go to filtered browse page
+- Click to filter browse section by brand
 
-### 7. How It Works
-- 3-step visual process:
-  1. **Browse & Search** — Find cars by brand, budget, location
-  2. **Inspect & Verify** — Book an inspection, check history report
-  3. **Deal & Drive** — Secure payment, transfer ownership, drive home
-- Connected by an animated path/line
-- Each step reveals on scroll
+### 9. Featured Dealers
+- 4 dealer cards: AutoPrime BD, GreenCity Motors, RajMotors, SylhetAuto Hub
+- Location, car count, rating, verified badge
 
-### 8. Customer Testimonials
-- 3 testimonial cards with:
-  - Customer photo (avatar), name, location
-  - Star rating
-  - Quote text
-- Auto-sliding carousel with manual navigation dots
-- Subtle parallax background
+### 10. How It Works
+- 3-step visual process with arrow connectors:
+  1. Browse & Search
+  2. Inspect & Verify
+  3. Deal & Drive
 
-### 9. Call to Action
-- Split section:
-  - Left: "Ready to find your next car?" with search CTA
-  - Right: "Want to sell your car?" with listing CTA
-- Gradient accent borders
-- Animated on scroll
+### 11. Customer Testimonials
+- Dual-row infinite marquee of review cards
+- Star ratings, reviewer avatars, car tags
+- Pause on hover
+- Platform ratings (Facebook, Google, Bikroy)
 
-### 10. Footer
-- 4-column layout:
-  - **GariBazar BD** — About blurb + social links
-  - **Quick Links** — Browse, Sell, How It Works, FAQ
-  - **Popular Locations** — Dhaka, Chittagong, Sylhet, Rajshahi, Khulna
-  - **Contact** — Phone, Email, Office Address (Dhaka)
-- Bottom bar: 2026 GariBazar BD | Made in Bangladesh
+### 12. Call to Action
+- Split card: Buy (browse CTA) + Sell (list your car)
+- Glass-card styling with gradient accent orbs
+
+### 13. FAQ
+- Expandable accordion questions
+- Common buyer/seller questions
+
+### 14. Footer
+- 4-column layout: Brand, Quick Links, Popular Locations, Contact
+- Social links (Facebook, Instagram, YouTube)
+- Bottom bar with copyright and legal links
+
+### Utilities
+- **Preloader** — Animated loading screen with counter
+- **Custom Cursor** — Dark dot + ring cursor (desktop only)
+- **Car Detail Modal** — Full photo gallery, specs, video walkthrough, seller info
+- **Sell Modal** — Multi-step car listing form
 
 ---
 
@@ -102,30 +114,33 @@ The design is **dark, cinematic, and premium** — inspired by a scroll-to-expan
 
 | Token              | Value                              |
 | ------------------ | ---------------------------------- |
-| `--bg-primary`     | `#03060a` (near black)             |
-| `--bg-secondary`   | `#0a1628` (dark navy)              |
-| `--bg-card`        | `#0d1b2a` (card surface)           |
-| `--text-primary`   | `#ffffff`                          |
-| `--text-secondary` | `#7a8b9e` (muted blue-gray)        |
-| `--accent`         | `#3b82f6` (blue)                   |
-| `--accent-glow`    | `rgba(59,130,246,0.3)`             |
-| `--success`        | `#10b981` (verified green)         |
-| `--warning`        | `#f59e0b` (price gold)             |
-| `--border`         | `rgba(255,255,255,0.06)`           |
-| `--radius-sm`      | `8px`                              |
-| `--radius-md`      | `16px`                             |
-| `--radius-lg`      | `24px`                             |
-| `--font-family`    | `'Inter', sans-serif`              |
+| `--bg-primary`     | `#ffffff` (white)                  |
+| `--bg-secondary`   | `#f3f6fa` (light gray)             |
+| `--text-primary`   | `#0f172a` (slate 900)              |
+| `--text-secondary` | `#64748b` (slate 500)              |
+| `--text-muted`     | `#94a3b8` (slate 400)              |
+| `--accent`         | `#3d8bfd` (blue)                   |
+| `--accent-glow`    | `rgba(61,139,253,0.25)`            |
+| `--accent-subtle`  | `rgba(61,139,253,0.06)`            |
+| `.glass-card`      | White frosted glass + subtle border + shadow |
+| `.gradient-text`   | Slate 900 → Slate 500 gradient     |
+
+### Animation Pattern
+All scroll-triggered animations use **blur + slide-up reveal**:
+```js
+gsap.set(".el", { y: 40, opacity: 0, filter: "blur(8px)" });
+gsap.to(".el", { y: 0, opacity: 1, filter: "blur(0px)", ease: "power3.out", clearProps: "..." });
+```
 
 ---
 
 ## Bangladesh Market Context
 
-- **Currency**: BDT (Taka) — Bangladeshi Taka
+- **Currency**: BDT (Taka) — pricing in lakhs/crores (South Asian numbering)
 - **Popular Brands**: Toyota (dominant), Honda, Nissan, Mitsubishi, Suzuki — mostly reconditioned imports from Japan
-- **Price Range**: 3,00,000 – 80,00,000+ BDT (South Asian numbering: lakhs/crores)
+- **Price Range**: ৳3,00,000 – ৳80,00,000+
 - **Key Cities**: Dhaka, Chittagong, Sylhet, Rajshahi, Khulna, Barishal, Rangpur, Mymensingh
-- **Buyer Concerns**: Registration status, reconditioned vs used, import papers, mileage verification, tax/duty paid
+- **Trust Signals**: 150-point inspection, BRTA registration check, papers verified, bKash/Nagad, escrow
 - **Language**: Bengali primary, English secondary — UI uses both
 
 ---
@@ -136,27 +151,41 @@ The design is **dark, cinematic, and premium** — inspired by a scroll-to-expan
 Car project/
 ├── src/
 │   ├── app/
-│   │   ├── layout.tsx       # Root layout + metadata
-│   │   ├── page.tsx         # Landing page (assembles all sections)
-│   │   └── globals.css      # Tailwind + design tokens
+│   │   ├── layout.tsx          # Root layout + metadata
+│   │   ├── page.tsx            # Landing page (assembles all sections)
+│   │   └── globals.css         # Tailwind + design tokens + animations
 │   ├── components/
-│   │   ├── SmoothScroll.tsx  # Lenis smooth scroll provider
-│   │   ├── Navbar.tsx        # Sticky navbar (appears after hero)
-│   │   ├── Hero.tsx          # Scroll-to-expand video hero
-│   │   ├── SearchBar.tsx     # Quick search with filters
-│   │   ├── FeaturedCars.tsx  # 6 car listing cards
-│   │   ├── WhyChoose.tsx     # Stats + feature cards
-│   │   ├── Brands.tsx        # Infinite scroll brand carousel
-│   │   ├── HowItWorks.tsx    # 3-step process
-│   │   ├── Testimonials.tsx  # Customer reviews
-│   │   ├── CTA.tsx           # Buy/Sell call to action
-│   │   └── Footer.tsx        # 4-column footer
-│   └── lib/                  # Utilities (future)
+│   │   ├── SmoothScroll.tsx    # Lenis smooth scroll + ScrollTrigger refresh
+│   │   ├── Preloader.tsx       # Loading screen with counter
+│   │   ├── CustomCursor.tsx    # Custom dark cursor (desktop)
+│   │   ├── Navbar.tsx          # Floating glass pill navbar
+│   │   ├── Hero.tsx            # Scroll-to-expand video hero
+│   │   ├── SearchBar.tsx       # Quick search with filters + brand chips
+│   │   ├── CarTypes.tsx        # Browse by category (6 types)
+│   │   ├── FeaturedCars.tsx    # Car listing grid with sort bar
+│   │   ├── WhyChoose.tsx       # Stats + feature cards
+│   │   ├── PressStrip.tsx      # Press/media credibility strip
+│   │   ├── Brands.tsx          # Brand selection buttons
+│   │   ├── Dealers.tsx         # Featured dealer cards
+│   │   ├── HowItWorks.tsx      # 3-step process with connectors
+│   │   ├── Testimonials.tsx    # Dual-row marquee reviews
+│   │   ├── CTA.tsx             # Buy/Sell call to action
+│   │   ├── FAQ.tsx             # Expandable FAQ accordion
+│   │   ├── Footer.tsx          # 4-column footer
+│   │   ├── CarModal.tsx        # Car detail modal (gallery + specs)
+│   │   ├── SellModal.tsx       # Sell your car form modal
+│   │   └── TrustStrip.tsx      # Trust signals strip
+│   └── types/
+│       └── index.ts            # TypeScript type definitions
 ├── public/
 │   └── videos/
-│       └── drift.mp4         # Hero video
-├── README.md                 # This file
-└── CLAUDE.md                 # AI assistant instructions (coming later)
+│       └── drift.mp4           # Hero video
+├── .github/
+│   └── workflows/
+│       └── deploy.yml          # GitHub Pages deployment
+├── next.config.ts              # Static export + basePath config
+├── README.md                   # This file
+└── package.json
 ```
 
 ---
@@ -164,15 +193,21 @@ Car project/
 ## Roadmap
 
 - [x] Landing page with hero animation
+- [x] All landing page sections (15+ components)
+- [x] Car detail modal with photo gallery
+- [x] Sell your car modal form
+- [x] Light/white theme with glass-card design system
+- [x] Blur+slide scroll animations
+- [x] GitHub Pages deployment
+- [x] Mobile responsive layout
 - [ ] Car browse/listing page with filters
-- [ ] Individual car detail page
+- [ ] Individual car detail page (full page)
 - [ ] Seller dashboard — list a car
 - [ ] User auth (login/register)
 - [ ] Backend API (Node.js / Django TBD)
 - [ ] Database (car listings, users, transactions)
 - [ ] Payment integration (bKash, Nagad, bank transfer)
 - [ ] Admin panel
-- [ ] Mobile responsive optimization
 - [ ] SEO + Open Graph meta tags
 - [ ] Bangla language toggle
 
@@ -182,13 +217,13 @@ Car project/
 
 ```bash
 # Clone the repo
-git clone <your-repo-url>
-cd Car\ project
+git clone https://github.com/nafiurrahmanniloy/garibazar-bd.git
+cd garibazar-bd
 
 # Install dependencies
 npm install
 
-# Run dev server
+# Run dev server (access at localhost:3000/garibazar-bd)
 npm run dev
 
 # Build for production
